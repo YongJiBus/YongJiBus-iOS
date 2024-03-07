@@ -16,14 +16,7 @@ struct BusBoxView: View {
     
     init(_ busNumber : BusNumber){
         self.busNumber = busNumber
-        switch(busNumber){
-        case .one :
-            self.title = "5001-1"
-        case .three :
-            self.title = "5003B"
-        case .zero :
-            self.title = "5000B"
-        }
+        self.title = busNumber.title
     }
 
     var body: some View {
