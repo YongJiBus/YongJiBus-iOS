@@ -3,7 +3,10 @@ import SwiftUI
 struct HeaderView: View {
     
     @Binding var title : String
-    var imageName = "gearshape"
+    
+    @State private var isModalPresented = false
+    
+    var imageName = "info.circle"
     
     var body: some View {
         HStack{
@@ -16,8 +19,15 @@ struct HeaderView: View {
                 .resizable()
                 .frame(width: 25, height: 25)
                 .foregroundColor(.black)
+                .sheet(isPresented: self.$isModalPresented){
+                    NavigationView{
+                        ShuttleInfoView()
+                            .presentationCornerRadius(15)
+                    }
+                    .navigationTitle("셔틀상세정보")
+                }
                 .onTapGesture {
-                    title = "설정"
+                    isModalPresented.toggle()
                 }
         }//Hstack
         .background(.white)

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    
     @State var currentTab : String = "명지대역"
     
     var body: some View {

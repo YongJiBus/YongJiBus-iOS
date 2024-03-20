@@ -9,9 +9,6 @@ import SwiftUI
 
 struct ShuttleRow: View {
     let time : ShuttleTime
-
-
-    
     var body: some View {
         HStack{
             ZStack{

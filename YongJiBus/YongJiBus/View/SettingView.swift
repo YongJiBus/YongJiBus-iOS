@@ -35,8 +35,8 @@ struct SettingView: View {
                             Text("주말")
                                 .tag(true)
                         }
-                        .onChange(of: isWeekend, perform: { value in
-                            DataManager.setData(data: value, key: .weekend)
+                        .onChange(of: isWeekend, { oldValue, newValue in
+                            DataManager.setData(data: newValue, key: .weekend)
                         })
                         .pickerStyle(.segmented)
                     }

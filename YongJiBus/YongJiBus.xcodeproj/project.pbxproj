@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		93760F912B33F62A00DFA504 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93760F902B33F62A00DFA504 /* DataManager.swift */; };
 		93760F942B34163800DFA504 /* TableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93760F932B34163800DFA504 /* TableType.swift */; };
+		937B385F2BAB2A710051F575 /* InfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937B385E2BAB2A710051F575 /* InfoViewModel.swift */; };
+		937B38612BAB2ADF0051F575 /* MapPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937B38602BAB2ADF0051F575 /* MapPoint.swift */; };
 		93AE5FE72ACAAD1000081E39 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AE5FE62ACAAD1000081E39 /* APIKey.swift */; };
 		93B1D9C82B3D526C007F8F1B /* OptionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B1D9C72B3D526C007F8F1B /* OptionRow.swift */; };
 		93BB27702A55628000A8ED96 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 93BB276F2A55628000A8ED96 /* Alamofire */; };
@@ -26,6 +28,7 @@
 		93C60ED62A51C80200996448 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C60ECB2A51C80200996448 /* ColorExtension.swift */; };
 		93C8E2852A8DF16700B2D382 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C8E2842A8DF16700B2D382 /* SettingView.swift */; };
 		93DD90FA2AEB9698001245F3 /* WeekendTimeTable.json in Resources */ = {isa = PBXBuildFile; fileRef = 93DD90F92AEB9698001245F3 /* WeekendTimeTable.json */; };
+		93F19C242B9A072C00BA740F /* ShuttleInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F19C232B9A072B00BA740F /* ShuttleInfoView.swift */; };
 		93F306972A56A84B00C879E6 /* ShuttleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F306962A56A84B00C879E6 /* ShuttleView.swift */; };
 		93F306992A56B0D900C879E6 /* GiheungStationTimeTable.json in Resources */ = {isa = PBXBuildFile; fileRef = 93F306982A56B0D900C879E6 /* GiheungStationTimeTable.json */; };
 		93F3069B2A56B3DB00C879E6 /* StationViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F3069A2A56B3DB00C879E6 /* StationViewViewModel.swift */; };
@@ -55,6 +58,8 @@
 		931B3ACC2B14D935003D5EF2 /* TEST.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TEST.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93760F902B33F62A00DFA504 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		93760F932B34163800DFA504 /* TableType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableType.swift; sourceTree = "<group>"; };
+		937B385E2BAB2A710051F575 /* InfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewModel.swift; sourceTree = "<group>"; };
+		937B38602BAB2ADF0051F575 /* MapPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPoint.swift; sourceTree = "<group>"; };
 		93AE5FE62ACAAD1000081E39 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		93B1D9C72B3D526C007F8F1B /* OptionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionRow.swift; sourceTree = "<group>"; };
 		93BB27712A5562DF00A8ED96 /* BusTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusTime.swift; sourceTree = "<group>"; };
@@ -72,6 +77,7 @@
 		93C60ECB2A51C80200996448 /* ColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		93C8E2842A8DF16700B2D382 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		93DD90F92AEB9698001245F3 /* WeekendTimeTable.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = WeekendTimeTable.json; sourceTree = "<group>"; };
+		93F19C232B9A072B00BA740F /* ShuttleInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuttleInfoView.swift; sourceTree = "<group>"; };
 		93F306962A56A84B00C879E6 /* ShuttleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuttleView.swift; sourceTree = "<group>"; };
 		93F306982A56B0D900C879E6 /* GiheungStationTimeTable.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GiheungStationTimeTable.json; sourceTree = "<group>"; };
 		93F3069A2A56B3DB00C879E6 /* StationViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationViewViewModel.swift; sourceTree = "<group>"; };
@@ -120,6 +126,7 @@
 				93BB27752A556F1B00A8ED96 /* BusBoxViewViewModel.swift */,
 				93C60ECA2A51C80200996448 /* ShuttleViewViewModel.swift */,
 				93F3069A2A56B3DB00C879E6 /* StationViewViewModel.swift */,
+				937B385E2BAB2A710051F575 /* InfoViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -132,6 +139,7 @@
 				93F3069C2A56B42000C879E6 /* StationTime.swift */,
 				93C60EC92A51C80200996448 /* ShuttleTime.swift */,
 				93760F932B34163800DFA504 /* TableType.swift */,
+				937B38602BAB2ADF0051F575 /* MapPoint.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -139,6 +147,7 @@
 		93C60EC22A51C80200996448 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				93F19C252B9B55C200BA740F /* InfoView */,
 				93DD90FC2AEB9985001245F3 /* UIComponenet */,
 				93DD90FB2AEB9974001245F3 /* Station */,
 				93DD90FD2AEB9997001245F3 /* Shuttle */,
@@ -185,6 +194,14 @@
 				93760F902B33F62A00DFA504 /* DataManager.swift */,
 			);
 			path = Global;
+			sourceTree = "<group>";
+		};
+		93F19C252B9B55C200BA740F /* InfoView */ = {
+			isa = PBXGroup;
+			children = (
+				93F19C232B9A072B00BA740F /* ShuttleInfoView.swift */,
+			);
+			path = InfoView;
 			sourceTree = "<group>";
 		};
 		93F6D7162A51C703006FAC30 = {
@@ -278,7 +295,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1510;
+				LastUpgradeCheck = 1530;
 				TargetAttributes = {
 					931B3ACB2B14D935003D5EF2 = {
 						CreatedOnToolsVersion = 15.0.1;
@@ -349,9 +366,12 @@
 				93C60ED42A51C80200996448 /* ShuttleTime.swift in Sources */,
 				93F3069F2A56B7B100C879E6 /* StationView.swift in Sources */,
 				93F306972A56A84B00C879E6 /* ShuttleView.swift in Sources */,
+				937B38612BAB2ADF0051F575 /* MapPoint.swift in Sources */,
+				937B385F2BAB2A710051F575 /* InfoViewModel.swift in Sources */,
 				93C60ED62A51C80200996448 /* ColorExtension.swift in Sources */,
 				93C60ED22A51C80200996448 /* ShuttleTimeView.swift in Sources */,
 				93C60ECE2A51C80200996448 /* BusBoxView.swift in Sources */,
+				93F19C242B9A072C00BA740F /* ShuttleInfoView.swift in Sources */,
 				93760F912B33F62A00DFA504 /* DataManager.swift in Sources */,
 				93F6D7252A51C703006FAC30 /* ContentView.swift in Sources */,
 				93760F942B34163800DFA504 /* TableType.swift in Sources */,
@@ -491,7 +511,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -546,7 +566,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -585,6 +605,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -620,6 +641,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

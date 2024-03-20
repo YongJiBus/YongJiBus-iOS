@@ -13,7 +13,6 @@ class StationViewViewModel : ObservableObject {
     var timeList : [StationTime] = []
     
     init(){
-        print("Station Init")
         setList()
     }
    

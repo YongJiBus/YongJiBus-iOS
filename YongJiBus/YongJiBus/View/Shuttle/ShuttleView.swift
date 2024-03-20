@@ -14,7 +14,6 @@ struct ShuttleView: View {
             ScrollView(.horizontal,showsIndicators: false){
                 HStack{
                     BusBoxView(.one)
-                    BusBoxView(.three)
                     BusBoxView(.zero)
                 } // HStack
             }
