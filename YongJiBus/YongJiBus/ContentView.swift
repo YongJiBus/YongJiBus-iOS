@@ -13,7 +13,7 @@ struct ContentView: View {
     var body: some View {
         VStack{
             HeaderView(title: $currentTab)
-            TabView(selection:$currentTab){
+            TabView(selection: $currentTab){
                 ShuttleView()
                     .tabItem {
                         Image(systemName: "m.circle.fill")
