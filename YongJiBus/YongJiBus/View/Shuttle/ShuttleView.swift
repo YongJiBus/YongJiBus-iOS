@@ -13,8 +13,9 @@ struct ShuttleView: View {
         VStack{
             ScrollView(.horizontal,showsIndicators: false){
                 HStack{
-                    BusBoxView(.one)
-                    BusBoxView(.zero)
+                    ForEach(BusNumber.allCases, id: \.self){ busNumber in
+                        BusBoxView(busNumber)
+                    }
                 } // HStack
             }
             .padding(.horizontal, 20)

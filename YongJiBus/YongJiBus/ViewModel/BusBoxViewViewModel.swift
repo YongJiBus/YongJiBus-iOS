@@ -11,6 +11,7 @@ import Alamofire
 class BusBoxViewViewModel : MyXMLParser , ObservableObject {
     
     @Published var text : String = "운행 전"
+    @Published var isLoading : Bool = false
     
     func load(_ busNumber : BusNumber , _ completion: @escaping ()->()) {
         AF.request(APIKey.makeRequestUrl(routeId: busNumber.route))
@@ -36,5 +37,13 @@ class BusBoxViewViewModel : MyXMLParser , ObservableObject {
                     completion()
                 }
         }
+    }
+    
+    func loading(){
+        isLoading = true
+    }
+    
+    func stopLoading(){
+        isLoading = false
     }
 }

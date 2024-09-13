@@ -10,7 +10,6 @@ import SwiftUI
 struct BusBoxView: View {
     
     @ObservedObject var viewModel = BusBoxViewViewModel()
-    @State var isLoading = false
     
     private var title : String
     private let busNumber : BusNumber
@@ -22,9 +21,9 @@ struct BusBoxView: View {
 
     var body: some View {
         Button(action: {
-            isLoading = true
+            viewModel.loading()
             viewModel.load(busNumber){
-                isLoading = false
+                viewModel.stopLoading()
             }
         }, label: {
             HStack{
@@ -32,7 +31,7 @@ struct BusBoxView: View {
                     Circle()
                         .fill(.white)
                         .frame(width: 50,height: 55)
-                    if isLoading {
+                    if viewModel.isLoading {
                         ProgressView()
                             .progressViewStyle(.circular)
                             .scaleEffect(1.5, anchor: .center)
@@ -57,15 +56,15 @@ struct BusBoxView: View {
                     }
                 }
             }
-            .frame(width: 155,height: 85)
+            .frame(width: 165,height: 85)
             .background(Color("BusColor"))
             .clipShape(RoundedRectangle(cornerRadius: 10))
         })
         .buttonStyle(.plain)
         .onAppear{
-            isLoading = true
+            viewModel.loading()
             viewModel.load(busNumber){
-                isLoading = false
+                viewModel.stopLoading()
             }
         }
     }
@@ -74,6 +73,6 @@ struct BusBoxView: View {
 
 struct BusBoxView_Previews: PreviewProvider {
     static var previews: some View {
-        BusBoxView(.one)
+        BusBoxView(.oneA)
     }
 }
