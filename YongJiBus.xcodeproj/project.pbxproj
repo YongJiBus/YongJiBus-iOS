@@ -1,0 +1,581 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0D131AE0D628675DB77695F8 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B55FA8277E76636CF0DFFE0 /* DataManager.swift */; };
+		147AF0FEA7F0EE874F88CB59 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73BB4A2F6C4CA0F7D5ECFB47 /* Alamofire.framework */; };
+		279757DF8F3B089F6B4DEAE8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DAD5DE0DBC976B367DA6A90 /* Preview Assets.xcassets */; };
+		33353FE6C4FC6C95F268CA0F /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13E4A88332C4371EA7D027C /* ChatView.swift */; };
+		405885310E0967DF4FDEA5E4 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 73BB4A2F6C4CA0F7D5ECFB47 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		474F64BBC78A3CD12EC63F01 /* ShuttleTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC0924B6BC5EC878B15CE45 /* ShuttleTimeView.swift */; };
+		4B952A7745450DDBC16B3C92 /* MapPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22205FBD078B4B741034D408 /* MapPoint.swift */; };
+		4C397898650176DECEDC6EE0 /* ChattingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26AD3D155565F323CE46A17 /* ChattingListView.swift */; };
+		594FF75E58859F25843E7935 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131C450B10C1EFC48638ADE6 /* APIKey.swift */; };
+		5DC7771047D00078726E552F /* ShuttleViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B399EA231752C94EE976BB /* ShuttleViewViewModel.swift */; };
+		61685D5BFE26F3E376A6DD0D /* ShuttleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB087A7535ED8C63286A814 /* ShuttleView.swift */; };
+		68231A98F5789DAEEDA4A9CB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173759D1B9881420AADACF51 /* ContentView.swift */; };
+		7BFAA459780113D328C06657 /* OptionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC531515E07910B22D7E669 /* OptionRow.swift */; };
+		8AF5995582AE8DC9030211A4 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CD9023A845D22AEC823ABA /* HeaderView.swift */; };
+		8C044135CF19F48FE05249E8 /* StationTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD05E91512709E5CB878FC87 /* StationTime.swift */; };
+		8F71B4152E2190D14C20EDE7 /* TableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02964A54F3EC3765BDBDD306 /* TableType.swift */; };
+		90C042C6B5C93457EFA9B04E /* TuistBundle+YongJiBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6398CC234BC9E58AC467B68 /* TuistBundle+YongJiBus.swift */; };
+		910D478A0347DBE62392C51B /* ShuttleInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63BDEF5B9BC4E41C7BE43D9 /* ShuttleInfoView.swift */; };
+		9796A154637873BC90C57AF2 /* BusNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0EB663D4EA84835B410312F /* BusNumber.swift */; };
+		A01345C18DC548CB6A872D2B /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605D315F7D978C9EFE3BB234 /* SettingView.swift */; };
+		AC874CF540B84EB72BF5A61B /* ShuttleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FE44CF215FC93BC31EA79B /* ShuttleRow.swift */; };
+		AC97C1FB8BB686CDA61B106C /* ChatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FEFAB0888FC543ED57F25A /* ChatListView.swift */; };
+		B0B38D97926990333E68ADE3 /* StationViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3A6AF446D7F55D6CB87864 /* StationViewViewModel.swift */; };
+		B18690B453C450BC1C8D1067 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFCBB91B3A20D431B096BEF8 /* Assets.xcassets */; };
+		B21707B85B20343F54D4B9FE /* InfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DF77998A6A3F273486424A /* InfoViewModel.swift */; };
+		B359C43E844A6DABD4155F0A /* BusBoxViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB58176E8A7FBD6E7938EB7 /* BusBoxViewViewModel.swift */; };
+		C8A631E73827D6B3349FDEC2 /* StationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2E9E57CA2D23F381D09CFF /* StationView.swift */; };
+		D19530ABD96A326AF5D0D475 /* myXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2D7FCE8448AD683810E62C /* myXMLParser.swift */; };
+		D4A96F7AE92D84AE2726177B /* BusBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009F991D44EF3133B3A1A2E7 /* BusBoxView.swift */; };
+		E375C711107AE45A60BE63A5 /* ShuttleTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A101A2F543F6556E64A0B9 /* ShuttleTime.swift */; };
+		E6150538FC587B592EDCA335 /* TuistAssets+YongJiBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED0F95A2DA7BCA0ECD84416 /* TuistAssets+YongJiBus.swift */; };
+		EBEC1CFCF49B268B6D67DE85 /* BusTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B50DD8786CA5D152C30CA53 /* BusTime.swift */; };
+		F69BCF2C9DC8DA3A5B235EB0 /* StationTimeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430E62945D385B9E8487A4C /* StationTimeRow.swift */; };
+		F8129BC7EAB61995BED37732 /* YongJiBusApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B90AE3137B8884047122B3B /* YongJiBusApp.swift */; };
+		FEA3DCF4066C461D74725676 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321E018FA0329951762A12C9 /* ColorExtension.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B1FFA78485400141E934A0FA /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				405885310E0967DF4FDEA5E4 /* Alamofire.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		009F991D44EF3133B3A1A2E7 /* BusBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusBoxView.swift; sourceTree = "<group>"; };
+		02964A54F3EC3765BDBDD306 /* TableType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableType.swift; sourceTree = "<group>"; };
+		0A2D7FCE8448AD683810E62C /* myXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myXMLParser.swift; sourceTree = "<group>"; };
+		131C450B10C1EFC48638ADE6 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		15D2A0F65602C835A8E7A80A /* YongJiBus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YongJiBus.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		173759D1B9881420AADACF51 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		19DF77998A6A3F273486424A /* InfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewModel.swift; sourceTree = "<group>"; };
+		1A2E9E57CA2D23F381D09CFF /* StationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationView.swift; sourceTree = "<group>"; };
+		1BC531515E07910B22D7E669 /* OptionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionRow.swift; sourceTree = "<group>"; };
+		22205FBD078B4B741034D408 /* MapPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPoint.swift; sourceTree = "<group>"; };
+		23A101A2F543F6556E64A0B9 /* ShuttleTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuttleTime.swift; sourceTree = "<group>"; };
+		321E018FA0329951762A12C9 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		3DAD5DE0DBC976B367DA6A90 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		3ED0F95A2DA7BCA0ECD84416 /* TuistAssets+YongJiBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistAssets+YongJiBus.swift"; sourceTree = "<group>"; };
+		47CD9023A845D22AEC823ABA /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		59FE44CF215FC93BC31EA79B /* ShuttleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuttleRow.swift; sourceTree = "<group>"; };
+		605D315F7D978C9EFE3BB234 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		61B421E7A255218EF8BE67D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6B55FA8277E76636CF0DFFE0 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		73BB4A2F6C4CA0F7D5ECFB47 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B50DD8786CA5D152C30CA53 /* BusTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusTime.swift; sourceTree = "<group>"; };
+		8430E62945D385B9E8487A4C /* StationTimeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationTimeRow.swift; sourceTree = "<group>"; };
+		8A3A6AF446D7F55D6CB87864 /* StationViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationViewViewModel.swift; sourceTree = "<group>"; };
+		8BC0924B6BC5EC878B15CE45 /* ShuttleTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuttleTimeView.swift; sourceTree = "<group>"; };
+		9B90AE3137B8884047122B3B /* YongJiBusApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YongJiBusApp.swift; sourceTree = "<group>"; };
+		A13E4A88332C4371EA7D027C /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		A26AD3D155565F323CE46A17 /* ChattingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingListView.swift; sourceTree = "<group>"; };
+		AFCBB91B3A20D431B096BEF8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B0B399EA231752C94EE976BB /* ShuttleViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuttleViewViewModel.swift; sourceTree = "<group>"; };
+		BCB58176E8A7FBD6E7938EB7 /* BusBoxViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusBoxViewViewModel.swift; sourceTree = "<group>"; };
+		C63BDEF5B9BC4E41C7BE43D9 /* ShuttleInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuttleInfoView.swift; sourceTree = "<group>"; };
+		CD05E91512709E5CB878FC87 /* StationTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationTime.swift; sourceTree = "<group>"; };
+		D6398CC234BC9E58AC467B68 /* TuistBundle+YongJiBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+YongJiBus.swift"; sourceTree = "<group>"; };
+		D8FEFAB0888FC543ED57F25A /* ChatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListView.swift; sourceTree = "<group>"; };
+		DAB087A7535ED8C63286A814 /* ShuttleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuttleView.swift; sourceTree = "<group>"; };
+		E0EB663D4EA84835B410312F /* BusNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusNumber.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B7CF3D92CF409A85495671D3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				147AF0FEA7F0EE874F88CB59 /* Alamofire.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0022B0323A5D489C49A8469C /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				3A4CBA98A63F5C3F7099B133 /* Derived */,
+				1FBD9263124901E74DFFA40E /* YongJi */,
+				61B421E7A255218EF8BE67D8 /* Info.plist */,
+			);
+			name = Project;
+			sourceTree = "<group>";
+		};
+		070F970651C1177F0DAC0667 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				588F159BA95E0D71E3606B5F /* Preview Content */,
+				AFCBB91B3A20D431B096BEF8 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		0E049443EB715726199157AB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3F5D56589A42ABAB877D8C09 /* ChattingScreen */,
+				0F502D3E848E649F3F36463B /* InfoView */,
+				B98BEDFF493F2E4D26C971F2 /* Shuttle */,
+				A9D8EFB5AB50AEB9A756E07F /* Station */,
+				377A2E5CF6C9624E75FFA337 /* UIComponenet */,
+				605D315F7D978C9EFE3BB234 /* SettingView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0F502D3E848E649F3F36463B /* InfoView */ = {
+			isa = PBXGroup;
+			children = (
+				D8FEFAB0888FC543ED57F25A /* ChatListView.swift */,
+				A13E4A88332C4371EA7D027C /* ChatView.swift */,
+				C63BDEF5B9BC4E41C7BE43D9 /* ShuttleInfoView.swift */,
+			);
+			path = InfoView;
+			sourceTree = "<group>";
+		};
+		128E34DB9FE6686666B1A785 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				3ED0F95A2DA7BCA0ECD84416 /* TuistAssets+YongJiBus.swift */,
+				D6398CC234BC9E58AC467B68 /* TuistBundle+YongJiBus.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		1FBD9263124901E74DFFA40E /* YongJi */ = {
+			isa = PBXGroup;
+			children = (
+				070F970651C1177F0DAC0667 /* Resources */,
+				94E47F0A94D687192FFEE702 /* Sources */,
+			);
+			path = YongJi;
+			sourceTree = "<group>";
+		};
+		2B4B16683F7576BC056B20DC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				73BB4A2F6C4CA0F7D5ECFB47 /* Alamofire.framework */,
+				15D2A0F65602C835A8E7A80A /* YongJiBus.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		377A2E5CF6C9624E75FFA337 /* UIComponenet */ = {
+			isa = PBXGroup;
+			children = (
+				009F991D44EF3133B3A1A2E7 /* BusBoxView.swift */,
+				47CD9023A845D22AEC823ABA /* HeaderView.swift */,
+				1BC531515E07910B22D7E669 /* OptionRow.swift */,
+			);
+			path = UIComponenet;
+			sourceTree = "<group>";
+		};
+		3A4CBA98A63F5C3F7099B133 /* Derived */ = {
+			isa = PBXGroup;
+			children = (
+				128E34DB9FE6686666B1A785 /* Sources */,
+			);
+			path = Derived;
+			sourceTree = "<group>";
+		};
+		3F5D56589A42ABAB877D8C09 /* ChattingScreen */ = {
+			isa = PBXGroup;
+			children = (
+				A26AD3D155565F323CE46A17 /* ChattingListView.swift */,
+			);
+			path = ChattingScreen;
+			sourceTree = "<group>";
+		};
+		588F159BA95E0D71E3606B5F /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				3DAD5DE0DBC976B367DA6A90 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		6819FF4705E4D1C138A5CFEE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				BCB58176E8A7FBD6E7938EB7 /* BusBoxViewViewModel.swift */,
+				19DF77998A6A3F273486424A /* InfoViewModel.swift */,
+				B0B399EA231752C94EE976BB /* ShuttleViewViewModel.swift */,
+				8A3A6AF446D7F55D6CB87864 /* StationViewViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		81AF91CE2891553809DE4CED /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E0EB663D4EA84835B410312F /* BusNumber.swift */,
+				7B50DD8786CA5D152C30CA53 /* BusTime.swift */,
+				22205FBD078B4B741034D408 /* MapPoint.swift */,
+				23A101A2F543F6556E64A0B9 /* ShuttleTime.swift */,
+				CD05E91512709E5CB878FC87 /* StationTime.swift */,
+				02964A54F3EC3765BDBDD306 /* TableType.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		94E47F0A94D687192FFEE702 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				D8A9100E5109D7EADD1E7F5D /* Global */,
+				81AF91CE2891553809DE4CED /* Model */,
+				0E049443EB715726199157AB /* View */,
+				6819FF4705E4D1C138A5CFEE /* ViewModel */,
+				173759D1B9881420AADACF51 /* ContentView.swift */,
+				9B90AE3137B8884047122B3B /* YongJiBusApp.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		A9D8EFB5AB50AEB9A756E07F /* Station */ = {
+			isa = PBXGroup;
+			children = (
+				8430E62945D385B9E8487A4C /* StationTimeRow.swift */,
+				1A2E9E57CA2D23F381D09CFF /* StationView.swift */,
+			);
+			path = Station;
+			sourceTree = "<group>";
+		};
+		B5A96B18B898DE74B4B67182 = {
+			isa = PBXGroup;
+			children = (
+				0022B0323A5D489C49A8469C /* Project */,
+				2B4B16683F7576BC056B20DC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B98BEDFF493F2E4D26C971F2 /* Shuttle */ = {
+			isa = PBXGroup;
+			children = (
+				59FE44CF215FC93BC31EA79B /* ShuttleRow.swift */,
+				8BC0924B6BC5EC878B15CE45 /* ShuttleTimeView.swift */,
+				DAB087A7535ED8C63286A814 /* ShuttleView.swift */,
+			);
+			path = Shuttle;
+			sourceTree = "<group>";
+		};
+		D8A9100E5109D7EADD1E7F5D /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				131C450B10C1EFC48638ADE6 /* APIKey.swift */,
+				321E018FA0329951762A12C9 /* ColorExtension.swift */,
+				6B55FA8277E76636CF0DFFE0 /* DataManager.swift */,
+				0A2D7FCE8448AD683810E62C /* myXMLParser.swift */,
+			);
+			path = Global;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		860647D093847345C22169AC /* YongJiBus */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FEB66233DBD5105ED9A4E608 /* Build configuration list for PBXNativeTarget "YongJiBus" */;
+			buildPhases = (
+				589B5D380937B153E6DCC308 /* Sources */,
+				652596CE4460C7937050B6B9 /* Resources */,
+				B1FFA78485400141E934A0FA /* Embed Frameworks */,
+				B7CF3D92CF409A85495671D3 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = YongJiBus;
+			productName = YongJiBus;
+			productReference = 15D2A0F65602C835A8E7A80A /* YongJiBus.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F6BC1557238B66D508C23F22 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = 027138892207F960AD83E6F4 /* Build configuration list for PBXProject "YongJiBus" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = B5A96B18B898DE74B4B67182;
+			productRefGroup = 2B4B16683F7576BC056B20DC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				860647D093847345C22169AC /* YongJiBus */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		652596CE4460C7937050B6B9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B18690B453C450BC1C8D1067 /* Assets.xcassets in Resources */,
+				279757DF8F3B089F6B4DEAE8 /* Preview Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		589B5D380937B153E6DCC308 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E6150538FC587B592EDCA335 /* TuistAssets+YongJiBus.swift in Sources */,
+				90C042C6B5C93457EFA9B04E /* TuistBundle+YongJiBus.swift in Sources */,
+				68231A98F5789DAEEDA4A9CB /* ContentView.swift in Sources */,
+				594FF75E58859F25843E7935 /* APIKey.swift in Sources */,
+				FEA3DCF4066C461D74725676 /* ColorExtension.swift in Sources */,
+				0D131AE0D628675DB77695F8 /* DataManager.swift in Sources */,
+				D19530ABD96A326AF5D0D475 /* myXMLParser.swift in Sources */,
+				9796A154637873BC90C57AF2 /* BusNumber.swift in Sources */,
+				EBEC1CFCF49B268B6D67DE85 /* BusTime.swift in Sources */,
+				4B952A7745450DDBC16B3C92 /* MapPoint.swift in Sources */,
+				E375C711107AE45A60BE63A5 /* ShuttleTime.swift in Sources */,
+				8C044135CF19F48FE05249E8 /* StationTime.swift in Sources */,
+				8F71B4152E2190D14C20EDE7 /* TableType.swift in Sources */,
+				4C397898650176DECEDC6EE0 /* ChattingListView.swift in Sources */,
+				AC97C1FB8BB686CDA61B106C /* ChatListView.swift in Sources */,
+				33353FE6C4FC6C95F268CA0F /* ChatView.swift in Sources */,
+				910D478A0347DBE62392C51B /* ShuttleInfoView.swift in Sources */,
+				A01345C18DC548CB6A872D2B /* SettingView.swift in Sources */,
+				AC874CF540B84EB72BF5A61B /* ShuttleRow.swift in Sources */,
+				474F64BBC78A3CD12EC63F01 /* ShuttleTimeView.swift in Sources */,
+				61685D5BFE26F3E376A6DD0D /* ShuttleView.swift in Sources */,
+				F69BCF2C9DC8DA3A5B235EB0 /* StationTimeRow.swift in Sources */,
+				C8A631E73827D6B3349FDEC2 /* StationView.swift in Sources */,
+				D4A96F7AE92D84AE2726177B /* BusBoxView.swift in Sources */,
+				8AF5995582AE8DC9030211A4 /* HeaderView.swift in Sources */,
+				7BFAA459780113D328C06657 /* OptionRow.swift in Sources */,
+				B359C43E844A6DABD4155F0A /* BusBoxViewViewModel.swift in Sources */,
+				B21707B85B20343F54D4B9FE /* InfoViewModel.swift in Sources */,
+				5DC7771047D00078726E552F /* ShuttleViewViewModel.swift in Sources */,
+				B0B38D97926990333E68ADE3 /* StationViewViewModel.swift in Sources */,
+				F8129BC7EAB61995BED37732 /* YongJiBusApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		57EC970D95DFCF6593A04E80 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Bryan.YongJiBUs;
+				PRODUCT_NAME = YongJiBus;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8E02CE363DE010EA0567DAD0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A1F91D513B36D82B777CF3F7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F7459CB3E30D68C9AF54C3A6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Bryan.YongJiBUs;
+				PRODUCT_NAME = YongJiBus;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		027138892207F960AD83E6F4 /* Build configuration list for PBXProject "YongJiBus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1F91D513B36D82B777CF3F7 /* Debug */,
+				8E02CE363DE010EA0567DAD0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FEB66233DBD5105ED9A4E608 /* Build configuration list for PBXNativeTarget "YongJiBus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F7459CB3E30D68C9AF54C3A6 /* Debug */,
+				57EC970D95DFCF6593A04E80 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F6BC1557238B66D508C23F22 /* Project object */;
+}
