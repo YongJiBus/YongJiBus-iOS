@@ -10,7 +10,7 @@
 		0D131AE0D628675DB77695F8 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B55FA8277E76636CF0DFFE0 /* DataManager.swift */; };
 		147AF0FEA7F0EE874F88CB59 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73BB4A2F6C4CA0F7D5ECFB47 /* Alamofire.framework */; };
 		279757DF8F3B089F6B4DEAE8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DAD5DE0DBC976B367DA6A90 /* Preview Assets.xcassets */; };
-		33353FE6C4FC6C95F268CA0F /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13E4A88332C4371EA7D027C /* ChatView.swift */; };
+		2EEBCA3C9E34A1396CA11AA4 /* GiheungStationTimeTable.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F7B1263642D9949CA98DBBD /* GiheungStationTimeTable.json */; };
 		405885310E0967DF4FDEA5E4 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 73BB4A2F6C4CA0F7D5ECFB47 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		474F64BBC78A3CD12EC63F01 /* ShuttleTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC0924B6BC5EC878B15CE45 /* ShuttleTimeView.swift */; };
 		4B952A7745450DDBC16B3C92 /* MapPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22205FBD078B4B741034D408 /* MapPoint.swift */; };
@@ -18,7 +18,9 @@
 		594FF75E58859F25843E7935 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131C450B10C1EFC48638ADE6 /* APIKey.swift */; };
 		5DC7771047D00078726E552F /* ShuttleViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B399EA231752C94EE976BB /* ShuttleViewViewModel.swift */; };
 		61685D5BFE26F3E376A6DD0D /* ShuttleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB087A7535ED8C63286A814 /* ShuttleView.swift */; };
+		6767B28D49AFCB7932A70499 /* MyongJiStationTimeTable.json in Resources */ = {isa = PBXBuildFile; fileRef = 811FB8720ADFCBD58648B3BC /* MyongJiStationTimeTable.json */; };
 		68231A98F5789DAEEDA4A9CB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173759D1B9881420AADACF51 /* ContentView.swift */; };
+		75095747BF9C9D49CFBCF0F6 /* ChatListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DFAE2ABB2F894C56C0FFFA /* ChatListCell.swift */; };
 		7BFAA459780113D328C06657 /* OptionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC531515E07910B22D7E669 /* OptionRow.swift */; };
 		8AF5995582AE8DC9030211A4 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CD9023A845D22AEC823ABA /* HeaderView.swift */; };
 		8C044135CF19F48FE05249E8 /* StationTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD05E91512709E5CB878FC87 /* StationTime.swift */; };
@@ -28,12 +30,12 @@
 		9796A154637873BC90C57AF2 /* BusNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0EB663D4EA84835B410312F /* BusNumber.swift */; };
 		A01345C18DC548CB6A872D2B /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605D315F7D978C9EFE3BB234 /* SettingView.swift */; };
 		AC874CF540B84EB72BF5A61B /* ShuttleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FE44CF215FC93BC31EA79B /* ShuttleRow.swift */; };
-		AC97C1FB8BB686CDA61B106C /* ChatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FEFAB0888FC543ED57F25A /* ChatListView.swift */; };
 		B0B38D97926990333E68ADE3 /* StationViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3A6AF446D7F55D6CB87864 /* StationViewViewModel.swift */; };
 		B18690B453C450BC1C8D1067 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFCBB91B3A20D431B096BEF8 /* Assets.xcassets */; };
 		B21707B85B20343F54D4B9FE /* InfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DF77998A6A3F273486424A /* InfoViewModel.swift */; };
 		B359C43E844A6DABD4155F0A /* BusBoxViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB58176E8A7FBD6E7938EB7 /* BusBoxViewViewModel.swift */; };
 		C8A631E73827D6B3349FDEC2 /* StationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2E9E57CA2D23F381D09CFF /* StationView.swift */; };
+		D0311568D811BF28362EB82E /* WeekendTimeTable.json in Resources */ = {isa = PBXBuildFile; fileRef = DA614DF38B28DBA683AE58F7 /* WeekendTimeTable.json */; };
 		D19530ABD96A326AF5D0D475 /* myXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2D7FCE8448AD683810E62C /* myXMLParser.swift */; };
 		D4A96F7AE92D84AE2726177B /* BusBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009F991D44EF3133B3A1A2E7 /* BusBoxView.swift */; };
 		E375C711107AE45A60BE63A5 /* ShuttleTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A101A2F543F6556E64A0B9 /* ShuttleTime.swift */; };
@@ -68,6 +70,7 @@
 		19DF77998A6A3F273486424A /* InfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewModel.swift; sourceTree = "<group>"; };
 		1A2E9E57CA2D23F381D09CFF /* StationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationView.swift; sourceTree = "<group>"; };
 		1BC531515E07910B22D7E669 /* OptionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionRow.swift; sourceTree = "<group>"; };
+		1F7B1263642D9949CA98DBBD /* GiheungStationTimeTable.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GiheungStationTimeTable.json; sourceTree = "<group>"; };
 		22205FBD078B4B741034D408 /* MapPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPoint.swift; sourceTree = "<group>"; };
 		23A101A2F543F6556E64A0B9 /* ShuttleTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuttleTime.swift; sourceTree = "<group>"; };
 		321E018FA0329951762A12C9 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
@@ -76,23 +79,24 @@
 		47CD9023A845D22AEC823ABA /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		59FE44CF215FC93BC31EA79B /* ShuttleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuttleRow.swift; sourceTree = "<group>"; };
 		605D315F7D978C9EFE3BB234 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
-		61B421E7A255218EF8BE67D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		6B55FA8277E76636CF0DFFE0 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		73BB4A2F6C4CA0F7D5ECFB47 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		79DFAE2ABB2F894C56C0FFFA /* ChatListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListCell.swift; sourceTree = "<group>"; };
 		7B50DD8786CA5D152C30CA53 /* BusTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusTime.swift; sourceTree = "<group>"; };
+		811FB8720ADFCBD58648B3BC /* MyongJiStationTimeTable.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MyongJiStationTimeTable.json; sourceTree = "<group>"; };
 		8430E62945D385B9E8487A4C /* StationTimeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationTimeRow.swift; sourceTree = "<group>"; };
 		8A3A6AF446D7F55D6CB87864 /* StationViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationViewViewModel.swift; sourceTree = "<group>"; };
 		8BC0924B6BC5EC878B15CE45 /* ShuttleTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuttleTimeView.swift; sourceTree = "<group>"; };
 		9B90AE3137B8884047122B3B /* YongJiBusApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YongJiBusApp.swift; sourceTree = "<group>"; };
-		A13E4A88332C4371EA7D027C /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		A26AD3D155565F323CE46A17 /* ChattingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingListView.swift; sourceTree = "<group>"; };
 		AFCBB91B3A20D431B096BEF8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B0B399EA231752C94EE976BB /* ShuttleViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuttleViewViewModel.swift; sourceTree = "<group>"; };
 		BCB58176E8A7FBD6E7938EB7 /* BusBoxViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusBoxViewViewModel.swift; sourceTree = "<group>"; };
 		C63BDEF5B9BC4E41C7BE43D9 /* ShuttleInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuttleInfoView.swift; sourceTree = "<group>"; };
 		CD05E91512709E5CB878FC87 /* StationTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationTime.swift; sourceTree = "<group>"; };
+		D61C9009A979274D6ECBF22B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D6398CC234BC9E58AC467B68 /* TuistBundle+YongJiBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+YongJiBus.swift"; sourceTree = "<group>"; };
-		D8FEFAB0888FC543ED57F25A /* ChatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListView.swift; sourceTree = "<group>"; };
+		DA614DF38B28DBA683AE58F7 /* WeekendTimeTable.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = WeekendTimeTable.json; sourceTree = "<group>"; };
 		DAB087A7535ED8C63286A814 /* ShuttleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuttleView.swift; sourceTree = "<group>"; };
 		E0EB663D4EA84835B410312F /* BusNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusNumber.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -114,7 +118,6 @@
 			children = (
 				3A4CBA98A63F5C3F7099B133 /* Derived */,
 				1FBD9263124901E74DFFA40E /* YongJi */,
-				61B421E7A255218EF8BE67D8 /* Info.plist */,
 			);
 			name = Project;
 			sourceTree = "<group>";
@@ -144,8 +147,6 @@
 		0F502D3E848E649F3F36463B /* InfoView */ = {
 			isa = PBXGroup;
 			children = (
-				D8FEFAB0888FC543ED57F25A /* ChatListView.swift */,
-				A13E4A88332C4371EA7D027C /* ChatView.swift */,
 				C63BDEF5B9BC4E41C7BE43D9 /* ShuttleInfoView.swift */,
 			);
 			path = InfoView;
@@ -165,6 +166,7 @@
 			children = (
 				070F970651C1177F0DAC0667 /* Resources */,
 				94E47F0A94D687192FFEE702 /* Sources */,
+				9095135B5B2111D157F44F60 /* Support */,
 			);
 			path = YongJi;
 			sourceTree = "<group>";
@@ -196,9 +198,20 @@
 			path = Derived;
 			sourceTree = "<group>";
 		};
+		3BE6A62F0342BAAAD91F80CC /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				1F7B1263642D9949CA98DBBD /* GiheungStationTimeTable.json */,
+				811FB8720ADFCBD58648B3BC /* MyongJiStationTimeTable.json */,
+				DA614DF38B28DBA683AE58F7 /* WeekendTimeTable.json */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		3F5D56589A42ABAB877D8C09 /* ChattingScreen */ = {
 			isa = PBXGroup;
 			children = (
+				79DFAE2ABB2F894C56C0FFFA /* ChatListCell.swift */,
 				A26AD3D155565F323CE46A17 /* ChattingListView.swift */,
 			);
 			path = ChattingScreen;
@@ -236,9 +249,18 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		9095135B5B2111D157F44F60 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				D61C9009A979274D6ECBF22B /* Info.plist */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
 		94E47F0A94D687192FFEE702 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				3BE6A62F0342BAAAD91F80CC /* Data */,
 				D8A9100E5109D7EADD1E7F5D /* Global */,
 				81AF91CE2891553809DE4CED /* Model */,
 				0E049443EB715726199157AB /* View */,
@@ -315,6 +337,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
+				ORGANIZATIONNAME = yongjibus.org.;
 				TargetAttributes = {
 				};
 			};
@@ -343,6 +366,9 @@
 			files = (
 				B18690B453C450BC1C8D1067 /* Assets.xcassets in Resources */,
 				279757DF8F3B089F6B4DEAE8 /* Preview Assets.xcassets in Resources */,
+				2EEBCA3C9E34A1396CA11AA4 /* GiheungStationTimeTable.json in Resources */,
+				6767B28D49AFCB7932A70499 /* MyongJiStationTimeTable.json in Resources */,
+				D0311568D811BF28362EB82E /* WeekendTimeTable.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,9 +392,8 @@
 				E375C711107AE45A60BE63A5 /* ShuttleTime.swift in Sources */,
 				8C044135CF19F48FE05249E8 /* StationTime.swift in Sources */,
 				8F71B4152E2190D14C20EDE7 /* TableType.swift in Sources */,
+				75095747BF9C9D49CFBCF0F6 /* ChatListCell.swift in Sources */,
 				4C397898650176DECEDC6EE0 /* ChattingListView.swift in Sources */,
-				AC97C1FB8BB686CDA61B106C /* ChatListView.swift in Sources */,
-				33353FE6C4FC6C95F268CA0F /* ChatView.swift in Sources */,
 				910D478A0347DBE62392C51B /* ShuttleInfoView.swift in Sources */,
 				A01345C18DC548CB6A872D2B /* SettingView.swift in Sources */,
 				AC874CF540B84EB72BF5A61B /* ShuttleRow.swift in Sources */,
@@ -396,12 +421,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = YongJi/Support/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Bryan.YongJiBUs;
+				PRODUCT_BUNDLE_IDENTIFIER = YongJiBus.app;
 				PRODUCT_NAME = YongJiBus;
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
@@ -532,12 +558,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = YongJi/Support/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Bryan.YongJiBUs;
+				PRODUCT_BUNDLE_IDENTIFIER = YongJiBus.app;
 				PRODUCT_NAME = YongJiBus;
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;

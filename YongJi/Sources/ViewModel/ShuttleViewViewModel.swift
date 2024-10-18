@@ -26,9 +26,10 @@ class ShuttleViewViewModel : ObservableObject {
             }
         }()
         
-        let extensionType = "json"
-        
-        guard let fileLocation = Bundle.main.url(forResource: fileNm, withExtension: extensionType) else { return nil }
+        guard let fileLocation = Bundle.main.url(forResource: fileNm, withExtension: "json") else {
+            print(Bundle.main)
+            return nil
+        }
 
         do {
             let data = try Data(contentsOf: fileLocation)

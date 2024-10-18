@@ -1,14 +1,14 @@
 //
-//  ChatView.swift
+//  ChatListCell.swift
 //  YongJiBus
 //
-//  Created by bryan on 9/11/24.
+//  Created by bryan on 9/13/24.
 //
 
 import SwiftUI
 
-struct ChatListView: View {
-    @State var title = "채팅"
+struct ChatListCell: View {
+
     var body: some View {
         ScrollView{
             ForEach(0..<13) { _ in
@@ -43,5 +43,5 @@ struct ChatListView: View {
 }
 
 #Preview {
-    ChatListView()
+    ChatListCell()
 }
