@@ -28,9 +28,37 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "8347C3C08CE16ABDA172FCE3"
+               BuildableName = "RxSwift.framework"
+               BlueprintName = "RxSwift"
+               ReferencedContainer = "container:Tuist/.build/tuist-derived/RxSwift/RxSwift.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "860647D093847345C22169AC"
                BuildableName = "YongJiBus.app"
                BlueprintName = "YongJiBus"
+               ReferencedContainer = "container:YongJiBus.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "30703642CA5D6CBC2763DF54"
+               BuildableName = "YongJiBusTests.xctest"
+               BlueprintName = "YongJiBusTests"
                ReferencedContainer = "container:YongJiBus.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -42,6 +70,16 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "30703642CA5D6CBC2763DF54"
+               BuildableName = "YongJiBusTests.xctest"
+               BlueprintName = "YongJiBusTests"
+               ReferencedContainer = "container:YongJiBus.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

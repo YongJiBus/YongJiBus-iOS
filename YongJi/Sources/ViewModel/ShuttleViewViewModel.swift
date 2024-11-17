@@ -9,6 +9,8 @@ import Foundation
 
 class ShuttleViewViewModel : ObservableObject {
 
+    private let dayTypeRepository = DayTypeRepository()
+    
     @Published var timeList : [ShuttleTime] = []
     
     init() {
@@ -18,7 +20,7 @@ class ShuttleViewViewModel : ObservableObject {
     //LocalData의 json 파일 가져오기
     func load() -> Data? {
         let fileNm = {
-            switch DataManager.getData(key: .weekend) as! Bool{
+            switch DataManager.weekend {
             case false:
                 return TableType.myongji.type
             case true:
@@ -26,9 +28,10 @@ class ShuttleViewViewModel : ObservableObject {
             }
         }()
         
-        let extensionType = "json"
-        
-        guard let fileLocation = Bundle.main.url(forResource: fileNm, withExtension: extensionType) else { return nil }
+        guard let fileLocation = Bundle.main.url(forResource: fileNm, withExtension: "json") else {
+            print(Bundle.main)
+            return nil
+        }
 
         do {
             let data = try Data(contentsOf: fileLocation)

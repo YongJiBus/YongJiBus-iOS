@@ -7,7 +7,7 @@ import PackageDescription
     let packageSettings = PackageSettings(
         // Customize the product types for specific package product
         // Default is .staticFramework
-        productTypes: ["Alamofire": .framework]
+        productTypes: ["Alamofire": .framework, "RxSwift": .framework]
         )
 #endif
 
@@ -15,6 +15,7 @@ let package = Package(
     name: "YongJi",
     dependencies: [
         // Add your own dependencies here:
-        .package(url: "https://github.com/Alamofire/Alamofire", from: "5.0.0"),
+        .package(url: "https://github.com/Alamofire/Alamofire", from: "5.9.0"),
+        .package(url: "https://github.com/ReactiveX/RxSwift.git", from: "6.8.0")
     ]
 )
