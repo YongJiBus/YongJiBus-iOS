@@ -14,8 +14,21 @@ let project = Project(
             sources: ["YongJi/Sources/**" ],
             resources: ["YongJi/Resources/**","YongJi/Sources/Data/*.json"],
             dependencies: [
-                .external(name: "Alamofire")
+                .external(name: "Alamofire"),
+                .external(name: "RxSwift")
             ]
-        )
+        ),
+        .target(
+             name: "YongJiBusTests",
+             destinations: .iOS,
+             product: .unitTests,
+             bundleId: "YongJiBus.tests",
+             deploymentTargets: .iOS("17.0"),
+             infoPlist: .default,
+             sources: ["YongJi/Tests/**"],
+             dependencies: [
+                 .target(name: "YongJiBus") // 메인 앱 타겟 의존성 추가
+             ]
+         )
     ]
 )

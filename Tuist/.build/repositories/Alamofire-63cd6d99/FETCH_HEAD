@@ -5,6 +5,7 @@ ceacc85182007028ca2a00d2c0cf388329ed7131	not-for-merge	branch 'bug/eventmontior-
 b2ad9dd81cd853a36e5407c1821e30bf68c494b2	not-for-merge	branch 'bug/explicit-concurrency-module' of https://github.com/Alamofire/Alamofire
 3d3b7f51335fb2abba637796ef4d9fb4c075265c	not-for-merge	branch 'bug/mass-cancellation-failure' of https://github.com/Alamofire/Alamofire
 87f5ae6ae010cd875891586a3516e53a36a831b6	not-for-merge	branch 'bug/test-lifetimes' of https://github.com/Alamofire/Alamofire
+bd2ecc97a82a3e9aa05b00ea1c4ac7c38c2d0299	not-for-merge	branch 'bug/xcode16-cancellation-handler-crash' of https://github.com/Alamofire/Alamofire
 40aad9c40bde89ae60cbb0d0eca0210c6c084dbe	not-for-merge	branch 'bugfix/cancel-race-condition' of https://github.com/Alamofire/Alamofire
 85067cbd3ccac74d023e34dd44d443e98f5eab71	not-for-merge	branch 'cnoon/response-adapters' of https://github.com/Alamofire/Alamofire
 77cb597755f2719494d61062c8b5e37b90603f3c	not-for-merge	branch 'default-cancellation' of https://github.com/Alamofire/Alamofire
@@ -15,8 +16,7 @@ bf5a2dfd148e05228174630d45e96fe1ec30d1c3	not-for-merge	branch 'feature/docc-docs
 74456f2d852220d73ac8041bbba4729a660862fd	not-for-merge	branch 'feature/websocket-request-typed-throws' of https://github.com/Alamofire/Alamofire
 fcb06f4a952948b6ceff9794ed4f85166ff15baf	not-for-merge	branch 'finalize-websocketrequest' of https://github.com/Alamofire/Alamofire
 747c8db8d57b68d5e35275f10c92d55f982adbd4	not-for-merge	branch 'hotfix' of https://github.com/Alamofire/Alamofire
-5de514be7ce47c01bd6af5ca8743843f6f72ab01	not-for-merge	branch 'master' of https://github.com/Alamofire/Alamofire
-7bc1d121f9bdc9c1a34210ca8bf255b3ee0ef056	not-for-merge	branch 'swift6' of https://github.com/Alamofire/Alamofire
+6fa7ec3672e226886c506c20ff74f33649217d2d	not-for-merge	branch 'master' of https://github.com/Alamofire/Alamofire
 f29333cca6e0762bb2d6d08cd65a0c372a06bf4b	not-for-merge	branch 'update/sendability' of https://github.com/Alamofire/Alamofire
 49af2935da64d7e661316d5515888029f46b3f71	not-for-merge	branch 'xcode14.3-sendability' of https://github.com/Alamofire/Alamofire
 7f104e7a0427300bdbb6c54b40f8100600ffb3b9	not-for-merge	'refs/pull/1002/head' of https://github.com/Alamofire/Alamofire
@@ -1131,29 +1131,37 @@ fa41056282fdfd7c03e51f59439948b66f827fcf	not-for-merge	'refs/pull/3848/head' of 
 aa3a6656507950f6cf0938faa2488be6d11660ae	not-for-merge	'refs/pull/3856/head' of https://github.com/Alamofire/Alamofire
 9c08bbe5a77b0bb2d6069448c14cb2425ed4e1a6	not-for-merge	'refs/pull/3857/head' of https://github.com/Alamofire/Alamofire
 0bafa2c84b95e5d2ca4c28d89c8a453fcca4f1b0	not-for-merge	'refs/pull/3858/head' of https://github.com/Alamofire/Alamofire
-90c88f3ca740023b44383baac326ff27bfbee702	not-for-merge	'refs/pull/3859/head' of https://github.com/Alamofire/Alamofire
-6ad134201b3ea32bfc39bdc6fd8002873d31b015	not-for-merge	'refs/pull/3859/merge' of https://github.com/Alamofire/Alamofire
+67d3bd514e504333ebb10c3b060b6d22f5827aab	not-for-merge	'refs/pull/3859/head' of https://github.com/Alamofire/Alamofire
+0aee8374d875a22b01f879848b063e40316df576	not-for-merge	'refs/pull/3859/merge' of https://github.com/Alamofire/Alamofire
 f181d8c5980f6fdd12fb252d83a3b7eb804e47c7	not-for-merge	'refs/pull/3868/head' of https://github.com/Alamofire/Alamofire
 82c90694294f99d942d46676ecdcd4139bc20596	not-for-merge	'refs/pull/387/head' of https://github.com/Alamofire/Alamofire
 0818700ec34fb5dad266a4f171ed228b15a3236c	not-for-merge	'refs/pull/3871/head' of https://github.com/Alamofire/Alamofire
 f009e36c66d7fda2f5dac83834c160b02d3cb71e	not-for-merge	'refs/pull/3879/head' of https://github.com/Alamofire/Alamofire
-7bc1d121f9bdc9c1a34210ca8bf255b3ee0ef056	not-for-merge	'refs/pull/3880/head' of https://github.com/Alamofire/Alamofire
-3835e41214c996e0d86f40b0682f13c2dc8b7e49	not-for-merge	'refs/pull/3880/merge' of https://github.com/Alamofire/Alamofire
-3de74d1c3d504c95aff6966b7cfafc36fe17adb8	not-for-merge	'refs/pull/3881/head' of https://github.com/Alamofire/Alamofire
-66f63300e1091374ce5998a8f319e66355998c28	not-for-merge	'refs/pull/3881/merge' of https://github.com/Alamofire/Alamofire
+67602d2a16c269ef8ffdf355cc24271806fd41c4	not-for-merge	'refs/pull/3880/head' of https://github.com/Alamofire/Alamofire
+9eee3dc87801f8f3ea178aa6d0c4b2286962143f	not-for-merge	'refs/pull/3881/head' of https://github.com/Alamofire/Alamofire
 709a0efb0419430f20ac19e3a9978a3999983d89	not-for-merge	'refs/pull/3882/head' of https://github.com/Alamofire/Alamofire
 6bd9a003bdd6478630997b15684fcc80c1eb80eb	not-for-merge	'refs/pull/3886/head' of https://github.com/Alamofire/Alamofire
 9124e4c22a2aac4e12aac9d5d72450b4a3e7df7c	not-for-merge	'refs/pull/3888/head' of https://github.com/Alamofire/Alamofire
-46ef712fdabe0cd251ecf95181176990c8fe2e5c	not-for-merge	'refs/pull/3888/merge' of https://github.com/Alamofire/Alamofire
 2d6703295d49c3b2d45fc80d49831b6b78c22398	not-for-merge	'refs/pull/3890/head' of https://github.com/Alamofire/Alamofire
 ec2d944154092a3058e8431b682a65e64e9e4e40	not-for-merge	'refs/pull/3891/head' of https://github.com/Alamofire/Alamofire
-29cd4941972399cc4c6aa3f848294aeeabc997ed	not-for-merge	'refs/pull/3891/merge' of https://github.com/Alamofire/Alamofire
 d5465b12f1e16598c9c253e798597a1a37fdaa7c	not-for-merge	'refs/pull/3892/head' of https://github.com/Alamofire/Alamofire
-d98bc82d92c1546eeedf2ce99ebad7f22fcbefed	not-for-merge	'refs/pull/3892/merge' of https://github.com/Alamofire/Alamofire
+5316413a0b9ba2c517cef2d6db9080e6aa1c4fc8	not-for-merge	'refs/pull/3894/head' of https://github.com/Alamofire/Alamofire
+4e3ec4e32ce33bc4641211d3523aeabc4f07b6ca	not-for-merge	'refs/pull/3897/head' of https://github.com/Alamofire/Alamofire
+471a61ed565f98d5e87c551ffb70f9897ce3a9c1	not-for-merge	'refs/pull/3899/head' of https://github.com/Alamofire/Alamofire
 c2f04567a5ec31f44265004b535b9e44d3e05c50	not-for-merge	'refs/pull/39/head' of https://github.com/Alamofire/Alamofire
 e4504c9cf0c8b759c2ba1d15c11fe54eba03ea4c	not-for-merge	'refs/pull/39/merge' of https://github.com/Alamofire/Alamofire
 2a008876cc5a0b3c88f894fb62a4e41b1efe6b02	not-for-merge	'refs/pull/390/head' of https://github.com/Alamofire/Alamofire
 234378bd27732ded8319d918c7da0ac6578d2f87	not-for-merge	'refs/pull/390/merge' of https://github.com/Alamofire/Alamofire
+70c3fc232288a4d17c8b8677320730224e28e317	not-for-merge	'refs/pull/3900/head' of https://github.com/Alamofire/Alamofire
+c441557bf60db963dac4da794ff4c3dfcaf294f1	not-for-merge	'refs/pull/3901/head' of https://github.com/Alamofire/Alamofire
+98d0d83adc635a7a7b31dd77a5b6402f0360d1bf	not-for-merge	'refs/pull/3903/head' of https://github.com/Alamofire/Alamofire
+b03ab22390da2a146fe23114a30f97f419eaf81f	not-for-merge	'refs/pull/3906/head' of https://github.com/Alamofire/Alamofire
+06185d0cccbc9184a004a9ca486cd38934391c1c	not-for-merge	'refs/pull/3907/head' of https://github.com/Alamofire/Alamofire
+2f69bf79cd79606b9df5768756572beffacbaf23	not-for-merge	'refs/pull/3911/head' of https://github.com/Alamofire/Alamofire
+8c0c56c7a6e2370e833762cb976f80ca7bc84db1	not-for-merge	'refs/pull/3913/head' of https://github.com/Alamofire/Alamofire
+609e0dec9741bb56bdf9f0bb211fad51c55e067d	not-for-merge	'refs/pull/3914/head' of https://github.com/Alamofire/Alamofire
+c49afc03ba021c758f2a97889aa5e4f7c27ad571	not-for-merge	'refs/pull/3917/head' of https://github.com/Alamofire/Alamofire
+25abdfa82e3710c63b8fc7d8af6d3221ca7db26b	not-for-merge	'refs/pull/3917/merge' of https://github.com/Alamofire/Alamofire
 63a00ae700a402ee3efb1eeebfd6297cf40aae26	not-for-merge	'refs/pull/394/head' of https://github.com/Alamofire/Alamofire
 84ce8c8c1f50e34a602e8b3c20b9f50d7adcfe10	not-for-merge	'refs/pull/4/head' of https://github.com/Alamofire/Alamofire
 390fad0398cfe0212f00a7ec05ebb96049b1e94b	not-for-merge	'refs/pull/4/merge' of https://github.com/Alamofire/Alamofire
@@ -1547,6 +1555,8 @@ b02c4ee7f1659090f7ac543c022f922beeb04bc6	not-for-merge	tag '5.0.2' of https://gi
 11928850d7273a8cd41bb766f2fc93b4d724b79b	not-for-merge	tag '5.0.4' of https://github.com/Alamofire/Alamofire
 59037bfd28aa963a7916f1eb22a74107a3522f16	not-for-merge	tag '5.0.5' of https://github.com/Alamofire/Alamofire
 fca036f7aeca07124067cb6e0c12b0ad6359e3d4	not-for-merge	tag '5.1.0' of https://github.com/Alamofire/Alamofire
+ea6a94b7dddffd0ca4d0f29252d95310b84dec84	not-for-merge	tag '5.10.0' of https://github.com/Alamofire/Alamofire
+e16d3481f5ed35f0472cb93350085853d754913f	not-for-merge	tag '5.10.1' of https://github.com/Alamofire/Alamofire
 64dd16a5f2099dd5400f5e6d1442dc5ab0c1d917	not-for-merge	tag '5.2.0' of https://github.com/Alamofire/Alamofire
 2777659076fda38bd4e487739ee331c7a65b5924	not-for-merge	tag '5.2.1' of https://github.com/Alamofire/Alamofire
 becd9a729a37bdbef5bc39dc3c702b99f9e3d046	not-for-merge	tag '5.2.2' of https://github.com/Alamofire/Alamofire

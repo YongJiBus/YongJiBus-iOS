@@ -5,6 +5,7 @@
 //  Created by 김도경 on 2023/08/17.
 //
 
+import Alamofire
 import SwiftUI
 
 
@@ -15,8 +16,8 @@ struct SettingView: View {
     @State var isHolidayAuto : Bool
     
     init() {
-        self.isWeekend = DataManager.getData(key: .weekend) as! Bool
-        self.isHolidayAuto = false
+        self.isWeekend = DataManager.weekend
+        self.isHolidayAuto = DataManager.holidayAutomation
     }
     
     
@@ -26,12 +27,14 @@ struct SettingView: View {
                 timeSettingOption
                 automateHolidayOption
                 developerContact
-                
                 Spacer()
             }
             .padding()
         }//TopVstack
         .background(.white)
+        .onAppear(perform: {
+            
+        })
     }
     
     var automateHolidayOption : some View {
@@ -44,6 +47,9 @@ struct SettingView: View {
             Spacer()
             Toggle(isOn: $isHolidayAuto, label: {})
                 .toggleStyle(.switch)
+                .onChange(of: isHolidayAuto) { oldValue, newValue in
+                    DataManager.holidayAutomation = newValue
+                }
         }
     }
     
@@ -63,7 +69,7 @@ struct SettingView: View {
                         .tag(true)
                 }
                 .onChange(of: isWeekend, { oldValue, newValue in
-                    DataManager.setData(data: newValue, key: .weekend)
+                    DataManager.weekend = newValue
                 })
                 .pickerStyle(.segmented)
             }
