@@ -12,6 +12,8 @@ import RxSwift
 
 final class DayTypeRepository {
     
+    static let shared = DayTypeRepository()
+    
     let service = BaseService()
     
     func getDayType() -> Single<Bool>{

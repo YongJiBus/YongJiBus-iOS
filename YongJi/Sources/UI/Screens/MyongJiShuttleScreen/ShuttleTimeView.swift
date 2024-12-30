@@ -28,7 +28,6 @@ struct ShuttleTimeView: View {
             .onAppear{
                viewModel.setList()
                     value.scrollTo(viewModel.nearShuttle(), anchor: .top)
-
             }
         }
     }//body

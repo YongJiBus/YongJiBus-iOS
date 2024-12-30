@@ -1,3 +1,4 @@
+CountriesSwiftUI/
 ## For API Key
 APIKey.swift
 # Created by https://www.gitignore.io/api/swift,macos
@@ -98,7 +99,7 @@ generated_fixtures
 Tuist.xcworkspace
 node_modules
 Fixture
-
+Tuist/.build
 Tuist/Dependencies/SwiftPackageManager
 Tuist/Dependencies/graph.json
 

@@ -34,8 +34,6 @@ final class DayTypeRepositoryTest: XCTestCase {
             } onFailure: { error in
                 print("error \(error)")
             }.dispose()
-        
-
     }
 
     func testPerformanceExample() throws {
