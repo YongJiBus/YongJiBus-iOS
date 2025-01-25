@@ -5,9 +5,9 @@ class AppViewModel: ObservableObject {
     private let disposeBag = DisposeBag()
     
     // Observable property to track the day type
-    @Published var isWeekend: Bool = DataManager.weekend {
+    @Published var isHoliday: Bool = DataManager.isHoliday {
         didSet {
-            DataManager.weekend = isWeekend
+            DataManager.isHoliday = isHoliday
         }
     }
     
@@ -17,10 +17,13 @@ class AppViewModel: ObservableObject {
         }
     }
     
+    @Published var dateInfo : DateInfo = DateInfo(date: .now, dateKind: "평일")
+    
     public func fetchDayType() {
         DayTypeRepository.shared.getDayType()
-            .subscribe(onSuccess: { [weak self] isWeekend in
-                self?.isWeekend = isWeekend
+            .subscribe(onSuccess: { [weak self] dto in
+                self?.isHoliday = dto.isHoliday
+                self?.dateInfo = dto.toEntity()
             }, onFailure: { error in
                 print("Error fetching day type: \(error)")
             })

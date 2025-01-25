@@ -20,7 +20,7 @@ class ShuttleViewViewModel : ObservableObject {
     //LocalData의 json 파일 가져오기
     func load() -> Data? {
         let fileNm = {
-            switch DataManager.weekend {
+            switch DataManager.isHoliday {
             case false:
                 return TableType.myongji.type
             case true:

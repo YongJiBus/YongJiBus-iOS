@@ -24,11 +24,11 @@ struct MyDefaults<T> {
 
 public enum DataManager {
     enum Key: String {
-        case weekend, holidayAutomation
+        case isHoliday, holidayAutomation
     }
     
-    @MyDefaults(key: Key.weekend.rawValue, defaultValue: false)
-    public static var weekend
+    @MyDefaults(key: Key.isHoliday.rawValue, defaultValue: false)
+    public static var isHoliday
 
     @MyDefaults(key: Key.holidayAutomation.rawValue, defaultValue: false)
     public static var holidayAutomation

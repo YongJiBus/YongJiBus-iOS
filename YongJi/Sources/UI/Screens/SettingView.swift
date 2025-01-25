@@ -46,7 +46,7 @@ struct SettingView: View {
                 .opacity(0.7)
             Spacer()
             Section {
-                Picker("Weekend Option", selection: $appViewModel.isWeekend) {
+                Picker("Weekend Option", selection: $appViewModel.isHoliday) {
                     Text("평일")
                         .tag(false)
                     Text("주말")

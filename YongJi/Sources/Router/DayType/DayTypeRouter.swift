@@ -10,7 +10,7 @@ import Alamofire
 import Foundation
 
 enum DayTypeRouter {
-    case getDayType(GetDayTypeDTO)
+    case getDayType(DayTypeRequestDTO)
 }
 
 extension DayTypeRouter : BaseRouter {
