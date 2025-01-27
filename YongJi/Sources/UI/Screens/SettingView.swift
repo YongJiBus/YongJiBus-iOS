@@ -34,6 +34,11 @@ struct SettingView: View {
             Spacer()
             Toggle(isOn: $appViewModel.isHolidayAuto, label: {})
                 .toggleStyle(.switch)
+                .onChange(of: appViewModel.isHolidayAuto) {
+                    if appViewModel.isHolidayAuto {
+                        appViewModel.fetchDayType()
+                    }
+                }
         }
     }
     
@@ -53,6 +58,7 @@ struct SettingView: View {
                         .tag(true)
                 }
                 .pickerStyle(.segmented)
+                .disabled(appViewModel.isHolidayAuto)
             }
             .frame(width: 100)
         }

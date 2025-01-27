@@ -83,6 +83,9 @@ playground.xcworkspace
 *.xcarchive
 tmp/
 /build/
+.xcodeproj
+.xcworkspace
+
 
 .env
 .idea/

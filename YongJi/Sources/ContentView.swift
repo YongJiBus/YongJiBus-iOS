@@ -43,6 +43,11 @@ struct ContentView: View {
                     viewModel.fetchDayType()
                 }
             }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+                if viewModel.isHolidayAuto {
+                    viewModel.fetchDayType()
+                }
+            }
         }
         .background(.white)
     }

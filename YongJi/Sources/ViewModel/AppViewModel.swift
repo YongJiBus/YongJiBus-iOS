@@ -24,8 +24,8 @@ class AppViewModel: ObservableObject {
             .subscribe(onSuccess: { [weak self] dto in
                 self?.isHoliday = dto.isHoliday
                 self?.dateInfo = dto.toEntity()
-            }, onFailure: { error in
-                print("Error fetching day type: \(error)")
+            }, onFailure: { [weak self] error in
+                self?.isHoliday = false
             })
             .disposed(by: disposeBag)
     }
