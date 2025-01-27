@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ShuttleView: View {
     
+    @EnvironmentObject var appViewModel : AppViewModel
+    
     var body: some View {
         VStack{
             ScrollView(.horizontal,showsIndicators: false){

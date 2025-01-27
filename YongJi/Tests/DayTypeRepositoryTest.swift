@@ -30,12 +30,10 @@ final class DayTypeRepositoryTest: XCTestCase {
         
         repository.getDayType()
             .subscribe { result in
-                XCTAssertEqual(false, result)
+                XCTAssertEqual(false, result.isHoliday)
             } onFailure: { error in
                 print("error \(error)")
             }.dispose()
-        
-
     }
 
     func testPerformanceExample() throws {

@@ -64,7 +64,7 @@ extension BaseRouter {
 
 extension BaseRouter {
     var baseURL: String {
-        return Constants.baseURL
+        return APIKey.backendURL
     }
     
     var header: HeaderType {

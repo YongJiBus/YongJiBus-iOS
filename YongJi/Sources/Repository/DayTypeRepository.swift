@@ -12,17 +12,19 @@ import RxSwift
 
 final class DayTypeRepository {
     
+    static let shared = DayTypeRepository()
+    
     let service = BaseService()
     
-    func getDayType() -> Single<Bool>{
+    func getDayType() -> Single<DayTypeResponseDTO>{
         
         let date = Date()
         let formatter = DateFormatter()
 
         formatter.dateFormat = "yyyy-MM-dd"
         
-        let dto = GetDayTypeDTO(value: formatter.string(from: date))
+        let dto = DayTypeRequestDTO(value: formatter.string(from: date))
         let router = DayTypeRouter.getDayType(dto)
-        return service.request(Bool.self, router: router)
+        return service.request(DayTypeResponseDTO.self, router: router)
     }
 }

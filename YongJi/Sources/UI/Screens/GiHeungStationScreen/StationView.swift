@@ -11,27 +11,41 @@ struct StationView: View {
     
     @ObservedObject var viewModel = StationViewViewModel()
     
+    @EnvironmentObject var appViewModel: AppViewModel
     
     var body: some View {
         VStack{
             ScrollViewReader { value in
                 VStack{
-                    topHeader()
-                    ScrollView{
-                        ForEach(viewModel.timeList){ time in
-                            StationTimeRow(stationTime: time)
-                                .padding(.horizontal)
-                                .padding(.vertical, -2)
-                                .id(time.id)
-                        }
-                    }
-                    .onAppear{
-                        value.scrollTo(viewModel.nearBus(), anchor: .top)
+                    if appViewModel.isHoliday {
+                        
+                        StationHolidayView
+                    } else {
+                        topHeader()
+                        StationView
+                            .onAppear{
+                                value.scrollTo(viewModel.nearBus(), anchor: .top)
+                            }
                     }
                 }
             }
         }//Vstack
         .background(.white)
+    }
+    
+    var StationView : some View {
+        ScrollView{
+            ForEach(viewModel.timeList){ time in
+                StationTimeRow(stationTime: time)
+                    .padding(.horizontal)
+                    .padding(.vertical, -2)
+                    .id(time.id)
+            }
+        }
+    }
+    
+    var StationHolidayView : some View {
+        Text("주말 및 공휴일에는 기흥 셔틀은 운행하지 않습니다.")
     }
 }
 struct topHeader : View {
@@ -64,6 +78,6 @@ struct topHeader : View {
 
 struct StationTimeView_Previews: PreviewProvider {
     static var previews: some View {
-        StationView()
+        StationView().environmentObject(AppViewModel())
     }
 }

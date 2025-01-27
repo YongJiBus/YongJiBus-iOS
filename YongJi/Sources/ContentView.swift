@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     @State var currentTab : String = "명지대역"
-    
+    @StateObject var viewModel = AppViewModel()
+
     var body: some View {
         VStack{
             HeaderView(title: $currentTab)
@@ -35,7 +36,18 @@ struct ContentView: View {
                     }
                     .tag("설정")
             }
+            .environmentObject(viewModel)
             .ignoresSafeArea()
+            .onAppear{
+                if viewModel.isHolidayAuto {
+                    viewModel.fetchDayType()
+                }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+                if viewModel.isHolidayAuto {
+                    viewModel.fetchDayType()
+                }
+            }
         }
         .background(.white)
     }
