@@ -30,7 +30,7 @@ extension ArrivalTimeRouter: BaseRouter {
         case .saveArrivalTime(let request):
             .body(request)
         case .getArrivalTimes:
-            .none
+                .none
         }
     }
 }

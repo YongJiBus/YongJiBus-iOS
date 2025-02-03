@@ -8,19 +8,21 @@ final class ArrivalTimeRepository {
     
     let service = BaseService()
     
-    func saveArrivalTime(busId: Int, date: Date, arrivalTime: Date) -> Single<String> {
-        let requestDTO = SaveArrivalTimeRequestDTO(busId: busId, 
-                                                 date: date, 
-                                                 arrivalTime: arrivalTime)
+    func saveArrivalTime(requestDTO: SaveArrivalTimeRequestDTO) {
         let router = ArrivalTimeRouter.saveArrivalTime(requestDTO)
-        return service.request(String.self, router: router)
+        print(requestDTO)
+        service.request(String.self, router: router)
+            .subscribe { message in
+                print(message)
+            } onFailure: { error in
+                print(error)
+            }
+            .dispose()
+
     }
     
-    func getArrivalTimes(busId: Int, date: Date) -> Single<[ArrivalTimeResponseDTO]> {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        let dateString = formatter.string(from: date)
-        
+    func getArrivalTimes(busId: Int) -> Single<[ArrivalTimeResponseDTO]> {
+        let dateString = DateFormatter.yearMonthDay.string(from: .now)
         let router = ArrivalTimeRouter.getArrivalTimes(date: dateString, busId: busId)
         return service.request([ArrivalTimeResponseDTO].self, router: router)
     }

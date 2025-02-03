@@ -40,9 +40,9 @@ extension BaseRouter {
         var request = request
         switch header {
         case .basic:
-            break
+            request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+            return request
         }
-        return request
     }
      
     private func makePrameterForRequest(to request: URLRequest, with url: URL) throws -> URLRequest {
@@ -56,6 +56,8 @@ extension BaseRouter {
         case .body(let parameters):
             let body = try JSONEncoder().encode(parameters)
             request.httpBody = body
+        case .none:
+            break
         }
         return request
     }

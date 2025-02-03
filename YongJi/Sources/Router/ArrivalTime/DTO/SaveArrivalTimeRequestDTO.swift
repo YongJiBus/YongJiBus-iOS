@@ -3,16 +3,14 @@ import Foundation
 struct SaveArrivalTimeRequestDTO: Codable {
     let busId: Int
     let date: String
-    let arrivalTime: String
+    let time: String
+    let isHoliday: Bool
     
-    init(busId: Int, date: Date, arrivalTime: Date) {
+    init(busId: Int, arrivalTime: Date, isHoliday: Bool) {
         self.busId = busId
+        self.isHoliday = isHoliday
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        self.date = dateFormatter.string(from: date)
-        
-        dateFormatter.dateFormat = "HH:mm"
-        self.arrivalTime = dateFormatter.string(from: arrivalTime)
+        self.date = DateFormatter.yearMonthDay.string(from: .now)
+        self.time = DateFormatter.hourMinute.string(from: arrivalTime)
     }
 } 

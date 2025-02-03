@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxSwift
 
 class ShuttleViewViewModel : ObservableObject {
 
@@ -13,18 +14,31 @@ class ShuttleViewViewModel : ObservableObject {
     
     @Published var timeList : [ShuttleTime] = []
 
-    @Published var arrivalTimes: [Date] = []
+    @Published var arrivalTimeModels: [ArrivalTimeList] = []
     
     init() {
         setList()
     }
 
-    func saveArrivalTime(request: SaveArrivalTimeRequestDTO) {
-        arrivalTimeRepository.saveArrivalTime(request: request)
+    func saveArrivalTime(busId: Int, date: Date, isHoliday: Bool){
+        let requestDTO = SaveArrivalTimeRequestDTO(busId: busId, arrivalTime: date, isHoliday: isHoliday)
+        arrivalTimeRepository.saveArrivalTime(requestDTO: requestDTO)
+        
+        // Convert date to string
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        let timeString = formatter.string(from: date)
+        
+        // Update or add the arrival time model
+        if let index = arrivalTimeModels.firstIndex(where: { $0.timeId == busId }) {
+            arrivalTimeModels[index].arrivalTimes.append(timeString)
+        } else {
+            arrivalTimeModels.append(ArrivalTimeModel(timeId: busId, arrivalTimes: [timeString]))
+        }
     }
 
-    func getArrivalTime(shuttleId: Int) {
-        arrivalTimeRepository.getArrivalTime(shuttleId: shuttleId)
+    func getArrivalTimes(for timeId: Int) -> [String] {
+        return arrivalTimeModels.first(where: { $0.timeId == timeId })?.arrivalTimes ?? []
     }
     
     //LocalData의 json 파일 가져오기
@@ -68,7 +82,7 @@ class ShuttleViewViewModel : ObservableObject {
         
         for time in timeList {
             if time.predTime.contains(String(hour)) {
-                return Int(time.count) ?? 0
+                return time.id
             }
         }
         return 0

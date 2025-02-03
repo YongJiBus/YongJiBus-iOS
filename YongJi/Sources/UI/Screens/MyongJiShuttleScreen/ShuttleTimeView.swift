@@ -16,12 +16,13 @@ struct ShuttleTimeView: View {
             VStack{
                 listHeader()
                 ScrollView{
-                    ForEach(viewModel.timeList) { list in
-                        ShuttleRow(time: list)
+                    ForEach(viewModel.timeList) { time in
+                        ShuttleRow(time: time)
                             .padding(.horizontal)
                             .padding(.vertical, -2)
-                            .id(Int(list.count))
+                            .id(time.id)
                             .environmentObject(viewModel)
+                        
                     }
                 }
                 

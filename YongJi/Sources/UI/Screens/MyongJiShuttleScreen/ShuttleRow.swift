@@ -8,21 +8,27 @@
 import SwiftUI
 
 struct ShuttleRow: View {
-    let time : ShuttleTime
-    
+
     @EnvironmentObject var viewModel : ShuttleViewViewModel
-    
+    let time : ShuttleTime
+
+    // View 상태 관리
     @State private var isExpanded = false
-    @State private var selectedTime = Date()
-    @State private var arrivalTimes: [Date] = [] // 사용자가 입력한 도착 시간들을 저장
-    @State private var isButtonDisabled = false  // 버튼 비활성화 상태를 관리하는 변수
+    @State private var selectedTime : Date
+    @State private var isButtonDisabled = false
+    
+    init(time : ShuttleTime){
+        self.time = time
+        selectedTime = DateFormatterService.shared.date(fromTimeString: time.predTime) ?? Date()
+    }
     
     // 최대 입력 가능한 시간 개수
     private let maxEntries = 5
     
     // 더 입력 가능한지 확인하는 computed property
     private var canAddMore: Bool {
-        arrivalTimes.count < maxEntries
+        // arrivalTimes.count < maxEntries
+        true
     }
     
     // 예상 도착 시간을 Date로 변환하는 computed property 추가
@@ -39,7 +45,6 @@ struct ShuttleRow: View {
         let endTime = calendar.date(byAdding: .minute, value: 10, to: predictedDate) ?? Date()
     
         return startTime...endTime
-
     }
     
     var body: some View {
@@ -55,13 +60,14 @@ struct ShuttleRow: View {
             if isExpanded {
                 VStack(spacing: 16) {
                     VStack(alignment: .leading, spacing: 12) {
+                        let arrivalTimes = viewModel.getArrivalTimes(for: time.id)
                         if !arrivalTimes.isEmpty {
                             Text("실제 도착 시간")
-                            ForEach(arrivalTimes, id: \.self) { time in
+                            ForEach(arrivalTimes, id: \.self) { timeString in
                                 HStack {
                                     Image(systemName: "clock")
                                         .foregroundStyle(.gray)
-                                    Text(timeString(from: time))
+                                    Text(timeString)
                                         .font(.system(size: 14))
                                         .foregroundStyle(.gray)
                                     Spacer()
@@ -87,8 +93,8 @@ struct ShuttleRow: View {
                             Button(action: {
                                 if canAddMore && !isButtonDisabled {
                                     isButtonDisabled = true  // 버튼 비활성화
-                                    arrivalTimes.append(selectedTime)
-                                    
+                                    // arrivalTimes.append(selectedTime)
+                                    viewModel.saveArrivalTime(busId: time.id, date: selectedTime, isHoliday: DataManager.isHoliday)
                                     // 1초 후에 버튼 다시 활성화
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                                         isButtonDisabled = false
@@ -127,9 +133,7 @@ struct ShuttleRow: View {
     
     // Date를 시간 문자열로 변환하는 헬퍼 함수
     private func timeString(from date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        return formatter.string(from: date)
+        return dateFormatterService.string(from: date)
     }
     
     private var row : some View {
@@ -138,7 +142,7 @@ struct ShuttleRow: View {
                 Circle()
                     .frame(width: 30, height: 30)
                     .foregroundStyle(.white)
-                Text(time.count)
+                Text("\(time.id)")
                     .font(.system(size: 20, weight: .bold))
                     .foregroundStyle(Color("RowNumColor"))
             }
@@ -172,7 +176,8 @@ struct ShuttleRow: View {
 
 struct TimeRow_Previews: PreviewProvider {
     static var previews: some View {
-        ShuttleRow(time: ShuttleTime(count: "1", type: "명지대", startTime: "08:00", predTime: "08:15"))
+        ShuttleRow(time: ShuttleTime(id: 1, type: "명지대", startTime: "08:00", predTime: "08:15"))
+            .environmentObject(ShuttleViewViewModel())
     }
 }
 
