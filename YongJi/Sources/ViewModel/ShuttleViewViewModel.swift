@@ -9,12 +9,22 @@ import Foundation
 
 class ShuttleViewViewModel : ObservableObject {
 
-    private let dayTypeRepository = DayTypeRepository()
+    private let arrivalTimeRepository = ArrivalTimeRepository()
     
     @Published var timeList : [ShuttleTime] = []
+
+    @Published var arrivalTimes: [Date] = []
     
     init() {
         setList()
+    }
+
+    func saveArrivalTime(request: SaveArrivalTimeRequestDTO) {
+        arrivalTimeRepository.saveArrivalTime(request: request)
+    }
+
+    func getArrivalTime(shuttleId: Int) {
+        arrivalTimeRepository.getArrivalTime(shuttleId: shuttleId)
     }
     
     //LocalData의 json 파일 가져오기

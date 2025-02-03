@@ -21,6 +21,7 @@ struct ShuttleTimeView: View {
                             .padding(.horizontal)
                             .padding(.vertical, -2)
                             .id(Int(list.count))
+                            .environmentObject(viewModel)
                     }
                 }
                 
