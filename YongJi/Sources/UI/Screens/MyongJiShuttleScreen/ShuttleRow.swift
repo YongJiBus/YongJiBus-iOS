@@ -5,38 +5,25 @@
 //  Created by 김도경 on 2023/07/01.
 //
 
+import RxSwift
 import SwiftUI
 
 struct ShuttleRow: View {
 
     @EnvironmentObject var viewModel : ShuttleViewViewModel
-    let time : ShuttleTime
+    private let time : ShuttleTime
+    private var disposeBag = DisposeBag()
 
     // View 상태 관리
     @State private var isExpanded = false
-    @State private var selectedTime : Date
+    @State private var selectedTime : Date = .now
     @State private var isButtonDisabled = false
-    
-    init(time : ShuttleTime){
-        self.time = time
-        selectedTime = DateFormatterService.shared.date(fromTimeString: time.predTime) ?? Date()
+    @State private var subText : String = "도착 시간 입력"
+    private var isListEmpty : Bool {
+        viewModel.arrivalTimeList[time.id].arrivalTimes.isEmpty
     }
-    
-    // 최대 입력 가능한 시간 개수
-    private let maxEntries = 5
-    
-    // 더 입력 가능한지 확인하는 computed property
-    private var canAddMore: Bool {
-        // arrivalTimes.count < maxEntries
-        true
-    }
-    
-    // 예상 도착 시간을 Date로 변환하는 computed property 추가
-    private var predictedDate: Date {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        return formatter.date(from: time.predTime) ?? Date()
-    }
+    // 예상 도착 시간 : Date
+    private var predictedDate : Date = .now
     
     // 선택 가능한 시간 범위 설정
     private var timeRange: ClosedRange<Date> {
@@ -45,6 +32,11 @@ struct ShuttleRow: View {
         let endTime = calendar.date(byAdding: .minute, value: 10, to: predictedDate) ?? Date()
     
         return startTime...endTime
+    }
+    
+    init(time : ShuttleTime){
+        self.time = time
+        predictedDate = DateFormatter.hourMinute.date(from: time.predTime) ?? Date()
     }
     
     var body: some View {
@@ -60,10 +52,9 @@ struct ShuttleRow: View {
             if isExpanded {
                 VStack(spacing: 16) {
                     VStack(alignment: .leading, spacing: 12) {
-                        let arrivalTimes = viewModel.getArrivalTimes(for: time.id)
-                        if !arrivalTimes.isEmpty {
+                        if !isListEmpty {
                             Text("실제 도착 시간")
-                            ForEach(arrivalTimes, id: \.self) { timeString in
+                            ForEach(viewModel.arrivalTimeList[time.id].arrivalTimes, id: \.self) { timeString in
                                 HStack {
                                     Image(systemName: "clock")
                                         .foregroundStyle(.gray)
@@ -78,46 +69,12 @@ struct ShuttleRow: View {
                         }
                         
                         HStack {
-                            Text("도착 시간 입력")
+                            Text(subText)
                                 .font(.system(size: 16, weight: .medium))
                                 .foregroundStyle(.black)
                             Spacer()
-                            DatePicker("도착 시간",
-                                     selection: $selectedTime,
-                                     in: timeRange,
-                                     displayedComponents: .hourAndMinute)
-                            .datePickerStyle(.compact)
-                            .labelsHidden()
-                            .disabled(!canAddMore || isButtonDisabled)
-                            
-                            Button(action: {
-                                if canAddMore && !isButtonDisabled {
-                                    isButtonDisabled = true  // 버튼 비활성화
-                                    // arrivalTimes.append(selectedTime)
-                                    viewModel.saveArrivalTime(busId: time.id, date: selectedTime, isHoliday: DataManager.isHoliday)
-                                    // 1초 후에 버튼 다시 활성화
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                                        isButtonDisabled = false
-                                    }
-                                }
-                            }) {
-                                Text("추가")
-                                    .font(.system(size: 14, weight: .medium))
-                                    .foregroundStyle(.white)
-                                    .padding(.horizontal, 16)
-                                    .padding(.vertical, 8)
-                                    .background(
-                                        (canAddMore && !isButtonDisabled) ? Color.blue : Color.gray
-                                    )
-                                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                            }
-                            .disabled(!canAddMore || isButtonDisabled)
-                        }
-                        
-                        if !canAddMore {
-                            Text("최대 \(maxEntries)개까지만 입력 가능합니다")
-                                .font(.system(size: 12))
-                                .foregroundStyle(.red)
+                            datePicker
+                            addButton
                         }
                     }
                     .padding(.horizontal, 16)
@@ -129,11 +86,54 @@ struct ShuttleRow: View {
                 .padding(.top,5)
             }
         }
+        .onAppear{
+            selectedTime = DateFormatter.hourMinute.date(from: time.predTime) ?? Date()
+        }
     }
     
-    // Date를 시간 문자열로 변환하는 헬퍼 함수
-    private func timeString(from date: Date) -> String {
-        return dateFormatterService.string(from: date)
+    private var datePicker : some View {
+        DatePicker("도착 시간",
+                 selection: $selectedTime,
+                 in: timeRange,
+                 displayedComponents: .hourAndMinute)
+        .datePickerStyle(.compact)
+        .labelsHidden()
+        .disabled(isButtonDisabled)
+    }
+    
+    private var addButton : some View {
+        Button(action: {
+            if !isButtonDisabled {
+                isButtonDisabled = true  // 버튼 비활성화
+                viewModel.saveArrivalTime(busId: time.id, date: selectedTime, isHoliday: DataManager.isHoliday)
+                    .subscribe { response in
+                        viewModel.loadArrivalTimeByBusId(busId: time.id)
+                    } onFailure: { error in
+                        subText = "전송 실패: 다시시도해주세요"
+                    }
+                    .disposed(by: disposeBag)
+
+                // 1초 후에 버튼 다시 활성화
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    isButtonDisabled = false
+                }
+            }
+        }) {
+            buttonText
+        }
+        .disabled(isButtonDisabled)
+    }
+    
+    private var buttonText : some View {
+        Text("추가")
+            .font(.system(size: 14, weight: .medium))
+            .foregroundStyle(.white)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
+            .background(
+                !isButtonDisabled ? Color.blue : Color.gray
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 8))
     }
     
     private var row : some View {
@@ -142,7 +142,7 @@ struct ShuttleRow: View {
                 Circle()
                     .frame(width: 30, height: 30)
                     .foregroundStyle(.white)
-                Text("\(time.id)")
+                Text("\(time.id + 1)")
                     .font(.system(size: 20, weight: .bold))
                     .foregroundStyle(Color("RowNumColor"))
             }

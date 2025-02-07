@@ -12,33 +12,47 @@ class ShuttleViewViewModel : ObservableObject {
 
     private let arrivalTimeRepository = ArrivalTimeRepository()
     
+    private var disposeBag = DisposeBag()
+    
     @Published var timeList : [ShuttleTime] = []
 
-    @Published var arrivalTimeModels: [ArrivalTimeList] = []
+    @Published var arrivalTimeList: [ArrivalTimeList] = []
     
     init() {
         setList()
     }
 
-    func saveArrivalTime(busId: Int, date: Date, isHoliday: Bool){
+    func saveArrivalTime(busId: Int, date: Date, isHoliday: Bool) -> Single<Dictionary<String,String>>{
         let requestDTO = SaveArrivalTimeRequestDTO(busId: busId, arrivalTime: date, isHoliday: isHoliday)
-        arrivalTimeRepository.saveArrivalTime(requestDTO: requestDTO)
-        
-        // Convert date to string
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        let timeString = formatter.string(from: date)
-        
-        // Update or add the arrival time model
-        if let index = arrivalTimeModels.firstIndex(where: { $0.timeId == busId }) {
-            arrivalTimeModels[index].arrivalTimes.append(timeString)
-        } else {
-            arrivalTimeModels.append(ArrivalTimeModel(timeId: busId, arrivalTimes: [timeString]))
-        }
+        return arrivalTimeRepository.saveArrivalTime(requestDTO: requestDTO)
     }
-
-    func getArrivalTimes(for timeId: Int) -> [String] {
-        return arrivalTimeModels.first(where: { $0.timeId == timeId })?.arrivalTimes ?? []
+    
+    func loadArrivalTimeByBusId(busId: Int) {
+        arrivalTimeRepository.getArrivalTimes(busId: busId)
+            .subscribe { [weak self] dtoList in
+                guard let self = self else {return}
+                var updatedList = self.arrivalTimeList
+                updatedList[busId].arrivalTimes = dtoList.map { $0.time }
+                self.arrivalTimeList = updatedList
+            } onFailure: { error in
+                print(error)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func loadAllArrivalTimeList() {
+        arrivalTimeRepository.getAllArrivalTimes()
+            .subscribe { [weak self] list in
+                guard let self = self else {return}
+                var updatedList = self.arrivalTimeList
+                for i in list {
+                    updatedList[i.busId].arrivalTimes = i.arrivalTimes
+                }
+                self.arrivalTimeList = updatedList
+            } onFailure: { error in
+                print(error)
+            }
+            .disposed(by: disposeBag)
     }
     
     //LocalData의 json 파일 가져오기
@@ -70,6 +84,9 @@ class ShuttleViewViewModel : ObservableObject {
         if let data = load(){
             if let result = try? JSONDecoder().decode(ShuttleTimeList.self, from: data){
                 self.timeList = result.ShuttleTimes
+                // 셔틀 시간표(timeList) 만큼의 도착 예정 리스트(ArrivaTimeList)를 생성
+                let list = timeList.map{ ArrivalTimeList(timeId: $0.id) }
+                self.arrivalTimeList = list
             }
         }
     }

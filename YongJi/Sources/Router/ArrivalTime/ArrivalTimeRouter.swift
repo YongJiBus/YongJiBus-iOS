@@ -4,6 +4,7 @@ import Foundation
 enum ArrivalTimeRouter {
     case saveArrivalTime(SaveArrivalTimeRequestDTO)
     case getArrivalTimes(date: String, busId: Int)
+    case getAllArrivalTimes(date : String)
 }
 
 extension ArrivalTimeRouter: BaseRouter {
@@ -13,6 +14,8 @@ extension ArrivalTimeRouter: BaseRouter {
             .post
         case .getArrivalTimes:
             .get
+        case .getAllArrivalTimes:
+                .get
         }
     }
     
@@ -22,6 +25,8 @@ extension ArrivalTimeRouter: BaseRouter {
             "/arrivaltime/save"
         case let .getArrivalTimes(date, busId):
             "/arrivaltime/\(date)/\(busId)"
+        case let .getAllArrivalTimes(date):
+            "/arrivaltime/\(date)"
         }
     }
     
@@ -29,7 +34,7 @@ extension ArrivalTimeRouter: BaseRouter {
         switch self {
         case .saveArrivalTime(let request):
             .body(request)
-        case .getArrivalTimes:
+        case .getArrivalTimes, .getAllArrivalTimes:
                 .none
         }
     }

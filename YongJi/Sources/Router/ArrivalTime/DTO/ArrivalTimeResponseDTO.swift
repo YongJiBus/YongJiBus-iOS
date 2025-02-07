@@ -1,6 +1,6 @@
 import Foundation
 
 struct ArrivalTimeResponseDTO: Codable {
-    let shuttleId: Int
-    let arrivalTime: String
-} 
+    let busId: Int
+    let time: String
+}

@@ -9,12 +9,12 @@ import SwiftUI
 
 struct ShuttleTimeView: View {
     
-    @ObservedObject var viewModel = ShuttleViewViewModel()
+    @EnvironmentObject var viewModel: ShuttleViewViewModel
         
     var body: some View {
         ScrollViewReader { value in
             VStack{
-                listHeader()
+                listHeader
                 ScrollView{
                     ForEach(viewModel.timeList) { time in
                         ShuttleRow(time: time)
@@ -22,21 +22,18 @@ struct ShuttleTimeView: View {
                             .padding(.vertical, -2)
                             .id(time.id)
                             .environmentObject(viewModel)
-                        
                     }
                 }
                 
             }
             .onAppear{
-               viewModel.setList()
-                    value.scrollTo(viewModel.nearShuttle(), anchor: .top)
+                viewModel.loadAllArrivalTimeList()
+                value.scrollTo(viewModel.nearShuttle(), anchor: .top)
             }
         }
     }//body
-}
-
-struct listHeader : View{
-    var body: some View {
+    
+    var listHeader : some View {
         HStack{
             Text("순번")
                 .frame(width: 80)
@@ -67,9 +64,9 @@ struct listHeader : View{
     }
 }
 
-
-struct TimeView_Previews: PreviewProvider {
+struct ShuttleTimeView_Previews: PreviewProvider {
     static var previews: some View {
         ShuttleTimeView()
+            .environmentObject(ShuttleViewViewModel())
     }
 }

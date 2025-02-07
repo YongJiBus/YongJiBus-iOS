@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     @State var currentTab : String = "명지대역"
-    @StateObject var viewModel = AppViewModel()
+    @EnvironmentObject var appViewModel : AppViewModel
+    @EnvironmentObject var shuttleViewModel : ShuttleViewViewModel
 
     var body: some View {
         VStack{
@@ -22,6 +23,7 @@ struct ContentView: View {
                     }
                     .toolbarBackground(.white, for: .tabBar)
                     .tag("명지대역")
+                    .environmentObject(shuttleViewModel)
                 StationView()
                     .tabItem{
                         Image(systemName: "g.circle.fill")
@@ -36,16 +38,16 @@ struct ContentView: View {
                     }
                     .tag("설정")
             }
-            .environmentObject(viewModel)
+            .environmentObject(appViewModel)
             .ignoresSafeArea()
             .onAppear{
-                if viewModel.isHolidayAuto {
-                    viewModel.fetchDayType()
+                if appViewModel.isHolidayAuto {
+                    appViewModel.fetchDayType()
                 }
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
-                if viewModel.isHolidayAuto {
-                    viewModel.fetchDayType()
+                if appViewModel.isHolidayAuto {
+                    appViewModel.fetchDayType()
                 }
             }
         }
@@ -56,5 +58,7 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(ShuttleViewViewModel())
+            .environmentObject(AppViewModel())
     }
 }
