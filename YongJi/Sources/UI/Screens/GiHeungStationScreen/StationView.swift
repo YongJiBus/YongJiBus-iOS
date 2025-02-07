@@ -18,7 +18,6 @@ struct StationView: View {
             ScrollViewReader { value in
                 VStack{
                     if appViewModel.isHoliday {
-                        
                         StationHolidayView
                     } else {
                         topHeader()
@@ -46,6 +45,7 @@ struct StationView: View {
     
     var StationHolidayView : some View {
         Text("주말 및 공휴일에는 기흥 셔틀은 운행하지 않습니다.")
+            .background()
     }
 }
 struct topHeader : View {
