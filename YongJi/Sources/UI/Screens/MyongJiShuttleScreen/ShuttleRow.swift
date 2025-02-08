@@ -46,7 +46,6 @@ struct ShuttleRow: View {
                     withAnimation {
                         isExpanded.toggle()
                     }
-                    
                 }
             
             if isExpanded {

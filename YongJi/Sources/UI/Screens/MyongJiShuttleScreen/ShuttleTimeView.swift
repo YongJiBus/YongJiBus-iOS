@@ -27,6 +27,7 @@ struct ShuttleTimeView: View {
                 
             }
             .onAppear{
+                viewModel.setList()
                 viewModel.loadAllArrivalTimeList()
                 value.scrollTo(viewModel.nearShuttle(), anchor: .top)
             }
