@@ -26,10 +26,13 @@ struct ShuttleTimeView: View {
                 }
                 
             }
-            .onAppear{
+            .onAppear {
                 viewModel.setList()
                 viewModel.loadAllArrivalTimeList()
                 value.scrollTo(viewModel.nearShuttle(), anchor: .top)
+            }
+            .onAppear{
+
             }
         }
     }//body

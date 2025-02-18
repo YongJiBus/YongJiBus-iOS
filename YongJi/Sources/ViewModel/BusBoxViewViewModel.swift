@@ -29,6 +29,8 @@ class BusBoxViewViewModel : MyXMLParser , ObservableObject {
                                 self.text = time
                                 self.text.append(" 분 남음")
                             }
+                        } else {
+                            self.text = "운행 전"
                         }
                     }
                     completion()

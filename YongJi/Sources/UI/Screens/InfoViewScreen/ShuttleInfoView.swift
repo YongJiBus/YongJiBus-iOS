@@ -12,68 +12,157 @@ import MapKit
 //MARK: WORKING FOR UPDATE
 
 struct ShuttleInfoView: View {
-    //@Binding var modalState : Bool
     
     @ObservedObject var viewModel = InfoViewModel()
     
-    @State private var route : MKRoute?
+    @State private var routePolyline: MKPolyline?
+    
+    @State private var mapItem : MKMapItem?
+    
+    @State private var cameraPosition : MapCameraPosition = .automatic
 
     var body: some View {
-        //
-        OptionRow{
-            Text("곧 신기능으로 돌아올게요~!")
+        VStack(alignment: .leading,spacing: 20) {
+                map
+
+            Text("운행구간")
+                .font(.title2)
+                .fontWeight(.bold)
+                .foregroundStyle(Color.primary)
+                .padding(.leading)
+            ScrollView {
+                VStack(alignment: .leading) {
+                    Text("명지대 방향")
+                        .fontWeight(.bold)
+                    routeRow(mapPoints: viewModel.getUpwardRoute())
+                    Text("학교 방향")
+                        .fontWeight(.bold)
+                    routeRow(mapPoints: viewModel.getDownwardRoute())
+                }
+                .padding(.horizontal)
+            }
         }
-        
-//        VStack(alignment:.leading){
-//            Map{
-//                ForEach(viewModel.mapPoints){ mapPoint in
-//                    Annotation(mapPoint.name, coordinate: mapPoint.points) {
-//                        Circle().fill(Color("RowNumColor"))
-//                    }
-//                }
-//            }
-//            .onAppear(perform: {
-//                getDirections()
-//            })
-//            .mapStyle(.standard)
-//            .mapControls {
-//                MapUserLocationButton()
-//            }
-//            VStack{
-//                HStack{
-//                    Text("운행구간")
-//                        .font(.largeTitle)
-//                        .bold()
-//                    Spacer()
-//                }
-//                OptionRow{
-//                    Circle()
-//                        .frame(width: 10)
-//                        .foregroundStyle(.white)
-//                    VStack(alignment:.leading){
-//                        Text("버스관리사무소")
-//                        Text("상공회의소")
-//                        Text("진입로(럭스나인 앞)")
-//                        Text("경전철 명지대역")
-//                        Text("명지대역 사거리 정류장")
-//                        Text("진입로(역북동 주민센터)")
-//                        Text("이마트")
-//                        Text("명진당")
-//                        Text("제3공학관")
-//                        Text("함박관")
-//                        Text("창조관")
-//                        Text("버스관리사무소")
-//                    }
-//                    Spacer()
-//                }
-//            }
-//            .padding()
-//        }
-//            .frame(width: .infinity,height: .infinity)
     }
     
+    private func routeRow(mapPoints : [MapPoint]) -> some View {
+        ForEach(Array(mapPoints.enumerated()), id: \.element.id) { index, mapPoint in
+            VStack(spacing: 4) {
+                HStack {
+                    Circle()
+                        .frame(width: 10, height: 10)
+                        .foregroundStyle(Color("RowNumColor"))
+                        .shadow(radius: 1)
+                        .padding(.leading, 6)
+                    Text(mapPoint.getName())
+                        .font(.body)
+                        .foregroundStyle(Color.primary.opacity(0.9))
+                    Spacer()
+                }
+                .padding(.vertical, 12)
+                .frame(maxWidth: .infinity)
+                .background(Color("RowColor").opacity(0.5))
+                .clipShape(RoundedRectangle(cornerRadius: 15))
+                .onTapGesture {
+                    self.mapItem = MKMapItem(placemark: MKPlacemark(coordinate: mapPoint.points))
+                }
+                
+                if index < mapPoints.count - 1 {
+                    ArrowShape()
+                        .frame(width: 15, height: 20)
+                        .foregroundStyle(Color("RowColor").opacity(0.5))
+                        .padding(.top, -18)
+                }
+            }
+        }
+    }
     
-    func getDirections(){
+    // 화살표 도형 정의
+    struct ArrowShape: Shape {
+        func path(in rect: CGRect) -> Path {
+            var path = Path()
+            
+            // 화살표 기둥
+            path.move(to: CGPoint(x: rect.midX, y: rect.minY))
+            path.addLine(to: CGPoint(x: rect.midX, y: rect.maxY - rect.height/3))
+            
+            // 화살표 머리
+            path.move(to: CGPoint(x: rect.midX - rect.width/2, y: rect.maxY - rect.height/3))
+            path.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
+            path.addLine(to: CGPoint(x: rect.midX + rect.width/2, y: rect.maxY - rect.height/3))
+            
+            return path
+        }
+    }
+    
+    var map : some View {
+        Map(position: $cameraPosition){
+            ForEach(viewModel.mapPoints.filter {$0.direction != .empty}){ mapPoint in
+                Annotation(mapPoint.name, coordinate: mapPoint.points) {
+                    Image(systemName: "bus.fill")
+                        .resizable()
+                        .frame(width: 9, height: 9)
+                        .padding(3)
+                        .foregroundStyle(Color("RowNumColor"))
+                        .background(.white)
+                        .clipShape(Circle())
+                }
+            }
+            if let polyline = routePolyline {
+                MapPolyline(polyline)
+                    .stroke(Color.blue, lineWidth: 3)
+            }
+        }
+        .frame(height: UIScreen.main.bounds.height / 2)
+//        .task{
+//            await getDirections()
+//        }
+        .mapStyle(.standard)
+        .mapControls {
+            MapUserLocationButton()
+        }
+        .onChange(of: mapItem) {
+            self.cameraPosition = .item(mapItem!)
+        }
+    }
+}
+
+extension ShuttleInfoView {
+    private func getDirections() async {
+        let coordinates: [CLLocationCoordinate2D] = viewModel.mapPoints.map{ $0.points }
+        
+        guard coordinates.count >= 2 else { return }
+        
+        var routes: [MKRoute] = []
+        
+        var newCoors : [CLLocationCoordinate2D] = []
+        
+        
+        for i in 0..<coordinates.count - 1{
+            let sourcePlace = MKPlacemark(coordinate: coordinates[i])
+            let destinationPlace = MKPlacemark(coordinate: coordinates[i+1])
+            
+            let request = MKDirections.Request()
+            request.source = MKMapItem(placemark: sourcePlace)
+            request.destination = MKMapItem(placemark: destinationPlace)
+            request.transportType = .walking
+            
+            let directions = MKDirections(request: request)
+            
+            do {
+                let response = try await directions.calculate()
+                guard let route = response.routes.first else { return }
+                routes.append(route)
+                
+                let coords = route.polyline.coordinates()
+                newCoors.append(contentsOf: coords)
+                
+
+            } catch {
+                print("Error calculating directions: \(error.localizedDescription)")
+            }
+        }
+        
+        self.routePolyline = MKPolyline(coordinates: newCoors, count: newCoors.count)
     }
 }
 

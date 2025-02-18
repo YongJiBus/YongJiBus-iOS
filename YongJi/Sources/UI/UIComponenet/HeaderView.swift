@@ -20,11 +20,9 @@ struct HeaderView: View {
                 .frame(width: 25, height: 25)
                 .foregroundColor(.black)
                 .sheet(isPresented: self.$isModalPresented){
-                    NavigationView{
-                        ShuttleInfoView()
-                            .presentationCornerRadius(15)
-                    }
-                    .navigationTitle("셔틀상세정보")
+                    ShuttleInfoView()
+                        .presentationCornerRadius(15)
+                    
                 }
                 .onTapGesture {
                     isModalPresented.toggle()
