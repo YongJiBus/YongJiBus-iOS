@@ -26,9 +26,10 @@ class BusBoxViewViewModel : MyXMLParser , ObservableObject {
                             if num < 2 {
                                 self.text = "곧 도착"
                             } else {
-                                self.text = time
-                                self.text.append(" 분 남음")
+                                self.text = time + " 분 남음"
                             }
+                        } else {
+                            self.text = "운행 전"
                         }
                     }
                     completion()

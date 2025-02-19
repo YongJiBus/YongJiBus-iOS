@@ -2,7 +2,7 @@ import SwiftUI
 
 struct HeaderView: View {
     
-    @Binding var title : String
+    @Binding var topBarType : TopBarType
     
     @State private var isModalPresented = false
     
@@ -10,7 +10,7 @@ struct HeaderView: View {
     
     var body: some View {
         HStack{
-            Text(title)
+            Text(topBarType.text)
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .foregroundColor(.black)

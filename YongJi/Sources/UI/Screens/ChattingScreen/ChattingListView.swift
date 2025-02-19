@@ -8,8 +8,21 @@
 import SwiftUI
 
 struct ChattingListView: View {
+    @StateObject private var viewModel = ChattingListViewModel()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            ScrollView {
+                LazyVStack {
+                    ForEach(viewModel.chatRooms, id: \.name) { chatRoom in
+                        NavigationLink(destination: ChatRoomView(chatRoom: chatRoom)) {
+                            ChatListCell(chatRoom: chatRoom)
+                        }
+                    }
+                }
+                .padding(.horizontal)
+            }
+        }
     }
 }
 

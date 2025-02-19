@@ -8,40 +8,38 @@
 import SwiftUI
 
 struct ChatListCell: View {
+    let chatRoom: ChatRoom
 
     var body: some View {
-        ScrollView{
-            ForEach(0..<13) { _ in
-                rowExample
+        OptionRow{
+            VStack(alignment: .leading, spacing: 8) {
+                Text(chatRoom.name)
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .foregroundColor(.primary)
+                HStack {
+                    Image(systemName: "clock")
+                        .foregroundColor(.gray)
+                        .fontWeight(.bold)
+                    Text(chatRoom.time)
+                        .font(.body)
+                        .fontWeight(.bold)
+                        .foregroundColor(.secondary)
+                }
+            }
+            Spacer()
+            VStack {
+                Image(systemName: "person.3")
+                    .foregroundColor(.gray)
+                    .fontWeight(.bold)
+                Text("\(chatRoom.members)/\(chatRoom.maxMembers)")
+                    .font(.headline)
+                    .foregroundColor(.secondary)
             }
         }
-        Spacer()
-    }
-    
-    var rowExample : some View {
-        OptionRow(content: {
-            Text("채팅방 이름 오ㅓㅏ르르를")
-            Spacer()
-            VStack{
-                Text("시간")
-                    .fontWeight(.light)
-                    .font(.caption)
-                Text("10:00")
-            }
-            .padding(.trailing, 15)
-            
-            VStack{
-                Text("인원")
-                    .fontWeight(.light)
-                    .font(.caption)
-                Text("3/4")
-            }
-            
-        })
-        .padding(.horizontal)
     }
 }
 
 #Preview {
-    ChatListCell()
+    ChatListCell(chatRoom: ChatRoom(id: 1, name: "Sample Room", time: "10:00", members: 3))
 }
