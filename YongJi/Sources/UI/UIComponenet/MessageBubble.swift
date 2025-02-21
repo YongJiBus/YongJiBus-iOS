@@ -18,7 +18,6 @@ struct MessageBubble: View {
                     .background(Color.blue.opacity(0.1))
                     .cornerRadius(8)
                 
-                Spacer()
                 
                 Text(chatMessage.timestamp, style: .time)
                     .font(.subheadline)
@@ -31,5 +30,5 @@ struct MessageBubble: View {
 }
 
 #Preview {
-    MessageBubble(chatMessage: ChatMessage(id: 1, sender: "Alice", message: "Hello!sadfsdfesfwefwefsffssdfsdfsdfsdfsdafsdfsadfsdfdfasdf", timestamp: Date()))
+    MessageBubble(chatMessage: ChatMessage(id: 1, sender: "Alice", message: "Hellfsdafsasdf", timestamp: Date()))
 }
