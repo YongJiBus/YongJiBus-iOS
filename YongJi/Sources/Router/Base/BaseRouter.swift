@@ -40,7 +40,7 @@ extension BaseRouter {
         var request = request
         switch header {
         case .basic:
-            break
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         }
         return request
     }

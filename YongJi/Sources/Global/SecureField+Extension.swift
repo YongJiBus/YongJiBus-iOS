@@ -1,15 +1,14 @@
 //
-//  TextField+Extension.swift
+//  SecureField+Extension.swift
 //  YongJiBus
 //
-//  Created by 김도경 on 2/21/25.
+//  Created by 김도경 on 2/22/25.
 //  Copyright © 2025 yongjibus.org. All rights reserved.
 //
 
-import Foundation
 import SwiftUI
 
-extension TextField {
+extension SecureField {
     func coloredBackGround() -> some View {
         return self
             .textFieldStyle(PlainTextFieldStyle())
@@ -20,4 +19,3 @@ extension TextField {
             .autocapitalization(.none)
     }
 }
-

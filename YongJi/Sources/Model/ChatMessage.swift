@@ -1,6 +1,6 @@
 import Foundation
 
-struct ChatMessage: Identifiable {
+struct ChatMessage: Identifiable, Codable {
     let id : Int
     let sender: String
     let message: String

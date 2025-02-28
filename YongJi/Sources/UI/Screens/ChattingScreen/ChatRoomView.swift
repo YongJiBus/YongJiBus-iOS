@@ -2,12 +2,9 @@ import SwiftUI
 
 struct ChatRoomView: View {
     let chatRoom: ChatRoom
-    @State private var messages: [ChatMessage] = [
-        ChatMessage(id: 1, sender: "Alice", message: "Hello!", timestamp: Date()),
-        ChatMessage(id: 2, sender: "Bob", message: "How are you?", timestamp: Date()),
-        ChatMessage(id: 3, sender: "Alice", message: "Let's meet at the station.", timestamp: Date())
-    ]
+    @StateObject private var viewModel = ChatViewModel()
     @State private var newMessage: String = ""
+    @State private var messages: [ChatMessage] = []
 
     var body: some View {
         VStack {
@@ -37,13 +34,28 @@ struct ChatRoomView: View {
         }
         .navigationTitle(chatRoom.name)
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            connectToChat()
+        }
+        .onDisappear {
+            viewModel.disconnect()
+        }
+    }
+    
+    private func connectToChat() {
+        viewModel.connect()
+        // 채팅방 구독
+        viewModel.subscribeToRoom(roomId: chatRoom.id) { message in
+            // 새 메시지를 받았을 때 실행될 콜백
+            //messages.append(message)
+        }
     }
     
     private func sendMessage() {
         guard !newMessage.isEmpty else { return }
-        let newChatMessage = ChatMessage(id: messages.count + 1, sender: "You", message: newMessage, timestamp: Date())
-        messages.append(newChatMessage)
-        newMessage = ""
+        
+        viewModel.sendMessage(roomId: chatRoom.id, content: newMessage)
+        newMessage = "" // 입력 필드 초기화
     }
 }
 

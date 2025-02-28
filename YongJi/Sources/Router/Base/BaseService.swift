@@ -19,8 +19,8 @@ public class BaseService : NetworkService {
     let AFManager: Session = {
             var session = AF
             let configuration = URLSessionConfiguration.af.default
-//            let eventLogger = APILogger()
-            session = Session(configuration: configuration, eventMonitors: [])
+            let eventLogger = APILogger()
+            session = Session(configuration: configuration, eventMonitors: [eventLogger])
             return session
         }()
     
@@ -28,10 +28,12 @@ public class BaseService : NetworkService {
     
     func request<T:Decodable>( _ responseDTO : T.Type, router: BaseRouter) -> Single<T> {
         return Single<T>.create{ single in
-            self.AFManager.request(router).responseDecodable(of: T.self) { response in
+            self.AFManager.request(router)
+                .validate(statusCode: 200...299)
+                .responseDecodable(of: ApiResponse<T>.self) { response in
                 switch response.result {
                 case .success(let result):
-                    single(.success(result))
+                    single(.success(result.data))
                 case .failure(let error):
                     single(.failure(error))
                 }

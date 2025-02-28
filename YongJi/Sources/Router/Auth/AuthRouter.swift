@@ -9,6 +9,9 @@ enum AuthRouter {
 }
 
 extension AuthRouter: BaseRouter {
+    var baseURL: String {
+        APIKey.backendURL + "/auth"
+    }
     var method: HTTPMethod {
         switch self {
         case .sendAuthEmail, .verifyAuthCode, .signup, .login:

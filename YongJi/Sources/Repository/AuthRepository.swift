@@ -20,7 +20,7 @@ final class AuthRepository {
         return service.request(String.self, router: router)
     }
     
-    func signup(email: String, password: String, name: String, username: String) -> Single<String> {
+    func signup(email: String, password: String, name: String, username: String) -> Single<SignUpResponseDTO> {
         let dto = SignupRequestDTO(
             email: email,
             password: password,
@@ -28,7 +28,7 @@ final class AuthRepository {
             username: username
         )
         let router = AuthRouter.signup(dto)
-        return service.request(String.self, router: router)
+        return service.request(SignUpResponseDTO.self, router: router)
     }
     
     func login(email: String, password: String) -> Single<String> {

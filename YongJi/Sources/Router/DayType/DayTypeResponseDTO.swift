@@ -33,7 +33,7 @@ struct DayTypeResponseDTO : Decodable {
     private enum CodingKeys : String , CodingKey {
         case date = "date"
         case dateKind = "dateKind"
-        case isHoliday = "holiday"
+        case isHoliday = "isHoliday"
     }
 }
 
