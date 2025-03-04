@@ -48,7 +48,7 @@ struct ChatRoomView: View {
         }
     }
     private func isMyMessage(_ message: ChatMessage) -> Bool {
-        return message.sender == "테스트"
+        return message.sender == UserManager.shared.currentUser?.nickname
     }
     
     private func connectToChat() {

@@ -11,6 +11,7 @@ import RxSwift
 
 class LoginViewModel: ObservableObject , AuthViewModel{
 
+    let memberRepository = MemberRepository.shared
     private let disposeBag = DisposeBag()
     
     @Published var email = ""
@@ -58,14 +59,21 @@ class LoginViewModel: ObservableObject , AuthViewModel{
                     
                     do {
                         try self.saveAuthToken(token: token)
-                        
-                        // Fetch user info or use email as placeholder
-                        // In a real app, you might want to fetch user profile after login
-                        UserManager.shared.saveUser(
-                            email: self.email,
-                            name: "", // This would ideally come from a user profile API
-                            nickname: "" // This would ideally come from a user profile API
-                        )
+                        memberRepository.getCurrentMember()
+                            .subscribe(
+                                onSuccess: { [weak self] member in
+                                    guard let self = self else { return }
+                                    UserManager.shared.saveUser(
+                                        email: self.email,
+                                        name: member.name,
+                                        nickname: member.username
+                                    )
+                                },
+                                onFailure: { [weak self] error in
+                                    self?.errorMessage = "회원 정보 가져오기에 실패했습니다."
+                                }
+                            )
+                            .disposed(by: disposeBag)
                         isFinished = true
                     } catch {
                         self.errorMessage = "토큰 저장에 실패하였습니다\n다시시도해주세요"

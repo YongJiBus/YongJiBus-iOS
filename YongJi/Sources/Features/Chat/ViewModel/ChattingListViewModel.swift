@@ -27,7 +27,7 @@ class ChattingListViewModel: ObservableObject {
             }, onFailure: { [weak self] error in
                 guard let self = self else { return }
                 let error = error as? APIError
-                var errorMsg = error?.parseError()
+                let errorMsg = error?.parseError()
                 
                 DispatchQueue.main.async {
                     self.errorMessage = errorMsg
