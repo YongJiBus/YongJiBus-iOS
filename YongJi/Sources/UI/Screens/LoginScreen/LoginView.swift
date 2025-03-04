@@ -2,6 +2,8 @@ import SwiftUI
 
 struct LoginView: View {
     @StateObject private var viewModel = LoginViewModel()
+    @Environment(\.dismiss) private var dismiss
+    @State private var showingSignUp = false
     
     var body: some View {
         ZStack {
@@ -14,6 +16,15 @@ struct LoginView: View {
                         .foregroundColor(.black)
                         .padding()
                     Spacer()
+                    
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.title2)
+                            .foregroundColor(.black)
+                            .padding()
+                    }
                 }
                 
                 // Login Form
@@ -49,21 +60,40 @@ struct LoginView: View {
                 
                 // Login Button
                 Spacer()
-                Button {
-                    viewModel.login()
-                } label: {
-                    Text("로그인")
-                        .font(.title3)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 10)
-                        .background(viewModel.isFormValid ? Color("RowNumColor") : Color("RowNumColor").opacity(0.5))
-                        .cornerRadius(18)
+                VStack(spacing: 16) {
+                    Button {
+                        viewModel.login()
+                    } label: {
+                        Text("로그인")
+                            .font(.title3)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 10)
+                            .background(viewModel.isFormValid ? Color("RowNumColor") : Color("RowNumColor").opacity(0.5))
+                            .cornerRadius(18)
+                    }
+                    .disabled(!viewModel.isFormValid)
+                    
+                    // Sign Up Button
+                    Button {
+                        showingSignUp = true
+                    } label: {
+                        Text("계정이 없으신가요? 회원가입")
+                            .font(.subheadline)
+                            .foregroundColor(Color("RowNumColor"))
+                    }
                 }
-                .disabled(!viewModel.isFormValid)
                 .padding(.horizontal, 20)
                 .padding(.bottom, 20)
             }
+        }
+        .fullScreenCover(isPresented: $showingSignUp) {
+            SignUpView()
+                .onDisappear {
+                    if UserManager.shared.isUser {
+                        dismiss()
+                    }
+                }
         }
         .alert("오류", isPresented: .constant(viewModel.errorMessage != nil)) {
             Button("확인") {
@@ -71,6 +101,11 @@ struct LoginView: View {
             }
         } message: {
             Text(viewModel.errorMessage ?? "")
+        }
+        .onChange(of: viewModel.isFinished) { oldValue, newValue in
+            if newValue {
+                dismiss()
+            }
         }
     }
 }

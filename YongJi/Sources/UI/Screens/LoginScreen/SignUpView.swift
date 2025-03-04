@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SignUpView: View {
     @StateObject private var viewModel = SignUpViewModel()
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         ZStack {
@@ -14,6 +15,15 @@ struct SignUpView: View {
                         .foregroundColor(.black)
                         .padding()
                     Spacer()
+                    
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.title2)
+                            .foregroundColor(.black)
+                            .padding()
+                    }
                 }
                 
                 //Content            
@@ -33,6 +43,7 @@ struct SignUpView: View {
                 
                 //BottomButton
                 Spacer() 
+
                 Button {
                     withAnimation(.easeInOut(duration: 0.4)) {
                         viewModel.moveToNextStep()
@@ -57,6 +68,11 @@ struct SignUpView: View {
             }
         } message: {
             Text(viewModel.errorMessage ?? "")
+        }
+        .onChange(of: viewModel.isSignUpFinished) { oldValue, newValue in
+            if newValue {
+                dismiss()
+            }
         }
     }
     
@@ -182,7 +198,7 @@ struct SignUpView: View {
             }
             
             if viewModel.isEmailFilled {
-                Text("인증번호가 전송되었습니다.")
+                Text("인증번호가 이메일로 전송되었습니다.")
                     .font(.caption)
                     .foregroundColor(.gray)
                     .padding(.top, 4)

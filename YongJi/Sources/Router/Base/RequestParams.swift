@@ -9,4 +9,5 @@
 enum RequestParams {
     case query(_ parameter: Queriable)
     case body(_ parameter: Encodable)
+    case none
 }

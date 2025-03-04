@@ -19,6 +19,14 @@ class AppViewModel: ObservableObject {
     
     @Published var dateInfo : DateInfo = DateInfo(date: .now, dateKind: "평일")
     
+    var isLogin: Bool {
+        UserManager.shared.isLoggedIn
+    }
+    
+    var isUser: Bool {
+        UserManager.shared.isUser
+    }
+    
     public func fetchDayType() {
         DayTypeRepository.shared.getDayType()
             .subscribe(onSuccess: { [weak self] dto in

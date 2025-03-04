@@ -4,14 +4,20 @@ struct ChatRoomView: View {
     let chatRoom: ChatRoom
     @StateObject private var viewModel = ChatViewModel()
     @State private var newMessage: String = ""
-    @State private var messages: [ChatMessage] = []
 
     var body: some View {
         VStack {
-            List(messages) { chatMessage in
-                MessageBubble(chatMessage: chatMessage)
-                    .listRowSeparator(.hidden)
-                    .padding(.vertical, -10)
+            List(viewModel.messages) { chatMessage in
+                if isMyMessage(chatMessage){
+                    SenderMessageBubble(chatMessage: chatMessage)
+                        .listRowSeparator(.hidden)
+                        .padding(.vertical, -10)
+                } else {
+                    MessageBubble(chatMessage: chatMessage)
+                        .listRowSeparator(.hidden)
+                        .padding(.vertical, -10)
+                }
+
             }
             .listStyle(.plain)
             
@@ -41,14 +47,15 @@ struct ChatRoomView: View {
             viewModel.disconnect()
         }
     }
+    private func isMyMessage(_ message: ChatMessage) -> Bool {
+        return message.sender == "테스트"
+    }
     
     private func connectToChat() {
-        viewModel.connect()
+        viewModel.connectWebSocket()
         // 채팅방 구독
-        viewModel.subscribeToRoom(roomId: chatRoom.id) { message in
-            // 새 메시지를 받았을 때 실행될 콜백
-            //messages.append(message)
-        }
+        viewModel.subscribeToRoom(roomId: chatRoom.id)
+        viewModel.getChatMessages(roomId: chatRoom.id)
     }
     
     private func sendMessage() {
@@ -60,5 +67,5 @@ struct ChatRoomView: View {
 }
 
 #Preview {
-    ChatRoomView(chatRoom: ChatRoom(id: 1, name: "기흥역 가시죠", time: "10:00", members: 3))
+    ChatRoomView(chatRoom: ChatRoom(id: 1, name: "기흥역 가시죠", departureTime: "12:30" , members: 3))
 }

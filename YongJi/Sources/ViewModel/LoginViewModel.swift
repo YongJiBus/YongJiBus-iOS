@@ -9,13 +9,15 @@
 import Foundation
 import RxSwift
 
-class LoginViewModel: ObservableObject {
+class LoginViewModel: ObservableObject , AuthViewModel{
+
     private let disposeBag = DisposeBag()
     
     @Published var email = ""
     @Published var password = ""
     @Published var errorMessage: String?
     @Published var isFormValid = false
+    @Published var isFinished = false
     
     private var isEmailValid = false
     private var isPasswordValid = false
@@ -48,11 +50,26 @@ class LoginViewModel: ObservableObject {
         isFormValid = isEmailValid && isPasswordValid
     }
     
-    func login() {
-        AuthRepository.shared.login(email: email, password: password)
+    func login(){
+        AuthRepository.shared.login(email: self.email, password: self.password)
             .subscribe(
                 onSuccess: { [weak self] token in
-                    // TODO: 토큰 저장 및 로그인 성공 처리
+                    guard let self = self else { return }
+                    
+                    do {
+                        try self.saveAuthToken(token: token)
+                        
+                        // Fetch user info or use email as placeholder
+                        // In a real app, you might want to fetch user profile after login
+                        UserManager.shared.saveUser(
+                            email: self.email,
+                            name: "", // This would ideally come from a user profile API
+                            nickname: "" // This would ideally come from a user profile API
+                        )
+                        isFinished = true
+                    } catch {
+                        self.errorMessage = "토큰 저장에 실패하였습니다\n다시시도해주세요"
+                    }
                 },
                 onFailure: { [weak self] error in
                     self?.errorMessage = "로그인에 실패했습니다.\n이메일과 비밀번호를 확인해주세요."

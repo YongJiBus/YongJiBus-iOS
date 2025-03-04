@@ -2,8 +2,9 @@ import Foundation
 import RxSwift
 
 
-class SignUpViewModel: ObservableObject {
+class SignUpViewModel: ObservableObject , AuthViewModel{
     private let authRepository = AuthRepository.shared
+    private let userManager = UserManager.shared
     private let disposeBag = DisposeBag()
     
     @Published var email: String = ""
@@ -17,6 +18,7 @@ class SignUpViewModel: ObservableObject {
     @Published var passwordConfirm: String = ""
     @Published var isNickNameNotDuplicated = false
     @Published var errorMessage : String?
+    @Published var isSignUpFinished = false
     
     var isStep1Valid: Bool {
         return isEmailVerified
@@ -150,8 +152,24 @@ class SignUpViewModel: ObservableObject {
         )
         .observe(on: MainScheduler.instance)
         .subscribe(
-            onSuccess: { [weak self] _ in
-                // TODO: 회원가입 성공 후 처리 (예: 로그인 화면으로 이동)
+            onSuccess: { [weak self] token in
+                guard let self = self else { return }
+                
+                do {
+                    try self.saveAuthToken(token: token)
+                    
+                    // Save user information
+                    self.userManager.saveUser(
+                        email: self.email,
+                        name: self.name,
+                        nickname: self.nickname
+                    )
+                    
+                    self.isSignUpFinished = true
+                } catch {
+                    self.errorMessage = "토큰 저장에 실패하였습니다\n다시시도해주세요"
+                }
+                
             },
             onFailure: { [weak self] error in
                 self?.errorMessage = "회원가입에 실패하였습니다\n다시시도해주세요"

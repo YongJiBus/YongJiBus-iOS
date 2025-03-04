@@ -8,6 +8,8 @@ struct HeaderView: View {
     
     @State var imageName = "info.circle"
     
+    @EnvironmentObject var appViewModel: AppViewModel
+    
     var body: some View {
         HStack{
             Text(topBarType.text)
@@ -19,7 +21,7 @@ struct HeaderView: View {
                 .resizable()
                 .frame(width: 25, height: 25)
                 .foregroundColor(.black)
-                .navigationDestination(isPresented: $isModalPresented, destination: {
+                .fullScreenCover(isPresented: $isModalPresented) {
                     switch topBarType {
                     case .MyongJi:
                         ShuttleInfoView()
@@ -31,28 +33,13 @@ struct HeaderView: View {
                         ShuttleInfoView()
                             .presentationCornerRadius(15)
                     case .Setting:
-                        SignUpView()
+                        if appViewModel.isLogin {
+                            UserView()
+                        }  else {
+                            LoginView()
+                        }
                     }
-                })
-//                .sheet(isPresented: self.$isModalPresented){
-//                    NavigationView{
-//                        switch topBarType {
-//                        case .MyongJi:
-//                            ShuttleInfoView()
-//                                .presentationCornerRadius(15)
-//                        case .Giheung:
-//                            ShuttleInfoView()
-//                                .presentationCornerRadius(15)
-//                        case .Taxi:
-//                            ShuttleInfoView()
-//                                .presentationCornerRadius(15)
-//                        case .Setting:
-//                            SignUpView()
-//                        }
-//
-//                    }
-//                    .navigationTitle("셔틀상세정보")
-//                }
+                }
                 .onTapGesture {
                     isModalPresented.toggle()
                 }

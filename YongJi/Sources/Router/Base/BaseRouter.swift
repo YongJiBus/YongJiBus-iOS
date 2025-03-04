@@ -38,9 +38,15 @@ extension BaseRouter {
     
     private func makeHeaderForRequest(to request: URLRequest) -> URLRequest {
         var request = request
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         switch header {
-        case .basic:
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        case .auth:
+            // Get access token from SecureDataManager
+            let accessToken = SecureDataManager.shared.getData(label: .accessToken)
+            // Add Bearer token to Authorization header
+            request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        default:
+            break
         }
         return request
     }
@@ -56,6 +62,8 @@ extension BaseRouter {
         case .body(let parameters):
             let body = try JSONEncoder().encode(parameters)
             request.httpBody = body
+        case .none:
+            break
         }
         return request
     }

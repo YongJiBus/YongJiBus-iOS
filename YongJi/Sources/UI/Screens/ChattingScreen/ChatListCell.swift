@@ -21,7 +21,7 @@ struct ChatListCell: View {
                     Image(systemName: "clock")
                         .foregroundColor(.gray)
                         .fontWeight(.bold)
-                    Text(chatRoom.time)
+                    Text("\(chatRoom.departureTime)")
                         .font(.body)
                         .fontWeight(.bold)
                         .foregroundColor(.secondary)
@@ -32,7 +32,7 @@ struct ChatListCell: View {
                 Image(systemName: "person.3")
                     .foregroundColor(.gray)
                     .fontWeight(.bold)
-                Text("\(chatRoom.members)/\(chatRoom.maxMembers)")
+                Text("\(chatRoom.members)/5")
                     .font(.headline)
                     .foregroundColor(.secondary)
             }
@@ -41,5 +41,5 @@ struct ChatListCell: View {
 }
 
 #Preview {
-    ChatListCell(chatRoom: ChatRoom(id: 1, name: "Sample Room", time: "10:00", members: 3))
+    ChatListCell(chatRoom: ChatRoom(id: 1, name: "Sample Room",departureTime: "12:00", members: 3))
 }

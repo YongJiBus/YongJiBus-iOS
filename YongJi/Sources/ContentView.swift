@@ -44,7 +44,6 @@ struct ContentView: View {
                         }
                         .tag(TopBarType.Setting)
                 }
-                .environmentObject(viewModel)
                 .ignoresSafeArea()
                 .onAppear{
                     if viewModel.isHolidayAuto {
@@ -57,6 +56,7 @@ struct ContentView: View {
                     }
                 }
             }
+            .environmentObject(viewModel)
             .background(.white)
         }
     }
