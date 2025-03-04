@@ -46,7 +46,7 @@ class WebSocketService {
         
         // STOMP 연결 프레임 전송
         sendToServer(message: stompConnectFrame)
-        
+        isConnected = true
         // 메시지 수신 시작
         receiveMessage()
     }
@@ -99,10 +99,8 @@ class WebSocketService {
         webSocketTask?.send(message) { error in
             if let error = error {
                 self.isConnected = false
-                print("웹소켓 메시지 전송 실패: \(error)")
             } else {
                 self.isConnected = true
-                print("메시지 전송 성공")
             }
         }
     }
@@ -142,7 +140,6 @@ class WebSocketService {
         
         switch command {
         case "CONNECTED":
-            print("STOMP 연결 성공")
             isConnected = true
         case "MESSAGE":
             if let data = body.data(using: .utf8) {
