@@ -9,6 +9,7 @@ enum BusNumber : String, CaseIterable {
     case oneA
     case oneB
     case zero
+//    case six
 }
 
 extension BusNumber {
@@ -20,6 +21,8 @@ extension BusNumber {
             return "5001-1A"
         case .oneB :
             return "5001-1B"
+//        case .six:
+//            return "5600"
         }
     }
     
@@ -31,6 +34,8 @@ extension BusNumber {
             return "228000430"
         case .oneB:
             return "228000177"
+//        case .six:
+//            return "228000184"
         }
     }
 }

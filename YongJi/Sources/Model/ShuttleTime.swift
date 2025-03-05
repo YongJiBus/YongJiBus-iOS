@@ -12,21 +12,20 @@ struct ShuttleTimeList : Codable{
 }
 
 struct ShuttleTime : Identifiable, Codable {
-    let id = UUID()
-    let count : String
+    let id : Int
     let type : String?
     let startTime : String
     let predTime : String
     
-    init(count: String, type: String?, startTime: String, predTime: String) {
-        self.count = count
+    init(id: Int, type: String?, startTime: String, predTime: String) {
+        self.id = id
         self.type = type
         self.startTime = startTime
         self.predTime = predTime
     }
     
     private enum CodingKeys : String , CodingKey {
-        case count = "순번"
+        case id = "순번"
         case type = "운행 구분"
         case startTime = "출발 시각"
         case predTime = "진입로경유 예정 시간"

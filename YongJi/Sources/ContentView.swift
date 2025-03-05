@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var currentTab : String = "명지대역"
-    @StateObject var viewModel = AppViewModel()
+    @State var currentTab : TopBarType = .MyongJi
+    @EnvironmentObject var appViewModel : AppViewModel
+    @EnvironmentObject var shuttleViewModel : ShuttleViewViewModel
 
     var body: some View {
         VStack{
-            HeaderView(title: $currentTab)
+            HeaderView(topBarType: $currentTab)
             TabView(selection: $currentTab){
                 ShuttleView()
                     .tabItem {
@@ -21,34 +22,36 @@ struct ContentView: View {
                         Text("명지대역")
                     }
                     .toolbarBackground(.white, for: .tabBar)
-                    .tag("명지대역")
+                    .tag(TopBarType.MyongJi)
+                    .environmentObject(shuttleViewModel)
                 StationView()
                     .tabItem{
                         Image(systemName: "g.circle.fill")
                         Text("기흥역")
                     }
                     .toolbarBackground(.white, for: .tabBar)
-                    .tag("기흥역")
+                    .tag(TopBarType.Giheung)
                 SettingView()
                     .tabItem {
                         Image(systemName: "s.circle.fill")
                         Text("설정")
                     }
-                    .tag("설정")
+                    .tag(TopBarType.Setting)
             }
-            .environmentObject(viewModel)
+            
             .ignoresSafeArea()
             .onAppear{
-                if viewModel.isHolidayAuto {
-                    viewModel.fetchDayType()
+                if appViewModel.isHolidayAuto {
+                    appViewModel.fetchDayType()
                 }
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
-                if viewModel.isHolidayAuto {
-                    viewModel.fetchDayType()
+                if appViewModel.isHolidayAuto {
+                    appViewModel.fetchDayType()
                 }
             }
         }
+        .environmentObject(appViewModel)
         .background(.white)
     }
 }
@@ -56,5 +59,7 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(ShuttleViewViewModel())
+            .environmentObject(AppViewModel())
     }
 }

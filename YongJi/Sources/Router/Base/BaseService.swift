@@ -17,12 +17,12 @@ protocol NetworkService {
 public class BaseService : NetworkService {
     
     let AFManager: Session = {
-            var session = AF
-            let configuration = URLSessionConfiguration.af.default
-//            let eventLogger = APILogger()
-            session = Session(configuration: configuration, eventMonitors: [])
-            return session
-        }()
+        var session = AF
+        let configuration = URLSessionConfiguration.af.default
+        let eventLogger = APILogger()
+        session = Session(configuration: configuration, eventMonitors: [])
+        return session
+    }()
     
     public init(){}
     
