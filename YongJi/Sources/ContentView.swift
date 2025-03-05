@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var currentTab : String = "명지대역"
+    @State var currentTab : TopBarType = .MyongJi
     @EnvironmentObject var appViewModel : AppViewModel
     @EnvironmentObject var shuttleViewModel : ShuttleViewViewModel
 
     var body: some View {
         VStack{
-            HeaderView(title: $currentTab)
+            HeaderView(topBarType: $currentTab)
             TabView(selection: $currentTab){
                 ShuttleView()
                     .tabItem {
@@ -22,7 +22,7 @@ struct ContentView: View {
                         Text("명지대역")
                     }
                     .toolbarBackground(.white, for: .tabBar)
-                    .tag("명지대역")
+                    .tag(TopBarType.MyongJi)
                     .environmentObject(shuttleViewModel)
                 StationView()
                     .tabItem{
@@ -30,15 +30,15 @@ struct ContentView: View {
                         Text("기흥역")
                     }
                     .toolbarBackground(.white, for: .tabBar)
-                    .tag("기흥역")
+                    .tag(TopBarType.Giheung)
                 SettingView()
                     .tabItem {
                         Image(systemName: "s.circle.fill")
                         Text("설정")
                     }
-                    .tag("설정")
+                    .tag(TopBarType.Setting)
             }
-            .environmentObject(appViewModel)
+            
             .ignoresSafeArea()
             .onAppear{
                 if appViewModel.isHolidayAuto {
@@ -51,6 +51,7 @@ struct ContentView: View {
                 }
             }
         }
+        .environmentObject(appViewModel)
         .background(.white)
     }
 }

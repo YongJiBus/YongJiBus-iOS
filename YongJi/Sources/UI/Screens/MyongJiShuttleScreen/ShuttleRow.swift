@@ -44,7 +44,7 @@ struct ShuttleRow: View {
             row
                 .onTapGesture {
                     withAnimation {
-                        isExpanded.toggle()
+                        //isExpanded.toggle()
                     }
                 }
             

@@ -20,7 +20,7 @@ public class BaseService : NetworkService {
         var session = AF
         let configuration = URLSessionConfiguration.af.default
         let eventLogger = APILogger()
-        session = Session(configuration: configuration, eventMonitors: [eventLogger])
+        session = Session(configuration: configuration, eventMonitors: [])
         return session
     }()
     

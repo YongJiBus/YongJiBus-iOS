@@ -35,7 +35,7 @@ class ShuttleViewViewModel : ObservableObject {
                 updatedList[busId].arrivalTimes = dtoList.map { $0.time }
                 self.arrivalTimeList = updatedList
             } onFailure: { error in
-                print(error)
+                //print(error)
             }
             .disposed(by: disposeBag)
     }
@@ -50,7 +50,7 @@ class ShuttleViewViewModel : ObservableObject {
                 }
                 self.arrivalTimeList = updatedList
             } onFailure: { error in
-                print(error)
+                //print(error)
             }
             .disposed(by: disposeBag)
     }
