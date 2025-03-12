@@ -13,6 +13,7 @@ import RxSwift
 enum TokenType : String {
     case accessToken
     case refreshToken
+    case fcmToken
 }
 
 enum KeychainError: Error {
@@ -42,6 +43,13 @@ class SecureDataManager {
             } else if accessStatus == errSecDuplicateItem || refreshStatus == errSecDuplicateItem {
                 throw KeychainError.unhandledError(status: accessStatus)
             }
+    }
+    
+    func saveFcmToken(fcmToken : String) throws {
+        let fcmStatus = self.setData(fcmToken, label: .fcmToken)
+        if fcmStatus == errSecDuplicateItem {
+            throw KeychainError.unhandledError(status: fcmStatus)
+        }
     }
     
     internal func setData(_ token: String, label : TokenType)-> OSStatus {

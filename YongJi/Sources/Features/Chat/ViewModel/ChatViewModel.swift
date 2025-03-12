@@ -11,6 +11,11 @@ import RxSwift
 
 class ChatViewModel : ObservableObject {
     @Published var messages: [ChatMessage] = []
+    @Published var errorMessage: String? = nil
+    @Published var showError: Bool = false
+    @Published var showNewMessageBanner: Bool = false
+
+    
     private let webSocketService: WebSocketService
     private let chatRepository: ChatRepository
     private let disposeBag = DisposeBag()
@@ -21,9 +26,19 @@ class ChatViewModel : ObservableObject {
         self.chatRepository = ChatRepository.shared
         webSocketService.messageSubject
             .observe(on: MainScheduler.instance)
-            .subscribe { message in
-                print("메시지 수신: \(message)")
+            .withUnretained(self)
+            .subscribe { _, message in
                 self.messages.append(message)
+            }
+            .disposed(by: disposeBag)
+        
+        webSocketService.errorSubject
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] error in
+                if let message = error.element {
+                    self?.errorMessage = message
+                    self?.showError = true
+                }
             }
             .disposed(by: disposeBag)
     }
@@ -35,23 +50,31 @@ class ChatViewModel : ObservableObject {
     func subscribeToRoom(roomId: Int64) {
         self.currentRoomId = roomId
         webSocketService.subscribeToRoom(roomId: roomId)
+        webSocketService.setActiveRoom(roomId: roomId)
+    }
 
+    func unsetActiveRoom() {
+        webSocketService.unsetActiveRoom()
     }
     
     func sendMessage(roomId: Int64, content: String) {
-        webSocketService.sendMessage(roomId: roomId, content: content)
+        webSocketService.sendChatMessage(roomId: roomId, content: content)
     }
 
     func getChatMessages(roomId: Int64) {
         chatRepository.getChatMessages(roomId: roomId)
-            .subscribe { chatMessages in
-                self.messages = chatMessages.map{ $0.toModel() }
-            }
+            .subscribe(onSuccess: { messagesDTO in
+                self.messages = messagesDTO.map{ $0.toModel() }
+            })
             .disposed(by: disposeBag)
     }
     
     /// 연결 종료
     func disconnect() {
         webSocketService.disconnect()
+    }
+    
+    func dismissNewMessageBanner() {
+        showNewMessageBanner = false
     }
 }

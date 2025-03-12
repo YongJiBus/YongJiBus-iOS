@@ -1,6 +1,7 @@
-CountriesSwiftUI/
 ## For API Key
 APIKey.swift
+YongJiBus.entitlements
+YongJi/Sources/GoogleService-Info.plist
 # Created by https://www.gitignore.io/api/swift,macos
 
 ### macOS ###
@@ -115,3 +116,6 @@ Tuist/Dependencies/graph.json
 # Tuist Cloud
 TuistCloud
 !make/tasks/cloud
+
+# Firebase
+GoogleService-Info.plist

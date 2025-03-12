@@ -68,4 +68,4 @@ class ChattingListViewModel: ObservableObject {
             })
             .disposed(by: disposeBag)
     }
-} 
+}

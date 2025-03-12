@@ -28,4 +28,15 @@ final class ChatRepository {
         let router = ChatRouter.getChatMessages(roomId: roomId)
         return service.request([ChatMessageResponseDTO].self, router: router)
     }
+
+    func registerFCMToken(token: String) -> Single<String> {
+        let router = ChatRouter.registerFCMToken(FCMTokenRegisterDTO(token: token))
+        return service.request(String.self, router: router)
+    }
+    
+    func removeFCMToken() -> Single<String> {
+        let router = ChatRouter.removeFCMToken
+        return service.request(String.self, router: router)
+    }
+    
 } 

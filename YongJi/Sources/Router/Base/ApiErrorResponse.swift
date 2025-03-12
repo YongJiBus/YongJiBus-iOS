@@ -23,9 +23,9 @@ extension APIError {
         switch self {
         case APIError.serverError(let errorResponse):
             "🚨 서버 오류: \(errorResponse.status) - \(errorResponse.data)"
-        case APIError.decodingError(let decodingError):
+        case APIError.decodingError(_):
             "📛 디코딩 오류: 다시시도해주세요"
-        case APIError.networkError(let afError):
+        case APIError.networkError(_):
             "🌐 네트워크 오류: 다시시도해주세요"
         }
     }

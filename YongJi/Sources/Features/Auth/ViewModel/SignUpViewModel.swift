@@ -164,8 +164,8 @@ class SignUpViewModel: ObservableObject , AuthViewModel{
                         name: self.name,
                         nickname: self.nickname
                     )
-                    
-                    self.isSignUpFinished = true
+                    self.registerFCMToken()
+
                 } catch {
                     self.errorMessage = "토큰 저장에 실패하였습니다\n다시시도해주세요"
                 }
@@ -176,5 +176,18 @@ class SignUpViewModel: ObservableObject , AuthViewModel{
             }
         )
         .disposed(by: disposeBag)
+    }
+    
+    func registerFCMToken(){
+        let token = SecureDataManager.shared.getData(label: .fcmToken)
+        
+        ChatRepository.shared.registerFCMToken(token: token)
+            .subscribe { _ in
+                self.isSignUpFinished = true
+            } onFailure: { error in
+                self.errorMessage = "등록 오류 다시 가입해주세요"
+            }
+            .disposed(by: disposeBag)
+
     }
 }

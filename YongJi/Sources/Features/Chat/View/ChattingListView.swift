@@ -13,15 +13,18 @@ struct ChattingListView: View {
     @State private var newChatName = ""
     @State private var departureDate = Date.now
     @State private var isCreatingChat = false
+    @State private var selectedChatRoom: ChatRoom?
+    @State private var navigateToChat = false
     
     var body: some View {
         NavigationView {
             ScrollView {
                 LazyVStack {
                     ForEach(viewModel.chatRooms, id: \.name) { chatRoom in
-                        NavigationLink(destination: ChatRoomView(chatRoom: chatRoom)) {
-                            ChatListCell(chatRoom: chatRoom)
-                        }
+                        ChatListCell(chatRoom: chatRoom)
+                            .onTapGesture {
+                                joinAndNavigate(to: chatRoom)
+                            }
                     }
                     
                     // 로딩 상태 표시
@@ -65,6 +68,11 @@ struct ChattingListView: View {
                 .padding(25),
                 alignment: .bottomTrailing
             )
+        }
+        .navigationDestination(isPresented: $navigateToChat) {
+            if let selectedRoom = selectedChatRoom {
+                ChattingView(chatRoom: selectedRoom)
+            }
         }
     }
     
@@ -150,6 +158,19 @@ struct ChattingListView: View {
                     .foregroundColor(Color("RowNumColor").opacity(0.9))
             }
             )
+        }
+    }
+    
+    private func joinAndNavigate(to chatRoom: ChatRoom) {
+        viewModel.joinChatRoom(roomId: chatRoom.id) { result in
+            switch result {
+            case .success:
+                selectedChatRoom = chatRoom
+                navigateToChat = true
+            case .failure:
+                // 에러 처리는 ViewModel에서 처리됨
+                break
+            }
         }
     }
 }

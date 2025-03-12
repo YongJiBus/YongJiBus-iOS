@@ -6,6 +6,8 @@ enum ChatRouter {
     case createChatRoom(ChatRoomCreateDTO)
     case joinChatRoom(roomId: Int64)
     case getChatMessages(roomId: Int64)
+    case registerFCMToken(FCMTokenRegisterDTO)
+    case removeFCMToken
 }
 
 extension ChatRouter: BaseRouter {
@@ -17,7 +19,7 @@ extension ChatRouter: BaseRouter {
         switch self {
         case .getAllChatRooms, .getChatMessages:
             return .get
-        case .createChatRoom, .joinChatRoom:
+        case .createChatRoom, .joinChatRoom, .registerFCMToken, .removeFCMToken:
             return .post
         }
     }
@@ -32,6 +34,10 @@ extension ChatRouter: BaseRouter {
             return "/rooms/\(roomId)"
         case .getChatMessages(let roomId):
             return "/rooms/\(roomId)/messages"
+        case .registerFCMToken:
+            return "/fcm-token"
+        case .removeFCMToken:
+            return "/fcm-token/remove"
         }
     }
     
@@ -42,6 +48,10 @@ extension ChatRouter: BaseRouter {
         case .createChatRoom(let dto):
             return .body(dto)
         case .joinChatRoom:
+            return .none
+        case .registerFCMToken(let dto):
+            return .body(dto)
+        case .removeFCMToken:
             return .none
         }
     }
