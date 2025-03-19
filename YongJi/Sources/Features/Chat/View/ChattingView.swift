@@ -1,83 +1,52 @@
 import SwiftUI
+import RxSwift
 
 struct ChattingView: View {
     let chatRoom: ChatRoom
     
     @Environment(\.dismiss) private var dismiss
-    @StateObject private var viewModel = ChatViewModel()
+    @ObservedObject private var viewModel : ChatViewModel
     
     @State private var newMessage: String = ""
-    @State private var scrollPosition: Int64? = 0
-    @State private var scrollProxy: ScrollViewProxy? = nil
+    @State private var reportReason: String = ""
+    @State private var isMenuShowing: Bool = false
+    @State private var showLeaveAlert: Bool = false
+    
+    init(chatRoom : ChatRoom){
+        self.chatRoom = chatRoom
+        self.viewModel = ChatViewModel(chatRoom: chatRoom)
+    }
 
     var body: some View {
         VStack {
-            ScrollViewReader { proxy in
-                ScrollView {
-                    LazyVStack{
-                        ForEach(viewModel.messages) { chatMessage in
-                            if isMyMessage(chatMessage) {
-                                SenderMessageBubble(chatMessage: chatMessage)
-                                    .padding(.vertical,0)
-                                    .listRowSeparator(.hidden)
-                                    .id(chatMessage.id)
-                            } else {
-                                MessageBubble(chatMessage: chatMessage)
-                                    .padding(.vertical, 0)
-                                    .listRowSeparator(.hidden)
-                                    .id(chatMessage.id)
-                            }
-                        }
-                    }
-                    .scrollTargetLayout()
-                    .padding(.horizontal)
-                }
-                .scrollPosition(id: $scrollPosition, anchor: .bottom)
-                .overlay(content: {
-                    Text("\(self.scrollPosition!)")
-                })
-                // 새로운 메시지 알림있을 때 확인하면 제거
-                .onChange(of: scrollPosition, { _, newValue in
-                    if newValue == viewModel.messages.last?.id {
-                        viewModel.dismissNewMessageBanner()
-                    }
-                })
-                .onChange(of: viewModel.messages, { _, messages in
-                    if let lastMessage = messages.last {
-                        if isMyMessage(lastMessage) || scrollPosition! == lastMessage.id - 1 {
-                            withAnimation {
-                                scrollPosition = lastMessage.id
-                                proxy.scrollTo(lastMessage.id, anchor: .bottom)
-                            }
-                        } else {
-                            viewModel.showNewMessageBanner = true
-                        }
-                    }
-                })
-                .onAppear {
-                    self.scrollProxy = proxy
-                    if let lastId = viewModel.messages.last?.id {
-                        proxy.scrollTo(lastId, anchor: .bottom)
-                    }
-                }
-                
-                if viewModel.showNewMessageBanner {
-                    NewMessageBar
-                }
-            }
-            
+            MessageListView(viewModel: viewModel, chatRoom: chatRoom)
             //채팅 UI
             ChattingTextField
         }
+        .onDisappear{
+            viewModel.unsetActiveRoom()
+        }
         .navigationTitle(chatRoom.name)
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear {
-            connectToChat()
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    showLeaveAlert = true
+                } label: {
+                    Image(systemName: "rectangle.portrait.and.arrow.right")
+                        .font(.system(size: 14))
+                        .foregroundColor(.red)
+                }
+            }
         }
-        .onDisappear {
-            print("ChattingView Disappera")
-            viewModel.unsetActiveRoom()
-            //viewModel.disconnect()
+        .alert("채팅방 나가기", isPresented: $showLeaveAlert) {
+            Button("취소", role: .cancel) {}
+            Button("나가기", role: .destructive) {
+                self.dismiss()
+                viewModel.leaveChat()
+            }
+        } message: {
+            Text("정말 이 채팅방을 나가시겠습니까? 모든 대화 내용이 삭제됩니다.")
         }
         .alert(isPresented: $viewModel.showError) {
             Alert(
@@ -88,26 +57,43 @@ struct ChattingView: View {
                 }
             )
         }
-    }
-    
-    private var NewMessageBar : some View {
-        Button(action: {
-            withAnimation {
-                scrollProxy?.scrollTo(viewModel.messages.last?.id, anchor: .bottom)
-                viewModel.dismissNewMessageBanner()
-                self.scrollPosition = viewModel.messages.last?.id
+        .alert("메시지 신고", isPresented: $viewModel.showReportAlert, actions: {
+            TextField("신고 사유를 입력해주세요", text: $reportReason)
+            
+            Button("취소", role: .cancel) {
+                reportReason = ""
+                viewModel.messageToReport = nil
             }
-        }) {
-            HStack {
-                Image(systemName: "arrow.down.circle.fill")
-                Text("새 메시지가 있습니다")
-                Spacer()
+            
+            Button("신고하기", role: .destructive) {
+                if let message = viewModel.messageToReport {
+                    viewModel.reportMessage(message: message, reason: reportReason)
+                }
+                reportReason = ""
             }
-            .padding()
-            .background(Color.blue.opacity(0.2))
-            .cornerRadius(8)
-            .padding(.horizontal)
+        }, message: {
+            Text("이 메시지를 신고하는 이유를 알려주세요.")
+        })
+        .overlay {
+            if viewModel.isReporting {
+                ProgressView("신고 처리 중...")
+                    .padding()
+                    .background(Color(.systemBackground).opacity(0.8))
+                    .cornerRadius(10)
+                    .shadow(radius: 10)
+            }
+            
+            if viewModel.reportSuccess {
+                Text("신고가 접수되었습니다")
+                    .padding()
+                    .background(Color.green.opacity(0.8))
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                    .shadow(radius: 10)
+                    .transition(.move(edge: .top).combined(with: .opacity))
+            }
         }
+
     }
     
     private var ChattingTextField : some View {
@@ -137,12 +123,6 @@ extension ChattingView {
         return message.sender == UserManager.shared.currentUser?.nickname
     }
     
-    private func connectToChat() {
-        viewModel.connectWebSocket()
-        viewModel.subscribeToRoom(roomId: chatRoom.id)
-        viewModel.getChatMessages(roomId: chatRoom.id)
-    }
-    
     private func sendMessage() {
         guard !newMessage.isEmpty else { return }
         
@@ -152,5 +132,5 @@ extension ChattingView {
 }
 
 #Preview {
-    ChattingView(chatRoom: ChatRoom(id: 1, name: "기흥역 가시죠", departureTime: "12:30" , members: 3))
+    //ChattingView(chatRoom: ChatRoom(id: 1, name: "기흥역 가시죠", departureTime: "12:30" , members: 3))
 }

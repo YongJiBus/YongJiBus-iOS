@@ -55,9 +55,9 @@ extension BaseRouter {
         var request = request
         switch parameter {
         case .query(let parameters):
-            let queryParams = parameters.toQueryParameter().map{ URLQueryItem(name: $0.key, value: $0.value) }
+            // 새로운 Queriable 프로토콜을 사용하여 queryItems 직접 사용
             var components = URLComponents(string: url.appendingPathComponent(path).absoluteString)
-            components?.queryItems = queryParams
+            components?.queryItems = parameters.queryItems
             request.url = components?.url
         case .body(let parameters):
             let body = try JSONEncoder().encode(parameters)

@@ -3,35 +3,46 @@ import RxSwift
 
 // ViewModel to manage chat rooms
 class ChattingListViewModel: ObservableObject {
-    @Published var chatRooms: [ChatRoom] = []
-    @Published var isLoading: Bool = false
-    @Published var errorMessage: String? = nil
+    @Published var myChatRooms: [ChatRoom] = []
+    @Published var allChatRooms: [ChatRoom] = []
+    @Published var errorMessage: String?
     
     private let chatRepository = ChatRepository.shared
     private let disposeBag = DisposeBag()
     
-    func fetchChatRooms() {
-        isLoading = true
-        errorMessage = nil
-        
+    // 내 채팅방만 가져오는 메서드
+    func fetchMyChatRooms() {
+        chatRepository.getMyChatRooms()
+            .subscribe(onSuccess: { [weak self] chatRoomDTOs in
+                guard let self = self else { return }
+                
+                let chatRooms = chatRoomDTOs.map { ChatRoom.fromDTO($0) }
+                
+                DispatchQueue.main.async {
+                    self.myChatRooms = chatRooms
+                }
+            }, onFailure: { [weak self] error in
+                DispatchQueue.main.async {
+                    self?.errorMessage = "내 채팅방 목록을 불러오는데 실패했습니다."
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    // 모든 채팅방 가져오는 메서드
+    func fetchAllChatRooms() {
         chatRepository.getAllChatRooms()
             .subscribe(onSuccess: { [weak self] chatRoomDTOs in
                 guard let self = self else { return }
                 
-                let rooms = chatRoomDTOs.map { ChatRoom.fromDTO($0) }
+                let chatRooms = chatRoomDTOs.map { ChatRoom.fromDTO($0) }
                 
                 DispatchQueue.main.async {
-                    self.chatRooms = rooms
-                    self.isLoading = false
+                    self.allChatRooms = chatRooms
                 }
             }, onFailure: { [weak self] error in
-                guard let self = self else { return }
-                let error = error as? APIError
-                let errorMsg = error?.parseError()
-                
                 DispatchQueue.main.async {
-                    self.errorMessage = errorMsg
-                    self.isLoading = false
+                    self?.errorMessage = "채팅방 목록을 불러오는데 실패했습니다. \(error.localizedDescription)"
                 }
             })
             .disposed(by: disposeBag)

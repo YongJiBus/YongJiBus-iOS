@@ -36,4 +36,14 @@ final class AuthRepository {
         let router = AuthRouter.login(dto)
         return service.request(AuthTokenDTO.self, router: router)
     }
+    
+    func logout() -> Single<String> {
+        let router = AuthRouter.logout
+        return service.request(String.self, router: router)
+    }
+    
+    func signout() -> Single<String> {
+        let router = AuthRouter.signout
+        return service.request(String.self, router: router)
+    }
 } 

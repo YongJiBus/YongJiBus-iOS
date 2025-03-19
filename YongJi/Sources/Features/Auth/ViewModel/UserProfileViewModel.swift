@@ -8,9 +8,11 @@
 
 
 import Foundation
+import RxSwift
 
 class UserProfileViewModel: ObservableObject {
     private let userManager = UserManager.shared
+    private let disposeBag = DisposeBag()
     
     @Published var userEmail: String = ""
     @Published var userName: String = ""
@@ -29,6 +31,24 @@ class UserProfileViewModel: ObservableObject {
     }
     
     func logout() {
-        userManager.logout()
+        AuthRepository.shared.logout()
+            .subscribe { [weak self] _ in
+                guard let self = self else { return }
+                self.userManager.logout()
+            } onFailure: { error in
+                print("로그아웃 실패: \(error.localizedDescription)")
+            }
+            .disposed(by: disposeBag)
+    }
+
+    func signout() {
+        AuthRepository.shared.signout()
+            .subscribe { [weak self] _ in
+                guard let self = self else { return }
+                self.userManager.signout()
+            } onFailure: { error in
+                print("회원탈퇴 실패: \(error.localizedDescription)")
+            }
+            .disposed(by: disposeBag)
     }
 }

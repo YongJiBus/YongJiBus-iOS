@@ -30,19 +30,18 @@ class SecureDataManager {
     let appName = "YongJi"
     
     private init(){
-        clearTokens()
     }
     
     func saveToken(authToken: AuthTokenDTO) throws {
-            
-            let accessStatus = self.setData(authToken.accessToken, label: .accessToken)
-            
-            let refreshStatus = self.setData(authToken.refreshToken, label: .refreshToken)
-            
-            if accessStatus == errSecSuccess && refreshStatus == errSecSuccess {
-            } else if accessStatus == errSecDuplicateItem || refreshStatus == errSecDuplicateItem {
-                throw KeychainError.unhandledError(status: accessStatus)
-            }
+        clearTokens()
+        let accessStatus = self.setData(authToken.accessToken, label: .accessToken)
+        
+        let refreshStatus = self.setData(authToken.refreshToken, label: .refreshToken)
+        
+        if accessStatus == errSecSuccess && refreshStatus == errSecSuccess {
+        } else if accessStatus == errSecDuplicateItem || refreshStatus == errSecDuplicateItem {
+            throw KeychainError.unhandledError(status: accessStatus)
+        }
     }
     
     func saveFcmToken(fcmToken : String) throws {

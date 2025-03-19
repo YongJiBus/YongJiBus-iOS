@@ -12,6 +12,7 @@ struct UserView: View {
     @StateObject private var viewModel = UserProfileViewModel()
     @Environment(\.dismiss) private var dismiss
     @State private var showingLogoutAlert = false
+    @State private var showingSignoutAlert = false
     
     var body: some View {
         VStack(spacing: 24) {
@@ -57,17 +58,28 @@ struct UserView: View {
             
             Spacer()
             
-            // Logout Button
-            Button {
-                showingLogoutAlert = true
-            } label: {
-                Text("로그아웃")
-                    .font(.title3)
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 10)
-                    .background(Color.red.opacity(0.8))
-                    .cornerRadius(18)
+            VStack(spacing: 24) {
+                // Logout Button
+                Button {
+                    showingLogoutAlert = true
+                } label: {
+                    Text("로그아웃")
+                        .font(.title3)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 10)
+                        .background(Color.red.opacity(0.8))
+                        .cornerRadius(18)
+                }
+                
+                // Signout Button
+                Button {
+                    showingSignoutAlert = true
+                } label: {
+                    Text("회원 탈퇴")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                }
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 20)
@@ -80,6 +92,15 @@ struct UserView: View {
             }
         } message: {
             Text("정말 로그아웃 하시겠습니까?")
+        }
+        .alert("회원 탈퇴", isPresented: $showingSignoutAlert) {
+            Button("취소", role: .cancel) {}
+            Button("탈퇴", role: .destructive) {
+                viewModel.signout()
+                dismiss()
+            }
+        } message: {
+            Text("정말 탈퇴하시겠습니까?\n모든 정보가 삭제되며 복구할 수 없습니다.")
         }
     }
     

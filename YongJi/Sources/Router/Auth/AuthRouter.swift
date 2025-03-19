@@ -6,6 +6,8 @@ enum AuthRouter {
     case verifyAuthCode(EmailVerifyRequestDTO)
     case signup(SignupRequestDTO)
     case login(LoginRequestDTO)
+    case logout
+    case signout
 }
 
 extension AuthRouter: BaseRouter {
@@ -16,6 +18,8 @@ extension AuthRouter: BaseRouter {
         switch self {
         case .sendAuthEmail, .verifyAuthCode, .signup, .login:
             return .post
+        case .logout, .signout:
+            return .delete
         }
     }
     
@@ -29,6 +33,10 @@ extension AuthRouter: BaseRouter {
             "/signup"
         case .login:
             "/login"
+        case .logout:
+            "/logout"
+        case .signout:
+            "/signout"
         }
     }
     
@@ -42,6 +50,19 @@ extension AuthRouter: BaseRouter {
             .body(dto)
         case .login(let dto):
             .body(dto)
+        case .logout:
+            .none
+        case .signout:
+            .none
+        }
+    }
+
+    var header: HeaderType {
+        switch self {
+        case .logout, .signout:
+            .auth
+        default:
+            .basic
         }
     }
 } 

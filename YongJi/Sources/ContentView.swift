@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State var currentTab : TopBarType = .MyongJi
-    @StateObject var viewModel = AppViewModel()
+    @StateObject var viewModel = AppViewModel.shared
 
     var body: some View {
         NavigationStack {

@@ -33,6 +33,9 @@ class WebSocketService {
     // 현재 활성화된 채팅방 ID
     private var activeRoomId: Int64?
     
+    // 이미 처리한 메시지 ID를 저장하는 Set 추가
+    private var processedMessageIds = Set<Int64>()
+    
     private init() {
         // 기본 URLSession 생성 (delegate, configuration 필요시 추가)
         self.urlSession = URLSession(configuration: .default)
@@ -50,12 +53,23 @@ class WebSocketService {
         sendMessageToServer(message: subscribeFrame)
     }
     
+    func unsubscribeRoom(roomId: Int64) {
+        let unsubscribeFrame = """
+        UNSUBSCRIBE
+        id: sub-\(roomId)
+        
+        \u{0000}
+        """
+        
+        sendMessageToServer(message: unsubscribeFrame)
+    }
+    
     func sendChatMessage(roomId: Int64, content: String) {
         let message = ChatMessageSendDTO(
+            messageType : .message,
             sender: UserManager.shared.currentUser?.nickname ?? "익명",
             content: content,
-            roomId: roomId,
-            createdAt: Date.now.ISO8601Format()
+            roomId: roomId
         )
         do {
             let data = try JSONEncoder().encode(message)
@@ -70,7 +84,7 @@ class WebSocketService {
     /// 웹소켓 연결 생성 및 STOMP 연결
     func connect() {
         // 웹소켓 서버 URL (ws:// 또는 wss://)
-        guard let url = URL(string: "ws://localhost:8080/ws-stomp") else {
+        guard let url = URL(string: APIKey.webSocketURL) else {
             print("Invalid URL")
             return
         }
@@ -176,11 +190,22 @@ class WebSocketService {
             } else if let data = body.data(using: .utf8) {
                 do {
                     let messageData = try JSONDecoder().decode(ChatMessageResponseDTO.self, from: data)
-                    // RxSwift Subject를 통해 메시지 전달
-                    messageSubject.onNext(messageData.toModel())
+                    
+                    let newMessage = messageData.toModel()
+                    
+                    // 이미 처리한 메시지인지 확인
+                    if !processedMessageIds.contains(newMessage.id) {
+                        processedMessageIds.insert(newMessage.id)
+                        messageSubject.onNext(newMessage)
+                        
+                        // 메모리 관리를 위해 최근 100개만 유지
+                        if processedMessageIds.count > 30 {
+                            processedMessageIds.remove(at: processedMessageIds.startIndex)
+                        }
+                    }
                     
                     // 현재 활성화된 채팅방이 아니면 푸시 알림 전송
-                    if messageData.roomId != activeRoomId {
+                    if (messageData.roomId != activeRoomId || activeRoomId == nil )  && messageData.messageType == .message{
                         sendLocalNotification(for: messageData)
                     }
                 } catch {
@@ -201,12 +226,17 @@ class WebSocketService {
         self.activeRoomId = nil
     }
     
+    func getActiveRoom() -> Int64? {
+        return self.activeRoomId
+    }
+    
     // 로컬 푸시 알림 전송
     private func sendLocalNotification(for message: ChatMessageResponseDTO) {
         let content = UNMutableNotificationContent()
         content.title = "용지버스"
         content.body = "\(message.sender): \(message.content)"
         content.sound = .default
+        content.userInfo = ["type" : "chat", "chatRoomId" : message.roomId]
         
         // 알림 요청 생성
         let request = UNNotificationRequest(
@@ -226,7 +256,6 @@ class WebSocketService {
     /// 연결 종료
     func disconnect() {
         if isConnected {
-            print("Websocket 정상 종료")
             let disconnectFrame = "DISCONNECT\n\n\u{0}"
             sendMessageToServer(message: disconnectFrame)
         }

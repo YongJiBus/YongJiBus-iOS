@@ -41,9 +41,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 // MARK: - MessagingDelegate
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        if let fcm = Messaging.messaging().fcmToken {
-            print("FUCKIN FCM IS HERE BABY", fcm)
-        }
         print("Firebase registration token: \(String(describing: fcmToken))")
         if let token = fcmToken {
             do {
@@ -59,7 +56,27 @@ extension AppDelegate: MessagingDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                               willPresent notification: UNNotification,
-                              withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([[.banner, .badge, .sound]])
+    }
+    
+    // 사용자가 알림을 탭했을 때 호출되는 메서드
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                              didReceive response: UNNotificationResponse,
+                              withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+        
+        // 채팅 알림인지 확인
+        if let type = userInfo["type"] as? String, type == "chat" {
+            // 채팅방 ID 추출
+            if let roomId = userInfo["chatRoomId"] as? Int64 {
+                // AppViewModel을 통해 채팅방으로 이동
+                DispatchQueue.main.async {
+                    AppViewModel.shared.navigateToChatRoom(roomId: roomId)
+                }
+            }
+        }
+        
+        completionHandler()
     }
 }

@@ -2,6 +2,9 @@ import Foundation
 import RxSwift
 
 class AppViewModel: ObservableObject {
+    public static let shared = AppViewModel()
+    
+    private let chatRoomRepository = ChatRepository.shared
     private let disposeBag = DisposeBag()
     
     // Observable property to track the day type
@@ -18,6 +21,10 @@ class AppViewModel: ObservableObject {
     }
     
     @Published var dateInfo : DateInfo = DateInfo(date: .now, dateKind: "평일")
+
+    //푸시 알림 네비게이션
+    @Published var shouldNavigateToChat: Bool = false
+    @Published var selectedChatRoom: ChatRoom?
     
     var isLogin: Bool {
         UserManager.shared.isLoggedIn
@@ -26,7 +33,25 @@ class AppViewModel: ObservableObject {
     var isUser: Bool {
         UserManager.shared.isUser
     }
-    
+
+}
+
+extension AppViewModel {
+
+    //푸시 알림 네비게이션
+    public func navigateToChatRoom(roomId: Int64) {
+        print("AppViewModel: NavtigateToChatRoom")
+        shouldNavigateToChat = true
+        chatRoomRepository.getChatRoom(roomId: roomId)
+            .subscribe(onSuccess: { [weak self] dto in
+                self?.selectedChatRoom = ChatRoom(id: dto.id, name: dto.name, departureTime: dto.departureTime, members: dto.userCount, createdAt: dto.createdAt)
+            }, onFailure: { [weak self] error in
+                self?.selectedChatRoom = nil
+            })
+            .disposed(by: disposeBag)
+    }
+
+    //평일 / 주말 설정
     public func fetchDayType() {
         DayTypeRepository.shared.getDayType()
             .subscribe(onSuccess: { [weak self] dto in
