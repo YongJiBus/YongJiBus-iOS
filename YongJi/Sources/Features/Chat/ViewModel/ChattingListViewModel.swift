@@ -42,7 +42,7 @@ class ChattingListViewModel: ObservableObject {
                 }
             }, onFailure: { [weak self] error in
                 DispatchQueue.main.async {
-                    self?.errorMessage = "채팅방 목록을 불러오는데 실패했습니다. \(error.localizedDescription)"
+                    self?.errorMessage = "채팅방 목록을 불러오는데 실패했습니다."
                 }
             })
             .disposed(by: disposeBag)

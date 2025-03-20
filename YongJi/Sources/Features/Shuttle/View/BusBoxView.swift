@@ -96,6 +96,6 @@ struct BusInfoView: View {
 
 struct BusBoxView_Previews: PreviewProvider {
     static var previews: some View {
-        BusBoxView(.zero)
+        BusBoxView(.oneA)
     }
 }

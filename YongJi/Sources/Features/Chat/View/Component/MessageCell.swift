@@ -30,12 +30,16 @@ struct MessageCell: View {
         // 같은 사용자인지 확인
         let sameSender = nextMessage.sender == chatMessage.sender
         
-        // 같은 시간대인지 확인 (1분 이내)
+        // 시간이 같은지 확인 (시와 분이 동일한지)
         let calendar = Calendar.current
-        let timeDifference = calendar.dateComponents([.minute], from: chatMessage.timestamp, to: nextMessage.timestamp)
-        let withinTimeFrame = timeDifference.minute ?? 0 < 1
+        let currentComponents = calendar.dateComponents([.hour, .minute], from: chatMessage.timestamp)
+        let nextComponents = calendar.dateComponents([.hour, .minute], from: nextMessage.timestamp)
         
-        return sameSender && withinTimeFrame && nextMessage.messageType == .message && chatMessage.messageType == .message
+        let sameHour = currentComponents.hour == nextComponents.hour
+        let sameMinute = currentComponents.minute == nextComponents.minute
+        let sameTime = sameHour && sameMinute
+        
+        return sameSender && sameTime && nextMessage.messageType == .message && chatMessage.messageType == .message
     }
     
     // 이전 메시지가 같은 사용자인지 확인하는 함수
@@ -45,12 +49,16 @@ struct MessageCell: View {
         // 같은 사용자인지 확인
         let sameSender = previousMessage.sender == chatMessage.sender
         
-        // 같은 시간대인지 확인 (1분 이내)
+        // 시간이 같은지 확인 (시와 분이 동일한지)
         let calendar = Calendar.current
-        let timeDifference = calendar.dateComponents([.minute], from: previousMessage.timestamp, to: chatMessage.timestamp)
-        let withinTimeFrame = timeDifference.minute ?? 0 < 1
+        let currentComponents = calendar.dateComponents([.hour, .minute], from: chatMessage.timestamp)
+        let prevComponents = calendar.dateComponents([.hour, .minute], from: previousMessage.timestamp)
         
-        return sameSender && withinTimeFrame && previousMessage.messageType == .message && chatMessage.messageType == .message
+        let sameHour = currentComponents.hour == prevComponents.hour
+        let sameMinute = currentComponents.minute == prevComponents.minute
+        let sameTime = sameHour && sameMinute
+        
+        return sameSender && sameTime && previousMessage.messageType == .message && chatMessage.messageType == .message
     }
     
     var body: some View {
@@ -66,7 +74,10 @@ struct MessageCell: View {
                 SystemWarningMessageBubble(chatMessage: chatMessage)
             } else if isMyMessage {
                 // 내가 보낸 메시지
-                SenderMessageBubble(chatMessage: chatMessage, showTimestamp: !hasNextContinuousMessage())
+                SenderMessageBubble(
+                    chatMessage: chatMessage, 
+                    showTimestamp: !hasNextContinuousMessage()
+                )
             } else {
                 // 상대방이 보낸 메시지
                 MessageBubble(

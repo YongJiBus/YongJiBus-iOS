@@ -21,7 +21,7 @@ struct StationTimeRow: View {
                 Circle()
                     .fill(Color("RowNumColor"))
                     .frame(width: 30, height: 30)
-                Text(String(stationTime.id))
+                Text(String(stationTime.id + 1))
                     .font(.system(size: 20, weight: .bold))
                     .foregroundColor(.white)
             }

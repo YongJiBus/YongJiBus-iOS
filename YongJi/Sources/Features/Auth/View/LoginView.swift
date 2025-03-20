@@ -72,7 +72,7 @@ struct LoginView: View {
                             .background(viewModel.isFormValid ? Color("RowNumColor") : Color("RowNumColor").opacity(0.5))
                             .cornerRadius(18)
                     }
-                    .disabled(!viewModel.isFormValid)
+                    .disabled(!viewModel.isFormValid || viewModel.isLoading)
                     
                     // Sign Up Button
                     Button {
@@ -82,9 +82,17 @@ struct LoginView: View {
                             .font(.subheadline)
                             .foregroundColor(Color("RowNumColor"))
                     }
+                    .disabled(viewModel.isLoading)
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 20)
+            }
+            .blur(radius: viewModel.isLoading ? 3 : 0)
+            .allowsHitTesting(!viewModel.isLoading)
+            
+            // 로딩 오버레이
+            if viewModel.isLoading {
+                loadingOverlay
             }
         }
         .fullScreenCover(isPresented: $showingSignUp) {
@@ -107,6 +115,25 @@ struct LoginView: View {
                 dismiss()
             }
         }
+    }
+    
+    private var loadingOverlay: some View {
+        VStack(spacing: 20) {
+            ProgressView()
+                .scaleEffect(1.5)
+                .tint(Color("RowNumColor"))
+            
+            Text("로그인 중...")
+                .font(.headline)
+                //.foregroundColor(Color("RowNumColor"))
+        }
+        .padding(25)
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(.ultraThinMaterial)
+                .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 0)
+        )
+        .transition(.opacity)
     }
 }
 

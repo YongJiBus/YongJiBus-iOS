@@ -16,14 +16,9 @@ final class DayTypeRepository {
     
     let service = BaseService()
     
-    func getDayType() -> Single<DayTypeResponseDTO>{
-        
+    func getDayType() -> Single<DayTypeResponseDTO> {
         let date = Date()
-        let formatter = DateFormatter()
-
-        formatter.dateFormat = "yyyy-MM-dd"
-        
-        let dto = DayTypeRequestDTO(value: formatter.string(from: date))
+        let dto = DayTypeRequestDTO(value: DateFormatter.yearMonthDay.string(from: date))
         let router = DayTypeRouter.getDayType(dto)
         return service.request(DayTypeResponseDTO.self, router: router)
     }

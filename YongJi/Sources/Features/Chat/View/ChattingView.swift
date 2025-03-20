@@ -19,7 +19,7 @@ struct ChattingView: View {
 
     var body: some View {
         VStack {
-            MessageListView(viewModel: viewModel, chatRoom: chatRoom)
+            ChatMessageListView(viewModel: viewModel, chatRoom: chatRoom)
             //채팅 UI
             ChattingTextField
         }

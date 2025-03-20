@@ -1,5 +1,5 @@
 //
-//  MessageListView.swift
+//  ChatMessageListView.swift
 //  YongJiBus
 //
 //  Created by 김도경 on 3/17/25.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct MessageListView: UIViewControllerRepresentable{
+struct ChatMessageListView: UIViewControllerRepresentable{
     typealias UIViewControllerType = ChatMessageListController
     private let viewModel : ChatViewModel
     private let chatRoom : ChatRoom

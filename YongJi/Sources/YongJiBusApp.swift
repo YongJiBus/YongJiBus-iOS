@@ -11,10 +11,14 @@ import SwiftUI
 @main
 struct YongJiBusApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject var appViewModel = AppViewModel()
+    @StateObject var shuttleViewModel = ShuttleViewViewModel()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(appViewModel)
+                .environmentObject(shuttleViewModel)
         }
     }
 }

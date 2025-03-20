@@ -9,32 +9,75 @@ import SwiftUI
 
 struct ShuttleTimeView: View {
     
-    @ObservedObject var viewModel = ShuttleViewViewModel()
+    @EnvironmentObject var viewModel: ShuttleViewViewModel
+    @State private var showInfoAt18 = false
         
     var body: some View {
         ScrollViewReader { value in
             VStack{
-                listHeader()
+                listHeader
                 ScrollView{
-                    ForEach(viewModel.timeList) { list in
-                        ShuttleRow(time: list)
-                            .padding(.horizontal)
-                            .padding(.vertical, -2)
-                            .id(Int(list.count))
+                    LazyVStack {
+                        ForEach(viewModel.timeList.indices, id: \.self) { index in
+                            let time = viewModel.timeList[index]
+                            
+                            // 18:00 바로 다음에 정보 배너 표시
+                            if time.id == 58 {
+                                importantInfoBanner
+                                    .padding(.horizontal)
+                                    .padding(.vertical, -2)
+                                    .onAppear {
+                                        showInfoAt18 = true
+                                    }
+                            }
+                            
+                            ShuttleRow(time: time)
+                                .padding(.horizontal)
+                                .padding(.vertical, -2)
+                                .id(time.id)
+                                .environmentObject(viewModel)
+                        }
                     }
                 }
-                
             }
-            .onAppear{
-               viewModel.setList()
-                    value.scrollTo(viewModel.nearShuttle(), anchor: .top)
+            .onAppear {
+                viewModel.setList()
+                showInfoAt18 = false
+                value.scrollTo(viewModel.nearShuttle(), anchor: .top)
             }
         }
     }//body
-}
-
-struct listHeader : View{
-    var body: some View {
+    
+    // 중요 정보 배너
+    private var importantInfoBanner: some View {
+        VStack(spacing: 8) {
+            
+            HStack(alignment: .top) {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .foregroundColor(Color("RowNumColor"))
+                    .font(.system(size: 16))
+                    .padding(.top, 3)
+                
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("※ 18:00 이후 시내셔틀은 제1공학관까지만 운행")
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                        .foregroundColor(.primary)
+                    
+                    Text("※ 18:00 이후 진입로셔틀은 명진당까지만 운행")
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                        .foregroundColor(.primary)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+        .padding(10)
+        .background(Color("RowNumColor").opacity(0.15))
+        .cornerRadius(10)
+    }
+    
+    var listHeader : some View {
         HStack{
             Text("순번")
                 .frame(width: 80)
@@ -65,9 +108,9 @@ struct listHeader : View{
     }
 }
 
-
-struct TimeView_Previews: PreviewProvider {
+struct ShuttleTimeView_Previews: PreviewProvider {
     static var previews: some View {
         ShuttleTimeView()
+            .environmentObject(ShuttleViewViewModel())
     }
 }

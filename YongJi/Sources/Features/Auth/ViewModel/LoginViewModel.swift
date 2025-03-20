@@ -19,6 +19,7 @@ class LoginViewModel: ObservableObject , AuthViewModel{
     @Published var errorMessage: String?
     @Published var isFormValid = false
     @Published var isFinished = false
+    @Published var isLoading = false
     
     private var isEmailValid = false
     private var isPasswordValid = false
@@ -52,6 +53,8 @@ class LoginViewModel: ObservableObject , AuthViewModel{
     }
     
     func login(){
+        isLoading = true
+        
         AuthRepository.shared.login(email: self.email, password: self.password)
             .subscribe(
                 onSuccess: { [weak self] token in
@@ -70,17 +73,22 @@ class LoginViewModel: ObservableObject , AuthViewModel{
                                     )
                                 },
                                 onFailure: { [weak self] error in
-                                    self?.errorMessage = "회원 정보 가져오기에 실패했습니다."
+                                    guard let self = self else { return }
+                                    self.isLoading = false
+                                    self.errorMessage = "회원 정보 가져오기에 실패했습니다."
                                 }
                             )
                             .disposed(by: disposeBag)
                         self.registerFCMToken()
                     } catch {
+                        self.isLoading = false
                         self.errorMessage = "토큰 저장에 실패하였습니다\n다시시도해주세요"
                     }
                 },
                 onFailure: { [weak self] error in
-                    self?.errorMessage = "로그인에 실패했습니다.\n이메일과 비밀번호를 확인해주세요."
+                    guard let self = self else { return }
+                    self.isLoading = false
+                    self.errorMessage = "로그인에 실패했습니다.\n이메일과 비밀번호를 확인해주세요."
                 }
             )
             .disposed(by: disposeBag)
@@ -91,9 +99,13 @@ class LoginViewModel: ObservableObject , AuthViewModel{
         let token = SecureDataManager.shared.getData(label: .fcmToken)
         
         ChatRepository.shared.registerFCMToken(token: token)
-            .subscribe { _ in
+            .subscribe { [weak self] _ in
+                guard let self = self else { return }
+                self.isLoading = false
                 self.isFinished = true
-            } onFailure: { error in
+            } onFailure: { [weak self] error in
+                guard let self = self else { return }
+                self.isLoading = false
                 self.errorMessage = "등록 오류 다시 가입해주세요"
             }
             .disposed(by: disposeBag)

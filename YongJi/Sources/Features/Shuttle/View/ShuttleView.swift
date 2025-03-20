@@ -9,26 +9,32 @@ import SwiftUI
 
 struct ShuttleView: View {
     
-    @EnvironmentObject var appViewModel : AppViewModel
-    
+    @EnvironmentObject var appViewModel: AppViewModel
+    @EnvironmentObject private var viewModel : ShuttleViewViewModel
+
     var body: some View {
-        VStack{
-            ScrollView(.horizontal,showsIndicators: false){
-                HStack{
-                    ForEach(BusNumber.allCases, id: \.self){ busNumber in
+        VStack(spacing: 0) {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    ForEach(BusNumber.allCases, id: \.self) { busNumber in
                         BusBoxView(busNumber)
                     }
                 } // HStack
             }
             .padding(.horizontal, 20)
+            .padding(.top, 12)
+            
             ShuttleTimeView()
-        }//VStack
+                .environmentObject(viewModel) // ViewModel 전달
+        }
         .background(.white)
-    }//body
+    }
 }
 
 struct MyongJiView_Previews: PreviewProvider {
     static var previews: some View {
         ShuttleView()
+            .environmentObject(AppViewModel())
+            .environmentObject(ShuttleViewViewModel())
     }
 }

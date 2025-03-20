@@ -24,6 +24,7 @@ struct SignUpView: View {
                             .foregroundColor(.black)
                             .padding()
                     }
+                    .disabled(viewModel.isLoading)
                 }
                 
                 //Content            
@@ -57,9 +58,16 @@ struct SignUpView: View {
                         .background(viewModel.isStepValid() ? Color("RowNumColor") : Color("RowNumColor").opacity(0.5))
                         .cornerRadius(18)
                 }
-                .disabled(!viewModel.isStepValid())
+                .disabled(!viewModel.isStepValid() || viewModel.isLoading)
                 .padding(.horizontal, 20)
                 .padding(.bottom, 20)
+            }
+            .blur(radius: viewModel.isLoading ? 3 : 0)
+            .allowsHitTesting(!viewModel.isLoading)
+            
+            // 로딩 오버레이
+            if viewModel.isLoading {
+                loadingOverlay
             }
         }
         .alert("오류", isPresented: .constant(viewModel.errorMessage != nil)) {
@@ -74,6 +82,26 @@ struct SignUpView: View {
                 dismiss()
             }
         }
+    }
+    
+    // 로딩 오버레이 뷰
+    private var loadingOverlay: some View {
+        VStack(spacing: 16) {
+            ProgressView()
+                .scaleEffect(1.5)
+                .tint(Color("RowNumColor"))
+            
+            Text("처리 중...")
+                .font(.headline)
+                .foregroundColor(Color("RowNumColor"))
+        }
+        .padding(25)
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(.ultraThinMaterial)
+                .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 0)
+        )
+        .transition(.opacity)
     }
     
     // 두 번째 단계의 회원가입 정보 입력 섹션
@@ -105,7 +133,7 @@ struct SignUpView: View {
                             viewModel.validateAndUpdateNickname(newValue)
                         }
                     
-                    SmallButton(title: "인증", isEnabled: viewModel.nickname.count >= 2 && !viewModel.isNickNameNotDuplicated) {
+                    SmallButton(title: "인증", isEnabled: viewModel.nickname.count >= 2 && !viewModel.isNickNameNotDuplicated && !viewModel.isLoading) {
                         viewModel.verifyNickName()
                     }
                 }
@@ -158,7 +186,7 @@ struct SignUpView: View {
                         viewModel.validateAndUpdateAuthCode(newValue)
                     }
 
-                SmallButton(title: "인증", isEnabled: viewModel.authCode.count == 6 && !viewModel.isEmailVerified) {
+                SmallButton(title: "인증", isEnabled: viewModel.authCode.count == 6 && !viewModel.isEmailVerified && !viewModel.isLoading) {
                     viewModel.verifyAuthCode()
                 }
             }
@@ -189,7 +217,7 @@ struct SignUpView: View {
                 
                 SmallButton(
                     title: "인증번호 전송",
-                    isEnabled: viewModel.isEmailValid
+                    isEnabled: viewModel.isEmailValid && !viewModel.isLoading
                 ) {
                     withAnimation(.easeInOut(duration: 0.4)) {
                         viewModel.verifyEmail()

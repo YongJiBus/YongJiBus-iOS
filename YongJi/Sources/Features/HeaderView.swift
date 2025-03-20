@@ -4,9 +4,10 @@ struct HeaderView: View {
     
     @Binding var topBarType : TopBarType
     
-    @State private var isModalPresented = false
+    @State private var isSheetPresented = false
+    @State private var isFullScreenPresented = false
     
-    @State var imageName = "info.circle"
+    @State var imageName = "map"
     
     @EnvironmentObject var appViewModel: AppViewModel
     
@@ -17,41 +18,45 @@ struct HeaderView: View {
                 .fontWeight(.bold)
                 .foregroundColor(.black)
             Spacer()
-            Image(systemName: imageName)
-                .resizable()
-                .frame(width: 25, height: 25)
-                .foregroundColor(.black)
-                .fullScreenCover(isPresented: $isModalPresented) {
-                    switch topBarType {
-                    case .MyongJi:
-                        ShuttleInfoView()
-                            .presentationCornerRadius(15)
-                    case .Giheung:
-                        ShuttleInfoView()
-                            .presentationCornerRadius(15)
-                    case .Taxi:
-                        ShuttleInfoView()
-                            .presentationCornerRadius(15)
-                    case .Setting:
-                        if appViewModel.isLogin {
-                            UserView()
-                        }  else {
-                            LoginView()
+            if topBarType != .Taxi {
+                Image(systemName: imageName)
+                    .resizable()
+                    .frame(width: 25, height: 25)
+                    .foregroundColor(.black)
+                    .sheet(isPresented: $isSheetPresented) {
+                        if topBarType == .MyongJi {
+                            ShuttleInfoView()
+                                .environmentObject(appViewModel)
+                        } else if topBarType == .Giheung {
+                            GiheungInfoView()
                         }
                     }
-                }
-                .onTapGesture {
-                    isModalPresented.toggle()
-                }
+                    .fullScreenCover(isPresented: $isFullScreenPresented) {
+                        if topBarType == .Setting {
+                            if appViewModel.isLogin {
+                                UserView()
+                            } else {
+                                LoginView()
+                            }
+                        }
+                    }
+                    .onTapGesture {
+                        if topBarType == .Setting {
+                            isFullScreenPresented.toggle()
+                        } else {
+                            isSheetPresented.toggle()
+                        }
+                    }
+            }
         }//Hstack
         .background(.white)
         .padding(.horizontal)
         .onChange(of: topBarType) {
             switch topBarType {
             case .MyongJi:
-                self.imageName = "info.circle"
+                self.imageName = "map"
             case .Giheung:
-                self.imageName = "info.circle"
+                self.imageName = "map"
             case .Taxi:
                 self.imageName = "info.circle"
             case .Setting:

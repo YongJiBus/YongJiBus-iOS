@@ -8,6 +8,7 @@ enum AuthRouter {
     case login(LoginRequestDTO)
     case logout
     case signout
+    case checkUsernameExists(String)
 }
 
 extension AuthRouter: BaseRouter {
@@ -20,6 +21,8 @@ extension AuthRouter: BaseRouter {
             return .post
         case .logout, .signout:
             return .delete
+        case .checkUsernameExists:
+            return .get
         }
     }
     
@@ -37,6 +40,8 @@ extension AuthRouter: BaseRouter {
             "/logout"
         case .signout:
             "/signout"
+        case .checkUsernameExists(let username):
+            "/username/\(username)/exists"
         }
     }
     
@@ -50,9 +55,7 @@ extension AuthRouter: BaseRouter {
             .body(dto)
         case .login(let dto):
             .body(dto)
-        case .logout:
-            .none
-        case .signout:
+        case .logout, .signout, .checkUsernameExists:
             .none
         }
     }

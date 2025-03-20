@@ -46,4 +46,9 @@ final class AuthRepository {
         let router = AuthRouter.signout
         return service.request(String.self, router: router)
     }
+    
+    func checkUsernameExists(username: String) -> Single<UsernameExistsResponseDTO> {
+        let router = AuthRouter.checkUsernameExists(username)
+        return service.request(UsernameExistsResponseDTO.self, router: router)
+    }
 } 

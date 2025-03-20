@@ -11,9 +11,27 @@ import Foundation
 extension Date {
     // ISO 8601 문자열을 Date로 변환
     static func fromISO8601(_ string: String) -> Date {
+        // 1. 정상적인 ISO 8601 형식 시도
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        return formatter.date(from: string) ?? .now
+        
+        // 2. 시간대 정보가 없는 경우 Z를 추가하여 시도
+        if let date = formatter.date(from: string + "Z") {
+            return date
+        }
+        
+        // 3. DateFormatter를 사용한 더 유연한 방법 시도
+        let backupFormatter = DateFormatter()
+        backupFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
+        backupFormatter.timeZone = TimeZone(identifier: "UTC")
+        
+        if let date = backupFormatter.date(from: string) {
+            return date
+        }
+        
+        // 4. 실패 시 현재 시간 반환
+        print("Failed to parse date: \(string)")
+        return .now
     }
     
     // Date를 ISO 8601 문자열로 변환

@@ -19,13 +19,14 @@ class SignUpViewModel: ObservableObject , AuthViewModel{
     @Published var isNickNameNotDuplicated = false
     @Published var errorMessage : String?
     @Published var isSignUpFinished = false
+    @Published var isLoading = false
     
     var isStep1Valid: Bool {
         return isEmailVerified
     }
     
     var isStep2Valid: Bool {
-        return !name.isEmpty && !nickname.isEmpty
+        return !name.isEmpty && !nickname.isEmpty && isNickNameNotDuplicated
     }
     
     var isStep3Valid: Bool {
@@ -110,13 +111,19 @@ class SignUpViewModel: ObservableObject , AuthViewModel{
     func verifyEmail() {
         guard isEmailValid else { return }
         
+        isLoading = true
+        
         authRepository.sendAuthEmail(email: email)
             .subscribe(
                 onSuccess: { [weak self] _ in
-                    self?.isEmailFilled = true
+                    guard let self = self else { return }
+                    self.isLoading = false
+                    self.isEmailFilled = true
                 },
                 onFailure: { [weak self] error in
-                    self?.errorMessage = "인증번호 발송에 실패하였습니다\n다시시도해주세요"
+                    guard let self = self else { return }
+                    self.isLoading = false
+                    self.errorMessage = "인증번호 발송에 실패하였습니다\n다시시도해주세요"
                 }
             )
             .disposed(by: disposeBag)
@@ -125,24 +132,55 @@ class SignUpViewModel: ObservableObject , AuthViewModel{
     func verifyAuthCode() {
         guard authCode.count == 6 else { return }
         
+        isLoading = true
+        
         authRepository.verifyAuthCode(email: email, code: authCode)
             .subscribe(
                 onSuccess: { [weak self] _ in
-                    self?.isEmailVerified = true
+                    guard let self = self else { return }
+                    self.isLoading = false
+                    self.isEmailVerified = true
                 },
                 onFailure: { [weak self] error in
-                    self?.errorMessage = "인증에 실패하였습니다\n다시시도해주세요"
+                    guard let self = self else { return }
+                    self.isLoading = false
+                    self.errorMessage = "인증에 실패하였습니다\n다시시도해주세요"
                 }
             )
             .disposed(by: disposeBag)
     }
     
     func verifyNickName() {
-        isNickNameNotDuplicated = true
+        guard nickname.count >= 2 else { return }
+        
+        isLoading = true
+        
+        authRepository.checkUsernameExists(username: nickname)
+            .subscribe(
+                onSuccess: { [weak self] response in
+                    guard let self = self else { return }
+                    self.isLoading = false
+                    if response.exists {
+                        self.errorMessage = "이미 사용 중인 닉네임입니다"
+                        self.isNickNameNotDuplicated = false
+                    } else {
+                        self.isNickNameNotDuplicated = true
+                    }
+                },
+                onFailure: { [weak self] error in
+                    guard let self = self else { return }
+                    self.isLoading = false
+                    self.errorMessage = "닉네임 확인에 실패하였습니다\n다시시도해주세요"
+                    self.isNickNameNotDuplicated = false
+                }
+            )
+            .disposed(by: disposeBag)
     }
     
     func signUp() {
         guard isStep3Valid else { return }
+        
+        isLoading = true
         
         authRepository.signup(
             email: email,
@@ -167,12 +205,15 @@ class SignUpViewModel: ObservableObject , AuthViewModel{
                     self.registerFCMToken()
 
                 } catch {
+                    self.isLoading = false
                     self.errorMessage = "토큰 저장에 실패하였습니다\n다시시도해주세요"
                 }
                 
             },
             onFailure: { [weak self] error in
-                self?.errorMessage = "회원가입에 실패하였습니다\n다시시도해주세요"
+                guard let self = self else { return }
+                self.isLoading = false
+                self.errorMessage = "회원가입에 실패하였습니다\n다시시도해주세요"
             }
         )
         .disposed(by: disposeBag)
@@ -182,12 +223,15 @@ class SignUpViewModel: ObservableObject , AuthViewModel{
         let token = SecureDataManager.shared.getData(label: .fcmToken)
         
         ChatRepository.shared.registerFCMToken(token: token)
-            .subscribe { _ in
+            .subscribe { [weak self] _ in
+                guard let self = self else { return }
+                self.isLoading = false
                 self.isSignUpFinished = true
-            } onFailure: { error in
+            } onFailure: { [weak self] error in
+                guard let self = self else { return }
+                self.isLoading = false
                 self.errorMessage = "등록 오류 다시 가입해주세요"
             }
             .disposed(by: disposeBag)
-
     }
 }
