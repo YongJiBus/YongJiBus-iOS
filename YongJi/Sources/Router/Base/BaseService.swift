@@ -20,7 +20,8 @@ public class BaseService : NetworkService {
         var session = AF
         let configuration = URLSessionConfiguration.af.default
         let eventLogger = APILogger()
-        session = Session(configuration: configuration, eventMonitors: [])
+        let interceptor = TokenRefreshInterceptor()
+        session = Session(configuration: configuration,interceptor: interceptor, eventMonitors: [])
         return session
     }()
     
@@ -28,13 +29,24 @@ public class BaseService : NetworkService {
     
     func request<T:Decodable>( _ responseDTO : T.Type, router: BaseRouter) -> Single<T> {
         return Single<T>.create{ single in
-            self.AFManager.request(router).responseDecodable(of: T.self) { response in
-                switch response.result {
-                case .success(let result):
-                    single(.success(result))
-                case .failure(let error):
-                    single(.failure(error))
-                }
+            self.AFManager.request(router)
+                .validate(statusCode: 200...299)
+                .responseDecodable(of: ApiResponse<T>.self) { response in
+                    switch response.result {
+                    case .success(let result):
+                        single(.success(result.data))
+                    case .failure(let error):
+                        if let data = response.data {
+                            do {
+                                let errorResponse = try JSONDecoder().decode(ApiErrorResponse.self, from: data)
+                                single(.failure(APIError.serverError(errorResponse)))
+                            } catch {
+                                single(.failure(APIError.decodingError(error))) // 파싱 실패
+                            }
+                        } else {
+                            single(.failure(APIError.networkError(error))) // 네트워크 에러
+                        }
+                    }
             }
             return Disposables.create {
             }

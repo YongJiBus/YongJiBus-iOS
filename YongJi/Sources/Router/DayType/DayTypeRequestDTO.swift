@@ -11,4 +11,8 @@ import Foundation
 struct DayTypeRequestDTO : Queriable {
     var key = "date"
     var value : String
+    
+    var queryItems: [URLQueryItem] {
+        return [URLQueryItem(name: key, value: value)]
+    }
 }

@@ -16,6 +16,7 @@ let package = Package(
     dependencies: [
         // Add your own dependencies here:
         .package(url: "https://github.com/Alamofire/Alamofire", from: "5.9.0"),
-        .package(url: "https://github.com/ReactiveX/RxSwift.git", from: "6.8.0")
+        .package(url: "https://github.com/ReactiveX/RxSwift.git", from: "6.8.0"),
+        .package(url: "https://github.com/firebase/firebase-ios-sdk.git", from: "10.4.0")
     ]
 )

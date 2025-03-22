@@ -7,8 +7,10 @@
 
 import SwiftUI
 
+
 @main
 struct YongJiBusApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var appViewModel = AppViewModel()
     @StateObject var shuttleViewModel = ShuttleViewViewModel()
     

@@ -3,6 +3,7 @@ import ProjectDescription
 let project = Project(
     name: "YongJiBus",
     organizationName: "yongjibus.org.",
+    settings: Settings.settings(base: ["OTHER_LDFLAGS":["-all_load -Objc"]]),
     targets: [
         .target(
             name: "YongJiBus",
@@ -15,7 +16,8 @@ let project = Project(
             resources: ["YongJi/Resources/**","YongJi/Sources/Data/*.json"],
             dependencies: [
                 .external(name: "Alamofire"),
-                .external(name: "RxSwift")
+                .external(name: "RxSwift"),
+                .external(name: "FirebaseMessaging")
             ]
         ),
         .target(

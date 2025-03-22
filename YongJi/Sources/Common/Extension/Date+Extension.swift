@@ -1,0 +1,101 @@
+//
+//  Date+Extension.swift
+//  YongJiBus
+//
+//  Created by Claude on 3/2/25.
+//  Copyright © 2025 yongjibus.org. All rights reserved.
+//
+
+import Foundation
+
+extension Date {
+    // ISO 8601 문자열을 Date로 변환
+    static func fromISO8601(_ string: String) -> Date {
+        // 1. 정상적인 ISO 8601 형식 시도
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        
+        // 2. 시간대 정보가 없는 경우 Z를 추가하여 시도
+        if let date = formatter.date(from: string + "Z") {
+            return date
+        }
+        
+        // 3. DateFormatter를 사용한 더 유연한 방법 시도
+        let backupFormatter = DateFormatter()
+        backupFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
+        backupFormatter.timeZone = TimeZone(identifier: "UTC")
+        
+        if let date = backupFormatter.date(from: string) {
+            return date
+        }
+        
+        // 4. 실패 시 현재 시간 반환
+        print("Failed to parse date: \(string)")
+        return .now
+    }
+    
+    // Date를 ISO 8601 문자열로 변환
+    func toISO8601() -> String {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        return formatter.string(from: self)
+    }
+    
+    // 날짜를 "HH:mm" 형식의 문자열로 변환
+    func toTimeString() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        return formatter.string(from: self)
+    }
+    
+    // 날짜를 "yyyy-MM-dd HH:mm" 형식의 문자열로 변환
+    func toDateTimeString() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        return formatter.string(from: self)
+    }
+    
+    // 현재 시간과의 차이를 문자열로 표현 (예: "방금 전", "1분 전", "1시간 전" 등)
+    func timeAgoDisplay() -> String {
+        let calendar = Calendar.current
+        let now = Date()
+        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: self, to: now)
+        
+        if let year = components.year, year > 0 {
+            return "\(year)년 전"
+        } else if let month = components.month, month > 0 {
+            return "\(month)개월 전"
+        } else if let day = components.day, day > 0 {
+            return "\(day)일 전"
+        } else if let hour = components.hour, hour > 0 {
+            return "\(hour)시간 전"
+        } else if let minute = components.minute, minute > 0 {
+            return "\(minute)분 전"
+        } else {
+            return "방금 전"
+        }
+    }
+    
+    // 오늘, 어제, 그제 등을 표시
+    func relativeDateDisplay() -> String {
+        let calendar = Calendar.current
+        let now = Date()
+        let components = calendar.dateComponents([.day], from: calendar.startOfDay(for: self), to: calendar.startOfDay(for: now))
+        
+        if let day = components.day {
+            switch day {
+            case 0:
+                return "오늘"
+            case 1:
+                return "어제"
+            case 2:
+                return "그제"
+            default:
+                let formatter = DateFormatter()
+                formatter.dateFormat = "MM월 dd일"
+                return formatter.string(from: self)
+            }
+        }
+        return toDateTimeString()
+    }
+}

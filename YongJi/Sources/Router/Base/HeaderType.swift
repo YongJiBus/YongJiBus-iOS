@@ -8,4 +8,5 @@
 
 enum HeaderType {
     case basic
+    case auth
 }
