@@ -19,7 +19,7 @@ class ChatViewModel : ObservableObject {
     @Published var isReporting: Bool = false
     @Published var reportSuccess: Bool = false
     @Published var isLoadingMore: Bool = false
-    @Published var hasMoreMessages: Bool = true
+    @Published var hasMoreMessages: Bool = false
     @Published var isFirstLoading = true
     @Published var shouldScrollToBottom: Bool = false
     

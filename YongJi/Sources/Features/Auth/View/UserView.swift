@@ -80,6 +80,7 @@ struct UserView: View {
                         .font(.subheadline)
                         .foregroundColor(.gray)
                 }
+                .padding(.top,-10)
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 20)

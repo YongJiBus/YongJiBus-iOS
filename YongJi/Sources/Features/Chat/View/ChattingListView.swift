@@ -66,6 +66,7 @@ struct ChattingListView: View {
             if let selectedRoom = appViewModel.selectedChatRoom {
                 ChattingView(chatRoom: selectedRoom)
                     .onDisappear {
+                        fetchAppropriateRooms()
                         appViewModel.shouldNavigateToChat = false
                     }
             }
@@ -77,7 +78,7 @@ struct ChattingListView: View {
             LoginView()
                 .onDisappear {
                     self.isLogin = appViewModel.isLogin
-                    if isLogin {
+                    if appViewModel.isLogin {
                         fetchAppropriateRooms()
                     }
                 }
@@ -146,86 +147,95 @@ struct ChattingListView: View {
     
     private var createChatRoomView: some View {
         NavigationView {
-            VStack(spacing: 0) {
-                // 상단 헤더 영역
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("새로운 채팅방 만들기")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                    
-                    Text("함께 이동할 친구들과 대화할 채팅방을 만들어보세요")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding()
-                .background(Color(.systemBackground))
+            ZStack {  // ZStack으로 변경하여 전체 화면에 탭 제스처를 추가
+                Color.clear  // 투명 배경으로 제스처 영역 확보
+                    .contentShape(Rectangle())  // 투명해도 탭 가능하게 함
+                    .onTapGesture {
+                        // 키보드 숨기기
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    }
                 
-                VStack(spacing: 24) {
-                    // 채팅방 이름 입력 필드
+                VStack(spacing: 0) {
+                    // 상단 헤더 영역
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("채팅방 이름")
-                            .font(.headline)
-                            .foregroundColor(.primary)
+                        Text("새로운 채팅방 만들기")
+                            .font(.title2)
+                            .fontWeight(.bold)
                         
-                        TextField("예: 기흥역에서 명진당", text: $newChatName)
-                            .coloredBackGround()
-                            .cornerRadius(10)
+                        Text("함께 이동할 친구들과 대화할 채팅방을 만들어보세요")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
                     }
-                    .padding(.horizontal)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding()
+                    .background(Color(.systemBackground))
                     
-                    // 출발 시간 선택
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("출발 시간")
-                            .font(.headline)
-                            .foregroundColor(.primary)
-                        
-                        DatePicker("", selection: $departureDate, displayedComponents: .hourAndMinute)
-                            .datePickerStyle(WheelDatePickerStyle())
-                            .labelsHidden()
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color("RowColor"))
-                            .cornerRadius(10)
-                    }
-                    .padding(.horizontal)
-                    
-                    Spacer()
-                    
-                    // 생성 버튼
-                    Button(action: createChatRoom) {
-                        HStack {
-                            Spacer()
-                            if isCreatingChat {
-                                ProgressView()
-                                    .progressViewStyle(CircularProgressViewStyle())
-                                    .foregroundColor(.white)
-                            } else {
-                                Text("채팅방 생성하기")
-                                    .fontWeight(.semibold)
-                                    .foregroundColor(.white)
-                            }
-                            Spacer()
+                    VStack(spacing: 24) {
+                        // 채팅방 이름 입력 필드
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("채팅방 이름")
+                                .font(.headline)
+                                .foregroundColor(.primary)
+                            
+                            TextField("예: 기흥역에서 명진당", text: $newChatName)
+                                .coloredBackGround()
+                                .cornerRadius(10)
                         }
-                        .padding()
-                        .background(newChatName.isEmpty ? Color("RowNumColor").opacity(0.4) : Color("RowNumColor").opacity(0.9))
-                        .cornerRadius(15)
                         .padding(.horizontal)
+                        
+                        // 출발 시간 선택
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("출발 시간")
+                                .font(.headline)
+                                .foregroundColor(.primary)
+                            
+                            DatePicker("", selection: $departureDate, displayedComponents: .hourAndMinute)
+                                .datePickerStyle(WheelDatePickerStyle())
+                                .labelsHidden()
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color("RowColor"))
+                                .cornerRadius(10)
+                        }
+                        .padding(.horizontal)
+                        
+                        Spacer()
+                        
+                        // 생성 버튼
+                        Button(action: createChatRoom) {
+                            HStack {
+                                Spacer()
+                                if isCreatingChat {
+                                    ProgressView()
+                                        .progressViewStyle(CircularProgressViewStyle())
+                                        .foregroundColor(.white)
+                                } else {
+                                    Text("채팅방 생성하기")
+                                        .fontWeight(.semibold)
+                                        .foregroundColor(.white)
+                                }
+                                Spacer()
+                            }
+                            .padding()
+                            .background(newChatName.isEmpty ? Color("RowNumColor").opacity(0.4) : Color("RowNumColor").opacity(0.9))
+                            .cornerRadius(15)
+                            .padding(.horizontal)
+                        }
+                        .disabled(newChatName.isEmpty || isCreatingChat)
+                        .padding(.bottom, 30)
                     }
-                    .disabled(newChatName.isEmpty || isCreatingChat)
-                    .padding(.bottom, 30)
+                    .padding(.top, 20)
                 }
-                .padding(.top, 20)
+                .navigationBarItems(trailing:
+                                        Button(action: {
+                        showingCreateChatSheet = false
+                    }) {
+                        Text("취소")
+                            .fontWeight(.medium)
+                            .foregroundColor(Color("RowNumColor").opacity(0.9))
+                    }
+                )
             }
-            .navigationBarItems(trailing:
-                                    Button(action: {
-                showingCreateChatSheet = false
-            }) {
-                Text("취소")
-                    .fontWeight(.medium)
-                    .foregroundColor(Color("RowNumColor").opacity(0.9))
-            }
-            )
         }
     }
     
@@ -348,7 +358,7 @@ struct ChattingListView: View {
         .animation(.spring(response: 0.3, dampingFraction: 0.7), value: selectedTab)
     }
     
-    // 채팅방 생성 버튼을 별도의 속성으로 분리
+    // 채팅방 생성 버튼
     private var createChatButton: some View {
         Button(action: {
             showingCreateChatSheet = true

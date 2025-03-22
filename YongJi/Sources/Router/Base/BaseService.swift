@@ -21,7 +21,7 @@ public class BaseService : NetworkService {
         let configuration = URLSessionConfiguration.af.default
         let eventLogger = APILogger()
         let interceptor = TokenRefreshInterceptor()
-        session = Session(configuration: configuration,interceptor: interceptor, eventMonitors: [eventLogger])
+        session = Session(configuration: configuration,interceptor: interceptor, eventMonitors: [])
         return session
     }()
     

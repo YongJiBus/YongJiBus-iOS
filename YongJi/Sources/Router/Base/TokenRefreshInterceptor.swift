@@ -13,7 +13,7 @@ final class TokenRefreshInterceptor: RequestInterceptor {
         
         // Check if the error is a 401 Unauthorized
         guard let response = request.response, response.statusCode == 401 else {
-            print("doNotRetry")
+            //print("doNotRetry")
             completion(.doNotRetry)
             return
         }

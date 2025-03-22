@@ -41,7 +41,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 // MARK: - MessagingDelegate
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        print("Firebase registration token: \(String(describing: fcmToken))")
+        //print("Firebase registration token: \(String(describing: fcmToken))")
         if let token = fcmToken {
             do {
                 try SecureDataManager.shared.saveFcmToken(fcmToken: token)

@@ -132,5 +132,5 @@ extension ChattingView {
 }
 
 #Preview {
-    //ChattingView(chatRoom: ChatRoom(id: 1, name: "기흥역 가시죠", departureTime: "12:30" , members: 3))
+    ChattingView(chatRoom: ChatRoom(id: 1, name: "기흥역 가시죠", departureTime: "12:30" , members: 3))
 }

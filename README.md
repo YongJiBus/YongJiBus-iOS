@@ -77,26 +77,6 @@ YongJi/
 - **ViewModel**: 인증 관련 비즈니스 로직
 - **Repository**: 인증 서버 통신
 
-## 개발 환경 설정
-
-1. Xcode 14.0 이상 설치
-2. Tuist 4.0 설치
-   ```
-   curl -Ls https://install.tuist.io | bash
-   tuist install 4.0.0
-   ```
-3. 프로젝트 클론
-   ```
-   git clone https://github.com/your-username/YongJiBus.git
-   ```
-4. 프로젝트 생성 (Tuist 사용)
-   ```
-   cd YongJiBus
-   tuist generate
-   ```
-5. 빌드 및 실행
-
-> **참고**: 이 프로젝트는 Tuist 4.0을 사용하여 의존성 관리와 프로젝트 설정을 코드로 관리합니다. Tuist에 대한 자세한 정보는 [공식 문서](https://docs.tuist.io/)를 참조하세요.
 
 ## 각 기능별 뷰 구성
 
@@ -129,3 +109,24 @@ YongJi/
 
 ### ⚙️ Settings (설정) 관련 뷰
 - **SettingView**: 앱 설정 화면 (평일/주말 모드, 알림 설정 등)
+
+## 개발 환경 설정
+
+1. Xcode 14.0 이상 설치
+2. Tuist 4.0 설치
+   ```
+   curl -Ls https://install.tuist.io | bash
+   tuist install 4.0.0
+   ```
+3. 프로젝트 클론
+   ```
+   git clone https://github.com/your-username/YongJiBus.git
+   ```
+4. 프로젝트 생성 (Tuist 사용)
+   ```
+   cd YongJiBus
+   tuist generate
+   ```
+5. 빌드 및 실행
+
+> **참고**: 이 프로젝트는 Tuist 4.0을 사용하여 의존성 관리와 프로젝트 설정을 코드로 관리합니다. Tuist에 대한 자세한 정보는 [공식 문서](https://docs.tuist.io/)를 참조하세요.
