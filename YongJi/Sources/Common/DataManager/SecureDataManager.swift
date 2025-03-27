@@ -34,6 +34,7 @@ class SecureDataManager {
     
     func saveToken(authToken: AuthTokenDTO) throws {
         clearTokens()
+
         let accessStatus = self.setData(authToken.accessToken, label: .accessToken)
         
         let refreshStatus = self.setData(authToken.refreshToken, label: .refreshToken)
@@ -45,8 +46,11 @@ class SecureDataManager {
     }
     
     func saveFcmToken(fcmToken : String) throws {
+        deleteToken(type: .fcmToken)
         let fcmStatus = self.setData(fcmToken, label: .fcmToken)
-        if fcmStatus == errSecDuplicateItem {
+
+        if fcmStatus == errSecSuccess {
+        } else if fcmStatus == errSecDuplicateItem {
             throw KeychainError.unhandledError(status: fcmStatus)
         }
     }
@@ -73,7 +77,6 @@ class SecureDataManager {
         
         if searchStatus == errSecSuccess {
             guard let token = result as? Data else { return "Error"}
-            print("SecureDataManager: 불러오기 성공")
             return String(data: token, encoding: String.Encoding.utf8)!
         } else {
             return "SecureDataManager: 불러오기 실패, status = \(searchStatus)"
