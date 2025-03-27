@@ -6,6 +6,7 @@
 //  Copyright © 2025 yongjibus.org. All rights reserved.
 //
 
+import FirebaseMessaging
 import Foundation
 import RxSwift
 
@@ -96,7 +97,14 @@ class LoginViewModel: ObservableObject , AuthViewModel{
     }
     
     func registerFCMToken(){
-        let token = SecureDataManager.shared.getData(label: .fcmToken)
+        var token = SecureDataManager.shared.getData(label: .fcmToken)
+        if token.contains("-25300"){
+            Messaging.messaging().token() { fcmToken, _ in
+                if let tokenContainer = fcmToken {
+                    token = tokenContainer
+                }
+            }
+        }
         
         ChatRepository.shared.registerFCMToken(token: token)
             .subscribe { [weak self] _ in

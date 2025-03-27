@@ -21,11 +21,14 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(
             options: authOptions,
-            completionHandler: { _, _ in }
+            completionHandler: { granted , _ in
+                guard granted else { return }
+                DispatchQueue.main.async{
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
+            }
         )
-        
-        application.registerForRemoteNotifications()
-        
+//        application.registerForRemoteNotifications()
         // FCM 델리게이트 설정
         Messaging.messaging().delegate = self
         
@@ -34,14 +37,18 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     
     // fcm 토큰이 등록 되었을 때
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print(deviceToken)
         Messaging.messaging().apnsToken = deviceToken
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: any Error) {
+        print("EROOR", error)
     }
 }
 
 // MARK: - MessagingDelegate
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        //print("Firebase registration token: \(String(describing: fcmToken))")
         if let token = fcmToken {
             do {
                 try SecureDataManager.shared.saveFcmToken(fcmToken: token)
