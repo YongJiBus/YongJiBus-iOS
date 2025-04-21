@@ -9,15 +9,19 @@ let project = Project(
             name: "YongJiBus",
             destinations: .iOS,
             product: .app,
-            bundleId: "YongJiBus.app",
-            deploymentTargets: .iOS("17.0"),
+            bundleId: "Bryan.YongJiBus",
+            deploymentTargets: .iOS("18.0"),
             infoPlist: .file(path: "YongJi/Support/Info.plist"),
             sources: ["YongJi/Sources/**" ],
-            resources: ["YongJi/Resources/**","YongJi/Sources/Data/*.json"],
+            resources: ["YongJi/Resources/**",
+                        "YongJi/Sources/Data/*.json",
+                        "Sources/GoogleService-Info.plist"],
+            entitlements: "YongJiBus.entitlements",
             dependencies: [
                 .external(name: "Alamofire"),
                 .external(name: "RxSwift"),
-                .external(name: "FirebaseMessaging")
+                .external(name: "FirebaseMessaging"),
+                .external(name: "FirebaseAnalytics")
             ]
         ),
         .target(

@@ -6,6 +6,7 @@ struct HeaderView: View {
     
     @State private var isSheetPresented = false
     @State private var isFullScreenPresented = false
+    @State private var openLoginScreen = false
     
     @State var imageName = "map"
     
@@ -62,6 +63,22 @@ struct HeaderView: View {
             case .Setting:
                 self.imageName = "person.circle"
             }
+        }
+        .fullScreenCover(isPresented: $openLoginScreen){
+            LoginView()
+                .onDisappear {
+                    openLoginScreen = false
+                }
+        }
+        .onAppear{
+            setupNotification()
+        }
+        
+    }
+    
+    private func setupNotification() {
+        NotificationCenter.default.addObserver(forName: Notification.Name("UserTokenExpired"), object: nil, queue: .main) { _ in
+            openLoginScreen = true
         }
     }
 }
