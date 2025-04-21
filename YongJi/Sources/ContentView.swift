@@ -5,6 +5,7 @@
 //  Created by 김도경 on 2023/07/02.
 //
 
+import Firebase
 import SwiftUI
 
 struct ContentView: View {
@@ -44,6 +45,8 @@ struct ContentView: View {
                             Image(systemName: "s.circle.fill")
                             Text("설정")
                         }
+                        .onAppear(perform: {
+                        })
                         .tag(TopBarType.Setting)
                 }
                 .ignoresSafeArea()

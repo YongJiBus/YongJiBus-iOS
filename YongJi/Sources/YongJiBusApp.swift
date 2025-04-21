@@ -5,6 +5,7 @@
 //  Created by 김도경 on 2023/07/02.
 //
 
+import Firebase
 import SwiftUI
 
 
@@ -19,6 +20,8 @@ struct YongJiBusApp: App {
             ContentView()
                 .environmentObject(appViewModel)
                 .environmentObject(shuttleViewModel)
+                .onAppear {
+                }
         }
     }
 }

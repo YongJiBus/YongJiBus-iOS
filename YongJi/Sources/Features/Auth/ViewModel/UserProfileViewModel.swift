@@ -31,10 +31,10 @@ class UserProfileViewModel: ObservableObject {
     }
     
     func logout() {
+        self.userManager.logout()
         AuthRepository.shared.logout()
             .subscribe { [weak self] _ in
                 guard let self = self else { return }
-                self.userManager.logout()
             } onFailure: { error in
                 print("로그아웃 실패: \(error.localizedDescription)")
             }
