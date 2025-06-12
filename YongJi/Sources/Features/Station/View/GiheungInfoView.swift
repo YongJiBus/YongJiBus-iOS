@@ -22,6 +22,12 @@ struct GiheungInfoView: View {
             descriptionView
             Spacer()
         }
+        .onAppear {
+            AnalyticsManager.shared.logScreenView(
+                screenName: "ShuttleInfoView",
+                screenClass: "ShuttleInfoView"
+            )
+        }
     }
     
     var map : some View {

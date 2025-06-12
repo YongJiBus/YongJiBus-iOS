@@ -22,6 +22,12 @@ struct SettingView: View {
             .padding()
         }
         .background(.white)
+        .onAppear {
+            AnalyticsManager.shared.logScreenView(
+                screenName: "SettingView",
+                screenClass: "SettingView"
+            )
+        }
     }
     
     var automateHolidayOption: some View {

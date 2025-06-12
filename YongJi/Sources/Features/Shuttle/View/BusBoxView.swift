@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BusBoxView: View {
     
-    @ObservedObject var viewModel = BusBoxViewViewModel()
+    @StateObject var viewModel = BusBoxViewViewModel()
     @State private var isLoading = false
     
     private var title: String
@@ -23,14 +23,14 @@ struct BusBoxView: View {
     var body: some View {
         Button(action: {
             isLoading = true
-            viewModel.load(busNumber) {
+            viewModel.fetchBusData(busNumber) {
                 isLoading = false
             }
         }, label: {
             HStack {
                 BusIconView(isLoading: isLoading)
                     .padding(.leading, 10)
-                BusInfoView(title: title, text: viewModel.text)
+                BusInfoView(title: title, text: $viewModel.text)
                     .padding(.trailing, 10)
             }
             .frame(height: 85)
@@ -40,7 +40,7 @@ struct BusBoxView: View {
         .buttonStyle(.plain)
         .onAppear {
             isLoading = true
-            viewModel.load(busNumber) {
+            viewModel.fetchBusData(busNumber) {
                 isLoading = false
             }
         }
@@ -75,7 +75,7 @@ struct BusIconView: View {
 // BusInfoView.swift
 struct BusInfoView: View {
     var title: String
-    var text: String
+    @Binding var text: String
     
     var body: some View {
         VStack(alignment: .leading) {

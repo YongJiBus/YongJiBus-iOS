@@ -30,6 +30,12 @@ struct StationView: View {
             }
         }//Vstack
         .background(.white)
+        .onAppear {
+            AnalyticsManager.shared.logScreenView(
+                screenName: "StationView",
+                screenClass: "StationView"
+            )
+        }
     }
     
     var StationView : some View {

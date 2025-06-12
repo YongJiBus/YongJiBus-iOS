@@ -89,6 +89,12 @@ struct LoginView: View {
             }
             .blur(radius: viewModel.isLoading ? 3 : 0)
             .allowsHitTesting(!viewModel.isLoading)
+            .onAppear {
+                AnalyticsManager.shared.logScreenView(
+                    screenName: "LoginView",
+                    screenClass: "LoginView"
+                )
+            }
             
             // 로딩 오버레이
             if viewModel.isLoading {
