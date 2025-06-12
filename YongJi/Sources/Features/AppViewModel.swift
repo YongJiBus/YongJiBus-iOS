@@ -33,7 +33,11 @@ class AppViewModel: ObservableObject {
     var isUser: Bool {
         UserManager.shared.isUser
     }
-
+    
+    init() {
+        // 앱이 시작될 때 앱 실행 이벤트를 기록
+        AnalyticsManager.shared.logAppOpen()
+    }
 }
 
 extension AppViewModel {

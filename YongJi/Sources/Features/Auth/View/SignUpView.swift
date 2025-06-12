@@ -82,6 +82,12 @@ struct SignUpView: View {
                 dismiss()
             }
         }
+        .onAppear {
+            AnalyticsManager.shared.logScreenView(
+                screenName: "SignUpView",
+                screenClass: "SignUpView"
+            )
+        }
     }
     
     // 로딩 오버레이 뷰

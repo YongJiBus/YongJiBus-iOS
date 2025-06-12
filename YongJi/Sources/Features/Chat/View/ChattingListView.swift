@@ -40,6 +40,11 @@ struct ChattingListView: View {
                     if isLogin {
                         fetchAppropriateRooms()
                     }
+                    
+                    AnalyticsManager.shared.logScreenView(
+                        screenName: "ChattingListView",
+                        screenClass: "ChattingListView"
+                    )
                 }
                 .refreshable {
                     fetchAppropriateRooms()

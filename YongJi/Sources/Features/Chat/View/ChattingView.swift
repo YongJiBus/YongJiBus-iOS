@@ -23,6 +23,12 @@ struct ChattingView: View {
             //채팅 UI
             ChattingTextField
         }
+        .onAppear {
+            AnalyticsManager.shared.logScreenView(
+                screenName: "ChattingView",
+                screenClass: "ChattingView"
+            )
+        }
         .onDisappear{
             viewModel.unsetActiveRoom()
         }

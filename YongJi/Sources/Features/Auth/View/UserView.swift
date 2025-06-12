@@ -103,6 +103,12 @@ struct UserView: View {
         } message: {
             Text("정말 탈퇴하시겠습니까?\n모든 정보가 삭제되며 복구할 수 없습니다.")
         }
+        .onAppear {
+            AnalyticsManager.shared.logScreenView(
+                screenName: "UserView",
+                screenClass: "UserView"
+            )
+        }
     }
     
     private func userInfoRow(title: String, value: String) -> some View {

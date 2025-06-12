@@ -146,6 +146,10 @@ struct ShuttleInfoView: View {
                 viewModel.switchToHolidayRoute()
                 selectedTab = .holiday
             }
+            AnalyticsManager.shared.logScreenView(
+                screenName: "ShuttleInfoView",
+                screenClass: "ShuttleInfoView"
+            )
         }
     }
     

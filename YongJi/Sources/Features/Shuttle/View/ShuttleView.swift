@@ -28,6 +28,12 @@ struct ShuttleView: View {
                 .environmentObject(viewModel) // ViewModel 전달
         }
         .background(.white)
+        .onAppear {
+            AnalyticsManager.shared.logScreenView(
+                screenName: "ShuttleView",
+                screenClass: "ShuttleView"
+            )
+        }
     }
 }
 
